@@ -10,19 +10,103 @@ Exemplo de citacao direta: Uma otima fonte de estudo para compreender o LaTex e 
 
 Exemplo de citação indireta: Existem boas fontes de pesquisa para entendimento do LaTex \cite{Oetiker:1995}, estas incluem documentação online disponível na web.
 
-\section{Motivação e objetivos}
+\section{Motivação}
 
+Qual o perfil de direção de um motorista? Como categorizar os condutores segundo um critério claro?
+
+Buscando responder essas perguntas e, consequentemente, entender as características de pessoas ao volante, este trabalho propõe-se a criar uma infraestrutura de captura e análise de dados em automóveis de uso pessoal.
+
+As informações recolhidas serão armazenadas em uma plataforma de nuvem, protegidas por algum nível de segurança, implementado neste mesmo projeto e, por fim, serão analisadas para gerarem conclusões interessantes sobre o modo de dirigir de cada participante do estudo.
+	
+Uma pesquisa preliminar sobre o assunto revelou que já existe uma patente para um produto parecido; ela foi registrada em 2013 e avalia o desempenho de um motorista a partir de dados pré-coletados de parâmetros relevantes à condução do carro [REFERENCIA 1].
+
+Visão lateral do carro proposto na patente.[IMAGEM, REF 1]
+
+[CITAR OS TRABALHOS QUE JÁ FAZEM ISSO QUE EU DISSE]
+
+\section{Objetivo}
+
+Este trabalho procura analisar o comportamento de motoristas em situações diversas: no trânsito, em uma prova de direção ou em uma rodovia, por exemplo.
+
+Para isso, fará uso da infraestrutura já presente em carros atuais, conforme pode ser visto na imagem a seguir, mas também pode complementá-la com mais equipamentos, caso seja necessário para o projeto.
+
+[IMAGEM]
+Sensores estão presentes em um carro atual na ordem de dezenas[2].
+
+A coleta de dados será feita, a princípio, a partir de ensaios em carros reais feitos por uma quantidade seleta de pessoas, que pode ser expandida para resultados mais precisos na análise posterior.
+
+Os dados coletados deverão ser passados para algum serviço de nuvem, usando conexão à Internet, caracterizando uma aplicação IoT.
+	
+Do lado da nuvem, será possível utilizar os dados de cada usuário de forma anônima, para diagnosticar o perfil do condutor e possivelmente gerar insights sobre como a pessoa poderia melhorar.
+	
+A plataforma poderá, após implementada, servir como base de dados para outros projetos futuros, que não farão parte deste TCC, por exemplo:
+
+Prova de direção usando Inteligência Artificial: possível supressão da prova do Detran, avaliando o condutor ao longo das aulas práticas
+
+Seguros de carro personalizados: valores mais altos para motoristas mais violentos
+
+Classificação de motoristas de aplicativo: avaliação ponderada pela forma de dirigir
 
  
-\section{Contribuicoes}
+\section{Justificativa}
+ROMEO e PIRES [GIT]
+Pq o trabalho é importante?
 
 
+\section{Organização do trabalho}
+[ANTIGO "PROCUCAO CIENTIFICA"]
+
+O padrão OBD-II foi uma extensão do padrão OBD-I, uniformizando esse tipo de conector em casos em geral, começando a ser adotado no Brasil a partir de 2010[4].
+
+Nesse padrão de conexão e comunicação é definida uma interface por onde parâmetros internos a um carro podem ser monitorados.
+
+As mensagens definidas pelo OBD-II têm cada uma um PID (parameter ID). O conjunto comum de PIDs de serviços que podem ser solicitados pela porta OBD-II e para que servem pode ser visto na tabela a seguir[REF 3].
+
+[TABELA]
+
+Service / Mode (hex)
+Description
+01
+Show current data - I/M Monitors and Live Data
+02
+Show Freeze Frame (FF) Data
+03
+Show Stored Diagnostic Trouble Codes
+04
+Clear/Erase Diagnostic Trouble Codes and stored values
+05
+Test results, oxygen sensor monitoring (non CAN only)
+06
+Test results, other component/system monitoring (Test results, oxygen sensor monitoring for CAN only)
+07
+Show pending Diagnostic Trouble Codes (detected during current or last driving cycle)
+08
+Control operation of on-board component/system (EVAP)
+09
+Request Vehicle Information (VIN)
+0A
+Permanent Diagnostic Trouble Codes (DTCs) (Cleared DTCs)
+
+É importante notar que os serviços do padrão OBD-II comuns a todos os carros sempre começam com o dígito zero (hexadecimal), por isso, serviços específicos de cada fabricante devem começam a partir do código 0x10.
+
+[IMAGEM]
+
+Posição da porta OBD-II em um carro[5].
+
+Os dados que podem ser coletados de qualquer carros são explicitados na tabela abaixo[3]:
+
+[TABELA]
+
+Interessante notar que, embora não esteja representado na tabela, os PIDs 0x00, 0x20, 0x40, etc, ou seja, a cada 32 valores de PID, existe um parâmetro apenas para indicar quais entre os PIDs seguintes são fornecidos por aquele carro.
+
+Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma flag binária. 
+
+Na imagem a seguir é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos[3].
+
+[IMAGEM]
 
 
-\section{Producao cientifica}
-
-
-\section{Organizacao da tese}
+\section{Organização da tese}
 
 \noindent \textbf{Capitulo \ref{CAP2}}: descricao...
 
