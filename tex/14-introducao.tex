@@ -1,14 +1,8 @@
 \chapter{Introdução}\label{CAP:introducao}
 
-Este documento consiste de um modelo basico para a producao de documentos academicos, seguindo as normas ABNT. 
+Este documento descreve o desenvolvimento de um sistema para captação e análise de dados referentes à direção de um motorista.
 
-Nao e abordado o estudo do LaTex neste template. Sugerimos a leitura do texto em \citeonline{Oetiker:1995}. O uso do LaTex e aconselhavel devido a sua qualidade grafica, facil referenciacao, criacao de listas, indices, referencias bibliograficas e escrita matematica profissional. Porem, nao e obrigatorio o uso deste template, apenas as orientacoes de formatação segundo as normas ABNT devem ser obrigatoriamente seguidas.
-
-Uma observação em particular é a de que, no pacote ABNTex, as referências diretas devem utilizar o comando ``citeonline''. Referências indiretas utilizam o comando ``cite''.
-
-Exemplo de citacao direta: Uma otima fonte de estudo para compreender o LaTex e apresentada por \citeonline{Oetiker:1995}. 
-
-Exemplo de citação indireta: Existem boas fontes de pesquisa para entendimento do LaTex \cite{Oetiker:1995}, estas incluem documentação online disponível na web.
+A ideia básica é coletar dados de sensores já presentes em carros modernos através da porta OBD-II, que utiliza um padrão internacional de disponibilização de informações referentes a um carro [REF 2] e usá-los para definir perfis de direção, ou seja, classificar de alguma forma a forma como uma pessoa dirige.
 
 \section{Motivação}
 
@@ -30,7 +24,15 @@ Este trabalho procura analisar o comportamento de motoristas em situações dive
 
 Para isso, fará uso da infraestrutura já presente em carros atuais, conforme pode ser visto na imagem a seguir, mas também pode complementá-la com mais equipamentos, caso seja necessário para o projeto.
 
-[IMAGEM]
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/sensores_carro.png}
+    
+    \caption{Sensores estão presentes em um carro atual na ordem de dezenas[REF 2]}
+\end{figure}
+
 Sensores estão presentes em um carro atual na ordem de dezenas[2].
 
 A coleta de dados será feita, a princípio, a partir de ensaios em carros reais feitos por uma quantidade seleta de pessoas, que pode ser expandida para resultados mais precisos na análise posterior.
@@ -49,12 +51,19 @@ Classificação de motoristas de aplicativo: avaliação ponderada pela forma de
 
  
 \section{Justificativa}
-ROMEO e PIRES [GIT]
-Pq o trabalho é importante?
+% ROMEO e PIRES [GIT]
+% Pq o trabalho é importante?
+No ano de 2021, 11647 pessoas morreram em acidentes de trânsito no Brasil [REF 6], além disso, no mundo inteiro morrem 1,35 milhão de pessoas em média, todos os anos [REF 7], número comparável às mortes por Covid 19 até abril de 2022 [REF 8].
 
+Levando-se em conta esses fatos, é simples entender a relevância deste projeto, pois ele define métricas importantes para classificação da conduta de motoristas, as quais podem ser usadas justamente para evitar acidentes e, portanto, preservar a vida humana.
 
-\section{Organização do trabalho}
-[ANTIGO "PROCUCAO CIENTIFICA"]
+É possível que no futuro os carros não sejam mais dirigidos por humanos ou que atuem por conta própria na maior parte das situações. Prevê-se, inclusive, que carros com nível de automação de pelos menos 4 comecem a se popularizar em 2025 [REF 9].
+
+Dessa forma, embora o fator humano venha a ser menos relevante para os acidentes do futuro, é preciso também haver métricas para classificar a condução dos veículos autônomos.
+
+Este projeto tem, portanto, extrema relevância, pois é uma possível ferramenta para diminuir as mortes no trânsito, seja causada por pessoas ou por carros autônomos.
+
+\section{Organização do trabalho (antes era "PROCUCAO CIENTIFICA")}
 
 O padrão OBD-II foi uma extensão do padrão OBD-I, uniformizando esse tipo de conector em casos em geral, começando a ser adotado no Brasil a partir de 2010[4].
 
@@ -89,9 +98,13 @@ Permanent Diagnostic Trouble Codes (DTCs) (Cleared DTCs)
 
 É importante notar que os serviços do padrão OBD-II comuns a todos os carros sempre começam com o dígito zero (hexadecimal), por isso, serviços específicos de cada fabricante devem começam a partir do código 0x10.
 
-[IMAGEM]
-
-Posição da porta OBD-II em um carro[5].
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/localizacao_obd2.png}
+    
+    \caption{Posição da porta OBD-II em um carro[REF 5]}
+\end{figure}
 
 Os dados que podem ser coletados de qualquer carros são explicitados na tabela abaixo[3]:
 
@@ -101,9 +114,15 @@ Interessante notar que, embora não esteja representado na tabela, os PIDs 0x00,
 
 Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma flag binária. 
 
-Na imagem a seguir é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos[3].
+Na imagem a seguir é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos[REF 3].
 
-[IMAGEM]
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.7]{figures/tabela_dados_disponiveis.png}
+    
+    \caption{}
+\end{figure}
 
 
 \section{Organização da tese}
