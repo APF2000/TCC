@@ -1,11 +1,64 @@
 \chapter{Aspectos conceituais}
 \label{CAP2}
 
+A seguir serão explicados os conceitos fundamentais que possibilitam a execução deste trabalho. 
 
-apresentar conceitos empregados e revisao da literatura (parte toerica do trab)
+% apresentar conceitos empregados e revisao da literatura (parte toerica do trab)
 
+\section{O padrão OBD-II}
 
-\section{OBD-II}
-\section{OBD-II}
-\section{OBD-II}
+Criado na década de 1990 para gerar controle sobre as emissões de gás carbônico dos carros [REF X] \cite{patent}, hoje define um protocolo padronizado para comunicar parâmetros internos do veículo.
+    
+O padrão OBD-II foi uma extensão do padrão OBD-I, uniformizando esse tipo de conector em casos em geral, começando a ser adotado no Brasil a partir de 2010[REF 4].
 
+A comunicação é feita através de uma conexão física que normalmente pode ser encontrada abaixo do volante do motorista [REF 5].
+
+Nesse padrão de conexão e comunicação é definida uma interface por onde parâmetros internos a um carro podem ser monitorados.
+
+As mensagens definidas pelo OBD-II têm cada uma um PID (parameter ID). O conjunto comum de PIDs de serviços que podem ser solicitados pela porta OBD-II e para que servem pode ser visto na tabela a seguir[REF 3].
+
+\input{tabelas/tab1}
+
+É importante notar que os serviços do padrão OBD-II comuns a todos os carros sempre começam com o dígito zero (hexadecimal), por isso, serviços específicos de cada fabricante devem começam a partir do código 0x10.
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/localizacao_obd2.png}
+    
+    \caption{Posição da porta OBD-II em um carro[REF 5]}
+\end{figure}
+
+Os dados que podem ser coletados de qualquer carro são explicitados na tabela abaixo[REF 3]:
+
+\input{tabelas/tab2}
+
+Interessante notar que, embora não esteja representado na tabela, os PIDs 0x00, 0x20, 0x40, etc, ou seja, a cada 32 valores de PID, existe um parâmetro apenas para indicar quais entre os PIDs seguintes são fornecidos por aquele carro.
+
+Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma flag binária. 
+
+Na imagem a seguir é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos[REF 3].
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.7]{figures/tabela_dados_disponiveis.png}
+    
+    \caption{}
+\end{figure}
+
+A coleta de fato dos dados relevantes será feita por uma aplicação desenvolvida \textit{a priori} que já é capaz de comunicar-se corretamente com a interface OBD.
+
+Essa aplicação acelerará a criação da infraestrutura proposta por este trabalho, uma vez que pula o primeiro passo da estratégia \textit{bottom-up} que deverá permear o projeto.
+
+\section{Transmissão de dados}
+Será feita por um dispositivo auxiliar (celular ou placa de arduino) utilizando algum protocolo de comunicação sem fio com a internet.
+
+A princípio, pensa-se em usar o 4G do celular como meio de transporte das informações coletadas pela porta OBD-II, para simplificar o caminho até o primeiro MVP.
+
+\section{Armazenamento em nuvem}
+Provedoras como a Amazon e a Azure (Microft) oferecem serviços de nuvem que podem ser usados para este projeto [REF 10 e 11].
+
+Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet.
+
+O volume de dados recebidos no sistema é, portanto, variável e por isso faz sentido que o serviço de nuvem a ser contratado deverá seguir algum modelo \textit{on demand}.

@@ -36,6 +36,7 @@
 
 \addbibresource{bib.bib} %Imports bibliography file
 
+\usepackage[table,xcdraw]{xcolor}
 
 \sloppy
 
@@ -153,13 +154,16 @@
 % \printbibliography
 
 
-% \include{tex/30-referencias}
+\include{tex/30-referencias}
+\newpage
+% \referencias
+\bibliography{bib/bib.bib}
 
 
-\printbibliography[
-    heading=bibintoc,
-    title={Referências}
-] %Prints the entire bibliography with the title "Whole bibliography"
+% \printbibliography[
+%     heading=bibintoc,
+%     title={Referências}
+% ] %Prints the entire bibliography with the title "Whole bibliography"
 
 % \apendice
 % \include{appendices}

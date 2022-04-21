@@ -1,22 +1,45 @@
 \chapter{Metodologia do trabalho / tecnologias utilizadas}
 \label{CAP3}
 
+Esta seção trata das fases do trabalho: como deverão ser executadas e em que sequência.
 
-descrever fases do trab: concepcao, projeto, implementacao, testes
-(falar com o prof)
+% descrever fases do trab: concepcao, projeto, implementacao, testes
+% (falar com o prof)
 
 
 \section{OBD-II / coleta dos dados}
-ATmega328P
-Motivação:
-Fácil de implementar, ajuda na ideia de open-hardware
-Memória programável já dentro do sistema (alguns ATs não têm)
-Não é caro (maior parte do custo será nos componentes mecânicos)
-Consumo de energia baixo (22mW) em relação à potência proposta (de 1W)
+A plataforma aceleradora desenvolvida no GitHub[REF 12] deverá comunicar-se com o veículo através do protocolo OBD-II.
 
+Esta fase do desenvolvimento caracteriza-se pela adaptação do aplicativo para que possa atender aos requisitos do projeto.
 
-\section{Android Studio}
+Primeiro, será preciso entender a estrutura e o funcionamento do código através da IDE do \textit{Android Studio}, que foi por onde essa plataforma foi originalmente desenvolvida.
 
-\section{Transferência de dados para a nuvem}
+Complementarmente ao que for fornecido pela porta OBD, poderão ser usados também dados externos ao carro, como os de navegação fornecidos pelo Waze através dos próprios motoristas que passam em cada via [REF 13], informações de localização via GPS e também a aceleração desempenhada pelo carro durante seu trajeto.
+
+Essas outras informações serão de grande importância na fase final do projeto, de análise dos dados coletados.
+
+\section{Transferência de dados para a nuvem e estruturação}
+Uma vez que a plataforma aceleradora esteja adaptada ao novo sistema, os dados coletados deverão ser passados para uma plataforma remota, que armazenará os dados brutos coletados para depois serem processados e analisados na fase seguinte.
+
+O \textit{pipeline} de captura e armazenamento de informações estará consolidado quando for definida uma estrutura fixa para o processamento dos dados crus e o formato em que serão guardados na nuvem.
+
+Isso poderá ser feito fixando-se uma especificação básica de arquivos JSON que deverá ser seguida pelas APIs que fizerem uso do banco de dados da nuvem.
+
+\section{Geração dos dados}
+O sistema poderá ser usado assim que os protocolos e estruturas básicos de comunicação tiverem sido definidos. 
+
+Neste momento serão necessários voluntários para fornecer dados ao sistema e quanto mais pessoas puderem participar, melhor será a análise de perfil feita ao fim do projeto.
+
+\section{Visualização dos dados}
+Uma aplicação Web básica para visualização dos dados individuais de cada motorista deverá ser implementada.
+
+Essa plataforma deverá permitir que apenas usuários autorizados acessem suas próprias informações. Para isso, algum sistema de segurança deverá ser implementado.
+
+Na área logada do motorista, será possível visualizar estatísticas básicas acerca do que foi coletado pela porta OBD.
+
+A princípio, serão apresentados bem poucos dados, os quais serão definidos assim que o sistema for um pouco mais palpável. 
 
 \section{Análise dos dados}
+Finalmente, com toda a infraestrutura do projeto já funcional, será possível gerar estatísticas relevantes sobre cada motorista.
+
+Quais parâmetros serão gerados ou que análise será feita objetivamente ainda será objeto de discussão no projeto, mas uma das ideias primárias era tentar definir métricas que diferenciem um motorista do outro, isto é, que definam o seu perfil de condução.
