@@ -25,6 +25,18 @@
 \usepackage{color}
 \usepackage{icomma}
 
+% \usepackage{biblatex} %Imports biblatex package
+% \addbibresource{mybibliography.bib} %Import the bibliography file
+
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+
+\addbibresource{bib.bib} %Imports bibliography file
+
+
 \sloppy
 
 
@@ -134,14 +146,25 @@
 \include{20-cap7}
 \include{tex/21-apêndices}
 \include{tex/22-anexos}
-\include{tex/30-referencias}
 
 %%%% Estilo de citação ABNT e arquivo de bibitens (mybibliography.bib)
-\bibliographystyle{abnt-alf}
-\bibliography{mybibliography}
+% \bibliographystyle{abnt-alf}
+% \bibliography{mybibliography}
+% \printbibliography
 
-\apendice
-\include{appendices}
+
+\include{tex/30-referencias}
+
+
+\printbibliography[
+    heading=bibintoc,
+    title={Referências}
+] %Prints the entire bibliography with the title "Whole bibliography"
+
+% \apendice
+% \include{appendices}
+
+
 
 
 \end{document}
