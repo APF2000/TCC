@@ -7,15 +7,15 @@ A seguir serão explicados os conceitos fundamentais que possibilitam a execuç�
 
 \section{O padrão OBD-II}
 
-Criado na década de 1990 para gerar controle sobre as emissões de gás carbônico dos carros [REF X] \cite{patent}, hoje define um protocolo padronizado para comunicar parâmetros internos do veículo.
+Criado na década de 1990 para gerar controle sobre as emissões de gás carbônico dos carros\textsuperscript{[5]}, hoje define um protocolo padronizado para comunicar parâmetros internos do veículo.
     
-O padrão OBD-II foi uma extensão do padrão OBD-I, uniformizando esse tipo de conector em casos em geral, começando a ser adotado no Brasil a partir de 2010[REF 4].
+O padrão OBD-II foi uma extensão do padrão OBD-I, uniformizando esse tipo de conector em casos em geral, começando a ser adotado no Brasil a partir de 2010\textsuperscript{[4]}.
 
-A comunicação é feita através de uma conexão física que normalmente pode ser encontrada abaixo do volante do motorista [REF 5].
+A comunicação é feita através de uma conexão física que normalmente pode ser encontrada abaixo do volante do motorista\textsuperscript{[5]}.
 
 Nesse padrão de conexão e comunicação é definida uma interface por onde parâmetros internos a um carro podem ser monitorados.
 
-As mensagens definidas pelo OBD-II têm cada uma um PID (parameter ID). O conjunto comum de PIDs de serviços que podem ser solicitados pela porta OBD-II e para que servem pode ser visto na tabela a seguir[REF 3].
+As mensagens definidas pelo OBD-II têm cada uma um PID (parameter ID). O conjunto comum de PIDs de serviços que podem ser solicitados pela porta OBD-II e para que servem pode ser visto na tabela a seguir\textsuperscript{[3]}.
 
 \input{tabelas/tab1}
 
@@ -26,10 +26,10 @@ As mensagens definidas pelo OBD-II têm cada uma um PID (parameter ID). O conjun
     
     \includegraphics[]{figures/localizacao_obd2.png}
     
-    \caption{Posição da porta OBD-II em um carro[REF 5]}
+    \caption{Posição da porta OBD-II em um carro\textsuperscript{[5]}}
 \end{figure}
 
-Os dados que podem ser coletados de qualquer carro são explicitados na tabela abaixo[REF 3]:
+Os dados que podem ser coletados de qualquer carro são explicitados na tabela \ref{Tb:tab2}\textsuperscript{[3]}:
 
 \input{tabelas/tab2}
 
@@ -37,14 +37,14 @@ Interessante notar que, embora não esteja representado na tabela, os PIDs 0x00,
 
 Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma flag binária. 
 
-Na imagem a seguir é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos[REF 3].
+Na imagem a seguir é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos\textsuperscript{[3]}.
 
 \begin{figure}[hp]
     \centering
     
     \includegraphics[scale=0.7]{figures/tabela_dados_disponiveis.png}
     
-    \caption{}
+    \caption{Divisão bit a bit da mensagem OBD-II informando os serviços disponíveis.}
 \end{figure}
 
 A coleta de fato dos dados relevantes será feita por uma aplicação desenvolvida \textit{a priori} que já é capaz de comunicar-se corretamente com a interface OBD.
@@ -57,7 +57,7 @@ Será feita por um dispositivo auxiliar (celular ou placa de arduino) utilizando
 A princípio, pensa-se em usar o 4G do celular como meio de transporte das informações coletadas pela porta OBD-II, para simplificar o caminho até o primeiro MVP.
 
 \section{Armazenamento em nuvem}
-Provedoras como a Amazon e a Azure (Microft) oferecem serviços de nuvem que podem ser usados para este projeto [REF 10 e 11].
+Provedoras como a Amazon e a Azure (Microft) oferecem serviços de nuvem que podem ser usados para este projeto \textsuperscript{[10, 11]}.
 
 Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet.
 

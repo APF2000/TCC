@@ -37,6 +37,11 @@
 \addbibresource{bib.bib} %Imports bibliography file
 
 \usepackage[table,xcdraw]{xcolor}
+\usepackage{pdfpages}
+
+\usepackage{adjustbox}
+\usepackage{tabularray}
+\usepackage{xurl}
 
 \sloppy
 
@@ -96,6 +101,7 @@
 %
 \include{1-capa}
 \include{2-folharosto}
+\includepdf[pages=1,scale=1,pagecommand={},linktodoc=true]{ficha.pdf}
 \include{3-folhadeaprovacao}
 \include{4-dedicatoria}
 \include{5-agradecimentos}
@@ -112,11 +118,11 @@
 
 %%%Comandos para criar outras listas não suportadas pelo pacote ABNTex%%%
 %
-\pretextualchapter{Lista de Símbolos}
-\input{12-nomenclatura}
-\newpage
+% \pretextualchapter{Lista de Símbolos}
+% \input{12-nomenclatura}
+% \newpage
 
-\pretextualchapter{Lista de Abreviacoes}
+\pretextualchapter{Lista de Abreviações}
 \input{13-abreviacoes}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -140,13 +146,13 @@
 %%% Outros arquivos .tex. É acoselhável utilizar vários arquivos, pelo menos um por capítulo
 \include{14-introducao}
 \include{tex/15-cap2-aspectos_conceituais}
-\include{16-cap3}
-\include{17-cap4}
-\include{18-cap5}
-\include{19-cap6}
-\include{20-cap7}
-\include{tex/21-apêndices}
-\include{tex/22-anexos}
+\include{tex/16-cap3-metodologia-trabalho}
+\include{tex/17-cap4-requisitos}
+\include{tex/18-cap5-desenvolvimento}
+\include{tex/19-cap6-consideracoes_finais}
+% \include{tex/21-cap7-apêndices}
+% \include{tex/22-cap8-anexos}
+\include{tex/30-cap9-referencias}
 
 %%%% Estilo de citação ABNT e arquivo de bibitens (mybibliography.bib)
 % \bibliographystyle{abnt-alf}
@@ -157,7 +163,7 @@
 \include{tex/30-referencias}
 \newpage
 % \referencias
-\bibliography{bib/bib.bib}
+% \bibliography{bib/bib.bib}
 
 
 % \printbibliography[
