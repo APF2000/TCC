@@ -2,7 +2,7 @@
 
 Este documento descreve o desenvolvimento de um sistema para captação e análise de dados referentes à direção de um motorista.
 
-A ideia básica é coletar dados de sensores já presentes em carros modernos através da porta OBD-II, que utiliza um padrão internacional de disponibilização de informações referentes a um carro\textsuperscript{[2]} e armazená-los em uma plataforma de dados, onde poderão ser posteriormente analisados.
+A ideia básica é coletar dados de sensores já presentes em carros modernos através da porta OBD-II, que utiliza um padrão internacional de disponibilização de informações referentes a um carro\textsuperscript{[2]}, assim como informações disponibilizadas por um celular (geolocalização) e armazená-los em uma plataforma de dados, onde poderão ser posteriormente analisados.
 
 \section{Motivação}
 
@@ -14,15 +14,11 @@ As informações recolhidas serão armazenadas em uma plataforma de nuvem, prote
 	
 Uma pesquisa preliminar sobre o assunto revelou que já existe uma patente para um produto parecido; ela foi registrada em 2013 e avalia o desempenho de um motorista a partir de dados pré-coletados de parâmetros relevantes à condução do carro \textsuperscript{[1]}.
 
-Visão lateral do carro proposto na patente.[IMAGEM, REF 1]
-
-[CITAR OS TRABALHOS QUE JÁ FAZEM ISSO QUE EU DISSE]
-
 \section{Objetivo}
 
 Este trabalho procura criar uma plataforma de disponibilização e captura de dados em um carro, coletando as informações \textit{in loco} e apresentando estatísticas relevantes derivadas do que foi coletado.
 
-Para isso, fará uso da infraestrutura já presente em carros atuais, conforme pode ser visto na imagem a seguir, mas também pode complementá-la com mais equipamentos, caso seja necessário para o projeto.
+Para isso, fará uso da infraestrutura já presente em carros atuais. Conforme pode ser visto na imagem \ref{fig:sensors_car}, alguns carros podem ter dezenas de sensores embarcados dentro de si.
 
 
 \begin{figure}[hp]
@@ -30,8 +26,12 @@ Para isso, fará uso da infraestrutura já presente em carros atuais, conforme p
     
     \includegraphics[]{figures/sensores_carro.png}
     
-    \caption{Sensores estão presentes em um carro atual na ordem de dezenas\textsuperscript{[2]}}
+    \caption{Sensores estão presentes em um carro atual na ordem de dezenas\textsuperscript{[2]}.}
+    
+    \label{fig:sensors_car}
 \end{figure}
+
+Essas informações também podem ser complementadas com mais equipamentos, caso seja necessário para o projeto, seja usando um \textit{smartphone}, seja usando mais sensores.
 
 A coleta de dados será feita, a princípio, a partir de ensaios em carros reais feitos por uma quantidade seleta de pessoas, que pode ser expandida para resultados mais precisos na análise posterior.
 
@@ -47,13 +47,15 @@ No ano de 2021, 11647 pessoas morreram em acidentes de trânsito no Brasil\texts
 
 Levando-se em conta esses fatos, é simples entender a relevância deste projeto, pois ele define métricas importantes para classificação da conduta de motoristas, as quais podem ser usadas justamente para evitar acidentes e, portanto, preservar a vida humana.
 
-É possível que no futuro os carros não sejam mais dirigidos por humanos ou que atuem por conta própria na maior parte das situações. Prevê-se, inclusive, que carros com nível de automação de pelos menos 4 comecem a se popularizar em 2025 \textsuperscript{[9]}.
+É possível que no futuro os carros não sejam mais dirigidos por humanos ou que atuem por conta própria na maior parte das situações. Prevê-se, inclusive, que carros com pelo menos nível 4 de automação comecem a se popularizar em 2025 \textsuperscript{[9]}.
 
 Dessa forma, embora o fator humano venha a ser menos relevante para os acidentes do futuro, é preciso também haver métricas para classificar a condução dos veículos autônomos.
 
 Este projeto tem, portanto, extrema relevância, pois é uma possível ferramenta para diminuir as mortes no trânsito, seja causada por pessoas ou por carros autônomos.
 
 \section{Organização do trabalho}
-% descrever sucintamente os capitulos e as demais parte dos trabalho
+Os próximos capítulos explicitarão como o trabalho foi planejado a partir de seus requisitos e das tecnologias envolvidas.
 
+O projeto consistirá em integrar a porta OBD-II de qualquer carro com a plataforma de armazenamento de dados que será criada.
 
+Para isso, o Capítulo 2 faz uma breve apresentação dos conceitos usados neste projeto. O Capítulo 3, por sua vez, traz as etapas de desenvolvimento do trabalho e o Capítulo 4 mostra quais requisitos foram definidos para o sistema. Além disso, o desenvolvimento inicial do trabalho é descrito no Capítulo 5. Por último, o Capítulo 6 traz as considerações finais com uma breve discussão das conclusões do trabalho, assim como contribuições e sugestões para a continuidade dele.
