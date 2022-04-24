@@ -11,7 +11,7 @@ Criado na década de 1990 para gerar controle sobre as emissões de gás carbôn
     
 O padrão OBD-II foi uma extensão do padrão OBD-I, uniformizando esse tipo de conector em casos em geral, começando a ser adotado no Brasil a partir de 2010\textsuperscript{[4]}.
 
-A comunicação é feita através de uma conexão física que normalmente pode ser encontrada abaixo do volante do motorista\textsuperscript{[5]}.
+A comunicação é feita através de uma conexão física que normalmente pode ser encontrada abaixo do volante do motorista\textsuperscript{[5]}, conforme indicado pela figura \ref{fig:obd2_conn}.
 
 Nesse padrão de conexão e comunicação é definida uma interface por onde parâmetros internos a um carro podem ser monitorados.
 
@@ -27,6 +27,8 @@ As mensagens definidas pelo OBD-II têm cada uma um PID (parameter ID). O conjun
     \includegraphics[]{figures/localizacao_obd2.png}
     
     \caption{Posição da porta OBD-II em um carro\textsuperscript{[5]}}
+    
+    \label{fig:obd2_conn}
 \end{figure}
 
 Os dados que podem ser coletados de qualquer carro são explicitados na tabela \ref{Tb:tab2}\textsuperscript{[3]}.
@@ -37,7 +39,7 @@ Interessante notar que, embora não esteja representado na tabela, os PIDs 0x00,
 
 Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma flag binária. 
 
-Na imagem a seguir é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos\textsuperscript{[3]}.
+Na figura \ref{fig:bitwise_obd2} é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos\textsuperscript{[3]}.
 
 \begin{figure}[hp]
     \centering
@@ -45,6 +47,8 @@ Na imagem a seguir é possível visualizar como esse processo é feito, usando c
     \includegraphics[scale=0.7]{figures/tabela_dados_disponiveis.png}
     
     \caption{Divisão bit a bit da mensagem OBD-II informando os serviços disponíveis\textsuperscript{[3]}}
+    
+    \label{fig:bitwise_obd2}
 \end{figure}
 
 A coleta de fato dos dados relevantes será feita por uma aplicação desenvolvida \textit{a priori} que já é capaz de comunicar-se corretamente com a interface OBD.
