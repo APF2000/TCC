@@ -28,6 +28,26 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 \section{Projeto e implementação}
 Esta seção descreverá as decisões feitas durante o trabalho.
 
+Para criar os mapas do aplicativo, foi utilizado o framework Folium. A biblioteca Folium é uma poderosa ferramenta para manipular e visualizar dados geoespaciais usando Python. Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando o Folium, pode-se começar importando a biblioteca e criando um objeto Map que representa o mapa. Em seguida, pode-se adicionar camadas, como marcadores, polígonos e popups, para exibir dados de forma intuitiva no mapa. Além disso, o Folium permite a integração de dados geoespaciais em diferentes formatos, como GeoJSON, tornando-o uma ferramenta flexível para análise e visualização de dados geoespaciais em Python.
+
+Foram utilizadas as seguintes bibliotecas para desenvolver o mapa:
+        \begin{center}
+         \includegraphics[scale=0.8]         {figures/bibliotecas.JPG}
+         \end{center}
+
+A função da classe RideParser é analisar dados dos trajetos.A classe pode receber dados de entrada que descrevem o destino, e então analisa esses dados para extrair informações úteis. Como, por exemplo, traçar a rota feita pelo automóvel. Já o módulo 
+''os'' fornece funcionalidades relacionadas ao sistema operacional, permitindo que você interaja com o ambiente do sistema, como manipular diretórios, arquivos, obter informações sobre o sistema, manipular variáveis de ambiente, entre outras tarefas relacionadas ao sistema operacional.
+Por fim, tanto a biblioteca pandas, como a matplotlib foram utilizadas para manipular os dados.
+
+Para traçar uma trajetória no mapa usando a biblioteca Folium em Python, será necessário uma lista de pontos de latitude e longitude que representam a trajetória. A partir dos pontos de latitude e longitude colhidos dos sensores do celular, cria-se uma lista de coordenadas que representam os pontos da trajetória. Em seguida, criamos um objeto de mapa usando o Folium e é adicionado uma linha de trajetória (um polilinha) que conecta os pontos da lista e o mapa pode ser visualizado. Uma demonstração de uma trajetória pode ser vista na figura seguinte.
+
+\begin{center}
+         \includegraphics[scale=0.8]         {figures/rota1.JPG}
+         \end{center}
+
+
+
+
 \section{Testes e avaliação}
 % descrever o plano de testes do sistema: testes de software, modulo, integração e validação
 Alguns testes abstratos e macroscópicos podem ser definidos já antes de o projeto começar:
