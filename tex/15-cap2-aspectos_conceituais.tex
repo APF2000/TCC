@@ -56,13 +56,20 @@ A coleta de fato dos dados relevantes será feita por uma aplicação desenvolvi
 Essa aplicação acelerará a criação da infraestrutura proposta por este trabalho, uma vez que pula o primeiro passo da estratégia \textit{bottom-up} que deverá permear o projeto.
 
 \section{Transmissão de dados}
-Será feita por um dispositivo auxiliar (celular ou placa de arduino) utilizando algum protocolo de comunicação sem fio com a internet.
 
-A princípio, pensa-se em usar o 4G do celular como meio de transporte das informações coletadas pela porta OBD-II, para simplificar o caminho até o primeiro MVP.
+A implementação da transmissão Bluetooth neste projeto de rastreamento de veículos oferece uma solução eficaz para a comunicação entre o sistema de monitoramento e dispositivos móveis. 
+
+Ao utilizar a tecnologia Bluetooth, os dados de telemetria e rastreamento podem ser transmitidos de forma sem fio e em tempo real para dispositivos equipados com Bluetooth, como smartphones ou tablets. Essa abordagem sem fio proporciona uma conectividade mais flexível, eliminando a necessidade de cabos físicos e simplificando a integração do sistema. A baixa energia do Bluetooth permite uma transmissão eficiente de dados, minimizando o impacto no consumo de bateria dos dispositivos móveis.
+
+Além disso, a transmissão Bluetooth possibilita a interação direta entre o sistema de rastreamento e os usuários, permitindo a visualização em tempo real de informações de condução, alertas e feedbacks personalizados por meio de aplicativos dedicados. Essa integração sem fio não apenas aprimora a experiência do usuário, mas também amplia as possibilidades de interatividade e controle, tornando o sistema de rastreamento de veículos mais acessível e fácil de usar.
 
 \section{Armazenamento em nuvem}
-Provedoras como a Amazon e a Azure (Microft) oferecem serviços de nuvem que podem ser usados para este projeto \textsuperscript{[10, 11]}.
+Provedoras como a Amazon e a Azure (Microsoft) oferecem serviços de nuvem que podem ser usados para este projeto \textsuperscript{[10, 11]}.Neste projeto, optou-se pelo serviço da AWS, uma vez que um dos integrantes do grupo já tinha familiaridade com o serviço.
 
-Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet.
+A integração desse sistema com o Amazon RDS (Relational Database Service) da AWS oferece uma solução eficiente e escalável para o armazenamento de dados. Utilizando o RDS, os dados coletados, como informações de localização, velocidade, e padrões de condução, podem ser armazenados em bancos de dados relacionais, proporcionando alta disponibilidade, segurança e desempenho otimizado. 
 
-O volume de dados recebidos no sistema é, portanto, variável e por isso faz sentido que o serviço de nuvem a ser contratado deverá seguir algum modelo \textit{on demand}.
+A flexibilidade do Amazon RDS permite a escolha de diferentes motores de banco de dados, como MySQL, PostgreSQL, ou SQL Server, adequando-se às necessidades específicas do sistema.
+
+A capacidade de escalabilidade automática do RDS facilita a gestão de grandes volumes de dados, garantindo que o sistema de rastreamento possa crescer conforme necessário. Além disso, os recursos de backup automático e a conformidade com padrões de segurança robustos da AWS asseguram a integridade e confidencialidade dos dados armazenados, proporcionando uma base sólida para análises futuras e insights valiosos sobre o comportamento de condução.
+
+Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet. O volume de dados recebidos no sistema é, portanto, variável e por isso fez sentido que o serviço de nuvem contratado siga o modelo \textit{on demand}.
