@@ -21,13 +21,13 @@ Na figura \ref{fig:class_diagram} pode ser visto o diagrama de classes que defin
 
 \section{Requisitos funcionais}
 \begin{itemize}
-    \item \textbf{Comunicação OBD-II:} fará comunicação com a interface do carro, requisitando apenas as informações definidas, durante o projeto, como relevantes.
+    \item \textbf{Comunicação OBD-II:} faz comunicação com a interface do carro, requisitando apenas as informações definidas, durante o projeto, como relevantes.
     
-    \item \textbf{Interface com celular ou módulo de \textit{WiFi}:} deverá estabelecer conexão sem fio com a internet, usando a tecnologia 4G, além de aproveitar-se dos dados de GPS e de aceleração fornecidos pelo celular.
+    \item \textbf{Interface com celular ou módulo de \textit{WiFi}:}  estabelece conexão sem fio com a internet, usando a tecnologia 4G, além de aproveitar-se dos dados de GPS e de aceleração fornecidos pelo celular.
     
-    \item \textbf{Plataforma de recepção na nuvem:} utilizando um serviço de armazenamento ainda a ser definido, os dados brutos coletados do carro, do celular (GPS e acelerômetro) e da internet (\textit{Waze}, por exemplo, para informações de tráfego em cada via), assim como as informações depois já processadas, serão todos armazenados na plataforma de \textit{cloud} escolhida.
+    \item \textbf{Plataforma de recepção na nuvem:} utilizando um serviço de armazenamento AWS RDS, os dados brutos coletados do carro, do celular (GPS e acelerômetro) e da internet (\textit{Waze}, por exemplo, para informações de tráfego em cada via), assim como as informações depois já processadas, serão todos armazenados nessa plataforma de \textit{cloud}.
     
-    \item \textbf{\textit{Dashboard} básico informativo:} haverá uma plataforma \textit{Web} que disponibilizará algumas informações básicas para o usuário; deverá ser uma mistura dos dados crus provindos diretamente do carro e também os processados posteriormente, para geração de novas informações também relevantes.
+    \item \textbf{Histórico de Rotas:} esse requisito em um sistema de rastreamento de veículos refere-se à capacidade de armazenar e acessar informações detalhadas sobre os trajetos percorridos por um veículo ao longo do tempo. Este recurso é crucial para oferecer aos usuários e administradores uma visão retrospectiva das atividades de um veículo, permitindo uma compreensão abrangente dos padrões de movimentação e comportamento de condução
 \end{itemize}
 
 \section{Requisitos não-funcionais}

@@ -59,9 +59,18 @@ Essa aplicação acelerará a criação da infraestrutura proposta por este trab
 
 A implementação da transmissão Bluetooth neste projeto de rastreamento de veículos oferece uma solução eficaz para a comunicação entre o sistema de monitoramento e dispositivos móveis. 
 
-Ao utilizar a tecnologia Bluetooth, os dados de telemetria e rastreamento podem ser transmitidos de forma sem fio e em tempo real para dispositivos equipados com Bluetooth, como smartphones ou tablets. Essa abordagem sem fio proporciona uma conectividade mais flexível, eliminando a necessidade de cabos físicos e simplificando a integração do sistema. A baixa energia do Bluetooth permite uma transmissão eficiente de dados, minimizando o impacto no consumo de bateria dos dispositivos móveis.
+Ao utilizar a tecnologia Bluetooth, os dados de rastreamento podem ser transmitidos de forma sem fio e em tempo real para dispositivos equipados com Bluetooth, como smartphones ou tablets. Essa abordagem sem fio proporciona uma conectividade mais flexível, eliminando a necessidade de cabos físicos e simplificando a integração do sistema. A baixa energia do Bluetooth permite uma transmissão eficiente de dados, minimizando o impacto no consumo de bateria dos dispositivos móveis.
 
 Além disso, a transmissão Bluetooth possibilita a interação direta entre o sistema de rastreamento e os usuários, permitindo a visualização em tempo real de informações de condução, alertas e feedbacks personalizados por meio de aplicativos dedicados. Essa integração sem fio não apenas aprimora a experiência do usuário, mas também amplia as possibilidades de interatividade e controle, tornando o sistema de rastreamento de veículos mais acessível e fácil de usar.
+
+ \begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.4]{figures/bluetooth.png}
+    
+    \caption{Logo do Bluetooth}.
+    
+\end{figure}
 
 \section{Armazenamento em nuvem}
 Provedoras como a Amazon e a Azure (Microsoft) oferecem serviços de nuvem que podem ser usados para este projeto \textsuperscript{[10, 11]}.Neste projeto, optou-se pelo serviço da AWS, uma vez que um dos integrantes do grupo já tinha familiaridade com o serviço.
@@ -70,6 +79,50 @@ A integração desse sistema com o Amazon RDS (Relational Database Service) da A
 
 A flexibilidade do Amazon RDS permite a escolha de diferentes motores de banco de dados, como MySQL, PostgreSQL, ou SQL Server, adequando-se às necessidades específicas do sistema.
 
-A capacidade de escalabilidade automática do RDS facilita a gestão de grandes volumes de dados, garantindo que o sistema de rastreamento possa crescer conforme necessário. Além disso, os recursos de backup automático e a conformidade com padrões de segurança robustos da AWS asseguram a integridade e confidencialidade dos dados armazenados, proporcionando uma base sólida para análises futuras e insights valiosos sobre o comportamento de condução.
+Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet. O volume de dados recebidos no sistema é, portanto, variável e por isso fez sentido que o serviço de nuvem contratado siga o modelo \textit{on demand}. A figura \ref{figure:custo_aws_inicial} mostra o custo calculado no serviço da AWS RDS.
 
-Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet. O volume de dados recebidos no sistema é, portanto, variável e por isso fez sentido que o serviço de nuvem contratado siga o modelo \textit{on demand}.
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.8]{figures/custo_aws_inicial.PNG}
+    \caption{Custo da AWS}.
+    \label{figure:custo_aws_inicial}
+    
+\end{figure}
+
+A região do Leste da Virgina é conhecida por ter uma alta densidade de data centers. Isso resulta em eficiência operacional e redução de custos.
+
+a instância escolhida foi a db.t3.micro. Ela é uma instância de banco de dados pequena, sendo adequada para cargas de trabalho leves. Essa instância é comumente usada para ambientes de desenvolvimento, testes ou pequenas aplicações que não exigem muitos recursos.
+
+Um RDS Proxy é um serviço que facilita a escalabilidade e a alta disponibilidade para as conexões de banco de dados. Ele ajuda a melhorar o desempenho e a segurança ao gerenciar as conexões entre seus aplicativos e instâncias de banco de dados RDS. Isso é especialmente útil em ambientes onde há flutuações na carga de trabalho. Como se trata de um prototipo, não há preocupações com carga de trabalho. Logo, essa opção não foi escolhida.
+
+Também não há necessidade de ter um ambiente de zona de disponibilidade múltipla para maior disponibilidade, pois haveria custo adicional. Por isso, foi escolhido o modo Single-AZ. E a capacidade de armazenamento foi 20 GB.
+
+As figuras \ref{figure:custo_aws_configuracao_1}, \ref{figure:custo_aws_configuracao_2}, \ref{figure:custo_aws_configuracao_3} mostram a configuração no serviço da AWS RDS.
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
+    \caption{Custo da AWS}.
+    \label{figure:custo_aws_configuracao_1}
+    
+\end{figure}
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
+    \caption{Custo da AWS}.
+    \label{figure:custo_aws_configuracao_2}
+    
+\end{figure}
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
+    \caption{Custo da AWS}.
+    \label{figure:custo_aws_configuracao_3}
+    
+\end{figure}

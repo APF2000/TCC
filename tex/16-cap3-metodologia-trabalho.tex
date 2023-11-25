@@ -7,34 +7,32 @@ Esta seção trata das fases do trabalho: como foram  executadas e em que sequê
 % (falar com o prof)
 
 
-\section{Coleta de dados via OBD-II e pelo celular}
-Já existe uma plataforma aceleradora desenvolvida no GitHub que consegue comunicar-se com o veículo através do protocolo OBD-II\textsuperscript{[12]}. Esse outro projeto implementa o protocolo OBD-II e também uma interface gráfica básica para mostrar os dados fornecidos pelo carro.
+\section{Coleta de dados via celular}
+Para coletar dados de aceleração do celular neste sistema de rastreamento de veículos, é possível utilizar os sensores embutidos nos smartphones. Através de aplicativos móveis desenvolvidos para este fim, é viável acessar os dados provenientes dos acelerômetros do dispositivo. Esses sensores registram as mudanças na velocidade ao longo de diferentes eixos, permitindo a medição das acelerações lineares experimentadas pelo celular. 
 
-A figura \ref{fig:git_obd_interface} mostra uma plataforma onde é possível ver alguns dos dados já previstos.
+Ao integrar esses aplicativos ao sistema, é possível obter informações detalhadas sobre a aceleração do veículo em que o smartphone está instalado. A taxa de amostragem e a precisão desses dados podem ser ajustadas para atender às necessidades específicas do sistema de rastreamento. 
+
+Posteriormente, os dados coletados podem ser armazenados e processados para análises mais aprofundadas, contribuindo para a avaliação do comportamento de condução, identificação de padrões e fornecimento de feedback personalizado aos usuários. Essa abordagem, aproveitando os recursos dos smartphones, oferece uma solução prática e acessível para a coleta de dados de aceleração.
+
+A figura \ref{fig:aceleracao} mostra os gráficos da aceleração a partir dos dados coletados do smartphone. 
+
+A relação entre o gráfico da aceleração e uma curva feita pelo carro é fundamental para compreender o comportamento dinâmico do veículo durante a condução. No contexto da física do movimento, a aceleração é a taxa de variação da velocidade em relação ao tempo. Quando um carro realiza uma curva, ele experimenta uma aceleração centrípeta, que é direcionada para o centro da curva. Isso significa que a aceleração varia em magnitude e direção conforme o veículo percorre a curva.
+
+Em um gráfico típico de aceleração durante uma curva, a forma da curva no gráfico pode fornecer informações sobre a suavidade da curva, a intensidade da aceleração lateral e até mesmo indicar a presença de manobras abruptas. Curvas suaves geralmente se refletem em padrões de aceleração mais graduais, enquanto curvas mais acentuadas ou manobras rápidas podem resultar em picos agudos no gráfico.
+
+Essa relação entre o gráfico de aceleração e a curva feita pelo carro é valiosa não apenas para entender a dinâmica do veículo, mas também para avaliar a qualidade da condução. Sistemas de rastreamento de veículos que incorporam a análise desses dados podem oferecer insights importantes sobre o estilo de direção, ajudando na identificação de comportamentos agressivos, curvas perigosas ou necessidade de aprimoramento nas habilidades de condução. 
+
+Essa integração contribui para a segurança e eficiência do sistema de rastreamento, proporcionando uma compreensão mais completa do desempenho do veículo em diferentes cenários de condução. A figura \ref{fig:sudden_acc_car} ilustra como essa análise pode ser feita.
 
 \begin{figure}[hp]
     \centering
     
-    \includegraphics[scale=0.3]{figures/git_obd_interface.png}
+    \includegraphics[scale=0.4]{figures/aceleracao.jpg}
     
-    \caption{Interface básica com porta OBD-II\textsuperscript{[12]}.}
+    \caption{Gráfico da aceleração nos eixos x, y, z.}
     
-    \label{fig:git_obd_interface}
+    \label{fig:aceleracao}
 \end{figure}
-
-Nesta fase do desenvolvimento caracterizou-se pela adaptação do aplicativo para que possa atender aos requisitos do projeto.
-
-Primeiro, foi preciso entender a estrutura e o funcionamento do código através da IDE do \textit{Android Studio}, que foi por onde essa plataforma foi originalmente desenvolvida.
-
-Complementarmente ao que for fornecido pela porta OBD, foi possível usar também dados externos ao carro, como os de navegação fornecidos pelo Waze através dos próprios motoristas que passam em cada via\textsuperscript{[13]}, informações de localização via GPS e também a aceleração desempenhada pelo carro durante seu trajeto.
-
-Essas outras informações foram de grande importância na fase final do projeto, de análise dos dados coletados.
-
-A viabilidade dessa última parte, de utilizar dados fornecidos pelo celular, pode ser vista em um estudo publicado em 2014 no \textit{site} da IEEXplore\textsuperscript{[15]}.
-
-Esse artigo utiliza parâmetros de movimentos bruscos do carro, p.ex. mudança de faixa, e a velocidade do veículo para classificar o motorista como mais ou menos agressivo, a partir de um \textit{score} chamado de \textit{driver safety index}.
-
-A figura \ref{fig:sudden_acc_car} ilustra como essa análise pode ser feita, mas sem entrar em detalhes técnicos de como isso é possível.
 
 \begin{figure}[hp]
     \centering
@@ -47,30 +45,43 @@ A figura \ref{fig:sudden_acc_car} ilustra como essa análise pode ser feita, mas
 \end{figure}
 
 \section{Transferência de dados para a nuvem e estruturação}
-Uma vez que a plataforma aceleradora esteja adaptada ao novo sistema, os dados coletados foram passados para uma plataforma remota, que armazenou os dados brutos coletados para depois serem processados e analisados na fase seguinte.
 
-O \textit{pipeline} de captura e armazenamento de informações foi consolidado quando foi definida uma estrutura fixa para o processamento dos dados crus e o formato em que foram guardados na nuvem.
+A transferência de dados para a nuvem e a sua estruturação desempenham um papel crucial na eficiência e escalabilidade do sistema de rastreamento de veículos. Ao adotar uma abordagem baseada na nuvem, os dados coletados, como informações de localização e padrões de condução, podem ser transmitidos de maneira eficiente para servidores remotos, proporcionando uma centralização dos dados. A estruturação desses dados na nuvem envolve a organização lógica e eficaz das informações em bancos de dados, facilitando a recuperação e análise posterior. 
 
-Isso pode ser feito fixando-se uma especificação básica de arquivos JSON que deverá ser seguida pelas APIs que fizerem uso do banco de dados da nuvem.
+A utilização de serviços de armazenamento em nuvem, no caso de projeto foi utilizado o AWS RDS, permite não apenas a transferência segura dos dados, mas também a flexibilidade de expansão conforme a quantidade de informações aumenta. Além disso, a estruturação adequada dos dados na nuvem é fundamental para suportar consultas eficientes, análises e integrações com outras ferramentas, contribuindo para a tomada de decisões informadas e aprimoramento contínuo do sistema de rastreamento de veículos. 
+
+Essa abordagem na nuvem oferece uma solução escalável e resiliente, garantindo que o sistema possa crescer de maneira sustentável e proporcionar insights valiosos ao longo do tempo.
 
 \section{Geração dos dados}
-O sistema pode ser usado assim que os protocolos e estruturas básicos de comunicação foram definidos. 
+Ao incentivar voluntários a conduzirem por diferentes áreas do bairro, é possível coletar dados valiosos de localização. Esses motoristas podem utilizar o aplicativo para registrar informações sobre as condições da estrada, padrões de tráfego e até mesmo identificar possíveis melhorias nas rotas. 
 
-Neste momento foram necessários voluntários para fornecer dados ao sistema e quanto mais pessoas puderem participar, melhor seria a análise de perfil feita ao fim do projeto.
+A diversidade de percursos percorridos por motoristas voluntários contribui para a construção de um mapa de rota abrangente e atualizado. Essa abordagem colaborativa enriquece a base de dados do sistema, mas também cria um senso de comunidade ao envolver os residentes no aprimoramento das informações de navegação locais. 
+
+A figura \ref{fig:rota} ilustra como essa análise pode ser feita.
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.6]{figures/rota.png}
+    
+    \caption{Rota feito por um dos integrantes do grupo ao redor do seu bairro.}
+    
+    \label{fig:rota}
+\end{figure}
 
 \section{Visualização dos dados}
-Uma aplicação Web básica para visualização dos dados individuais de cada motorista deverá ser implementada.
+A análise de dados no contexto deste projeto de rastreamento de veículos pode ser eficientemente conduzida utilizando o Jupyter Notebook, uma poderosa ferramenta interativa para análise de dados e programação em Python. Ao importar os conjuntos de dados coletados pelo sistema de rastreamento para o Jupyter Notebook, é possível explorar, visualizar e interpretar os dados de maneira flexível. 
 
-Essa plataforma deverá permitir que apenas usuários autorizados acessem suas próprias informações. Para isso, algum sistema de segurança deverá ser implementado.
+A variedade de bibliotecas de análise de dados em Python, como Pandas, NumPy e Matplotlib, podem ser aplicadas para realizar operações estatísticas, identificar padrões de comportamento do motorista e gerar visualizações informativas. A combinação da facilidade de codificação do Python com a interface interativa do Jupyter Notebook permite a criação de análises exploratórias, gráficos informativos e até mesmo a implementação de algoritmos de aprendizado de máquina para identificar tendências ou comportamentos específicos nos dados de rastreamento. 
 
-Na área logada do motorista, será possível visualizar estatísticas básicas acerca do que foi coletado pela porta OBD.
-
-A princípio, serão apresentados bem poucos dados, os quais serão definidos assim que o sistema for um pouco mais palpável. 
+Dessa forma, o Jupyter Notebook emerge como uma ferramenta essencial para a compreensão aprofundada dos dados coletados, contribuindo significativamente para insights valiosos no contexto do sistema de rastreamento de veículos.
 
 \section{Análise dos dados}
-Finalmente, com toda a infraestrutura do projeto já funcional, será possível gerar estatísticas relevantes sobre cada motorista.
+A análise de dados se torna uma jornada dinâmica e poderosa quando é combinado o AWS RDS (Relational Database Service) e o Jupyter Notebook. Ao armazenar os dados do sistema de rastreamento de veículos no AWS RDS, foi uma infraestrutura segura e escalável para a gestão eficiente de grandes volumes de informações dos parâmetros utilizados para analise. 
 
-Quais parâmetros serão gerados ou que análise será feita objetivamente ainda será objeto de discussão no projeto, mas uma das ideias primárias era tentar definir métricas que diferenciem um motorista do outro, isto é, que definam o seu perfil de condução.
+A integração com o Jupyter Notebook permite a exploração dos dados de maneira interativa e colaborativa. Ao estabelecer uma conexão direta entre o Jupyter Notebook e o banco de dados RDS, pode-se executar consultas SQL diretamente no ambiente de notebook, extrair conjuntos de dados relevantes e realizar análises exploratórias utilizando bibliotecas poderosas como Pandas e Matplotlib. 
+
+A combinação dessas ferramentas facilita a visualização de tendências, identificação de padrões e até mesmo a implementação de algoritmos de aprendizado de máquina para prever comportamentos de condução. Essa sinergia entre AWS RDS e Jupyter Notebook não apenas agiliza o processo de análise de dados, mas também contribui para insights acionáveis que impulsionam a tomada de decisões informadas no aprimoramento contínuo do sistema de rastreamento de veículos.
 
 Conforme o artigo citado anteriormente (\textit{Driver behaviour profiling using smartphone sensory data in a V2I environment}\textsuperscript{[15]}), é possível usar métricas de movimentação brusca do carro para classificar motoristas segundo a segurança de sua direção.
 
@@ -79,3 +90,10 @@ Mais especificamente, o estudo determina quatro tipos de condutores: muito caute
 A classificação depende basicamente de quantos movimentos bruscos são feitos e em que situações eles ocorrem. Isso significa que em um ponto de maior convergência de estradas, por exemplo, haverá maior penalidade para o \textit{driver safety index} que em um local de menos movimento ou.
 
 Dessa forma, esse estudo procura ranquear melhor os motoristas que têm menos probabilidade de gerar acidentes.
+
+\section{simulador de obd}
+O uso do simulador de OBD (On-Board Diagnostics) representa uma ferramenta valiosa no desenvolvimento e teste de sistemas de rastreamento de veículos. Este simulador emula as funcionalidades de um veículo, permitindo que os desenvolvedores testem a integração de seus sistemas de rastreamento sem a necessidade de um carro real.
+
+Ao emular dados típicos como velocidade, rotações por minuto (RPM), temperatura do motor, e outros parâmetros do OBD, o simulador cria um ambiente controlado para verificar a eficácia do sistema em diferentes cenários de condução. Isso possibilita testes abrangentes, desde a coleta de dados até a análise de comportamentos específicos, garantindo a robustez e confiabilidade do sistema de rastreamento.
+
+Além disso, o uso do simulador de OBD permite a realização de testes de maneira repetitiva e consistente, fornecendo dados padronizados para avaliação de desempenho e detecção de possíveis problemas antes da implementação em um ambiente de produção. 
