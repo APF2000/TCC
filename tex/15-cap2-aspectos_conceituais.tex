@@ -57,25 +57,31 @@ Essa aplicação acelerará a criação da infraestrutura proposta por este trab
 
 \section{Transmissão de dados}
 
-A implementação da transmissão Bluetooth neste projeto de rastreamento de veículos oferece uma solução eficaz para a comunicação entre o sistema de monitoramento e dispositivos móveis. 
+A implementação da transmissão \textit{Bluetooth} neste projeto de compilação de dados oferece uma solução eficaz para a comunicação entre os produtor e consumidor de dados. 
 
-Ao utilizar a tecnologia Bluetooth, os dados de rastreamento podem ser transmitidos de forma sem fio e em tempo real para dispositivos equipados com Bluetooth, como smartphones ou tablets. Essa abordagem sem fio proporciona uma conectividade mais flexível, eliminando a necessidade de cabos físicos e simplificando a integração do sistema. A baixa energia do Bluetooth permite uma transmissão eficiente de dados, minimizando o impacto no consumo de bateria dos dispositivos móveis.
+Ao utilizar essa tecnologia, os dados de rastreamento podem ser transmitidos de forma sem fio e em tempo real para dispositivos equipados com \textit{Bluetooth}, como \textit{smartphones}, que são o foco deste trabalho.
 
-Além disso, a transmissão Bluetooth possibilita a interação direta entre o sistema de rastreamento e os usuários, permitindo a visualização em tempo real de informações de condução, alertas e feedbacks personalizados por meio de aplicativos dedicados. Essa integração sem fio não apenas aprimora a experiência do usuário, mas também amplia as possibilidades de interatividade e controle, tornando o sistema de rastreamento de veículos mais acessível e fácil de usar.
+A abordagem \textit{wireless} proporciona uma conectividade mais flexível, eliminando a necessidade de cabos físicos e simplificando a integração do sistema. A baixa energia do \textit{Bluetooth} permite uma transmissão eficiente de dados, minimizando o impacto no consumo de bateria dos dispositivos móveis.
+
+Além disso, a transmissão \textit{Bluetooth} possibilita a interação direta entre o sistema de geração e os usuários, permitindo a visualização em tempo real de informações de condução.
+
+Essa integração sem fio não apenas aprimora a experiência do usuário, mas também amplia as possibilidades de interatividade e controle, tornando o sistema mais acessível e fácil de usar.
 
  \begin{figure}[hp]
     \centering
     
     \includegraphics[scale=0.4]{figures/bluetooth.png}
     
-    \caption{Logo do Bluetooth}.
+    \caption{Logo do Bluetooth.}
     
 \end{figure}
 
 \section{Armazenamento em nuvem}
-Provedoras como a Amazon e a Azure (Microsoft) oferecem serviços de nuvem que podem ser usados para este projeto \textsuperscript{[10, 11]}.Neste projeto, optou-se pelo serviço da AWS, uma vez que um dos integrantes do grupo já tinha familiaridade com o serviço.
+Provedoras como a Amazon e a Azure (Microsoft) oferecem serviços de nuvem que podem ser usados para este projeto \textsuperscript{[10, 11]}. Neste trabalho, optou-se pelo serviço da AWS, uma vez que um dos integrantes do grupo já tinha familiaridade com o serviço.
 
-A integração desse sistema com o Amazon RDS (Relational Database Service) da AWS oferece uma solução eficiente e escalável para o armazenamento de dados. Utilizando o RDS, os dados coletados, como informações de localização, velocidade, e padrões de condução, podem ser armazenados em bancos de dados relacionais, proporcionando alta disponibilidade, segurança e desempenho otimizado. 
+A integração do aplicativo Android com o Amazon RDS (Relational Database Service) da AWS oferece uma solução eficiente e escalável para o armazenamento de dados. 
+
+Utilizando o RDS, os dados coletados, como informações de localização, velocidade e aceleração, podem ser armazenados em bancos de dados relacionais, proporcionando alta disponibilidade, segurança e desempenho otimizado. 
 
 A flexibilidade do Amazon RDS permite a escolha de diferentes motores de banco de dados, como MySQL, PostgreSQL, ou SQL Server, adequando-se às necessidades específicas do sistema.
 
@@ -85,18 +91,18 @@ Os usuários poderão transmitir informações para a nuvem a qualquer momento, 
     \centering
     
     \includegraphics[scale=0.8]{figures/custo_aws_inicial.PNG}
-    \caption{Custo da AWS}.
+    \caption{Custo da AWS.}
     \label{figure:custo_aws_inicial}
     
 \end{figure}
 
-A região do Leste da Virgina é conhecida por ter uma alta densidade de data centers. Isso resulta em eficiência operacional e redução de custos.
+A região do Leste da Virgina é conhecida por ter uma alta densidade de \textit{data centers}. Isso resulta em eficiência operacional e redução de custos.
 
-a instância escolhida foi a db.t3.micro. Ela é uma instância de banco de dados pequena, sendo adequada para cargas de trabalho leves. Essa instância é comumente usada para ambientes de desenvolvimento, testes ou pequenas aplicações que não exigem muitos recursos.
+A instância escolhida foi a db.t3.micro. Ela é uma instância de banco de dados pequena, sendo adequada para cargas de trabalho leves. Essa instância é comumente usada para ambientes de desenvolvimento, testes ou pequenas aplicações que não exigem muitos recursos.
 
-Um RDS Proxy é um serviço que facilita a escalabilidade e a alta disponibilidade para as conexões de banco de dados. Ele ajuda a melhorar o desempenho e a segurança ao gerenciar as conexões entre seus aplicativos e instâncias de banco de dados RDS. Isso é especialmente útil em ambientes onde há flutuações na carga de trabalho. Como se trata de um prototipo, não há preocupações com carga de trabalho. Logo, essa opção não foi escolhida.
+Um RDS Proxy é um serviço que facilita a escalabilidade e a alta disponibilidade para as conexões de banco de dados. Ele ajuda a melhorar o desempenho e a segurança ao gerenciar as conexões entre seus aplicativos e instâncias de banco de dados RDS. Isso é especialmente útil em ambientes onde há flutuações na carga de trabalho. Como se trata de um protótipo, não há preocupações com carga de trabalho. Logo, essa opção não foi escolhida.
 
-Também não há necessidade de ter um ambiente de zona de disponibilidade múltipla para maior disponibilidade, pois haveria custo adicional. Por isso, foi escolhido o modo Single-AZ. E a capacidade de armazenamento foi 20 GB.
+Também não há necessidade de ter um ambiente de zona de disponibilidade múltipla para garantir escalabilidade, pois haveria custo adicional. Por isso, a instância RDS foi configurada para o modo Single-AZ. E a capacidade de armazenamento foi 20 GB.
 
 As figuras \ref{figure:custo_aws_configuracao_1}, \ref{figure:custo_aws_configuracao_2}, \ref{figure:custo_aws_configuracao_3} mostram a configuração no serviço da AWS RDS.
 
@@ -104,7 +110,7 @@ As figuras \ref{figure:custo_aws_configuracao_1}, \ref{figure:custo_aws_configur
     \centering
     
     \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
-    \caption{Custo da AWS}.
+    \caption{Custo da AWS - Configuração 1.}
     \label{figure:custo_aws_configuracao_1}
     
 \end{figure}
@@ -113,7 +119,7 @@ As figuras \ref{figure:custo_aws_configuracao_1}, \ref{figure:custo_aws_configur
     \centering
     
     \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
-    \caption{Custo da AWS}.
+    \caption{Custo da AWS - Configuração 2.}
     \label{figure:custo_aws_configuracao_2}
     
 \end{figure}
@@ -122,7 +128,7 @@ As figuras \ref{figure:custo_aws_configuracao_1}, \ref{figure:custo_aws_configur
     \centering
     
     \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
-    \caption{Custo da AWS}.
+    \caption{Custo da AWS - Configuração 3.}
     \label{figure:custo_aws_configuracao_3}
     
 \end{figure}

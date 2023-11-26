@@ -2,17 +2,17 @@
 
 Este documento descreve o desenvolvimento de um sistema para captação e análise de dados referentes à direção de um motorista.
 
-A ideia básica é coletar dados de sensores já presentes em carros modernos através da porta OBD-II, que utiliza um padrão internacional de disponibilização de informações referentes a um carro\textsuperscript{[2]}, assim como informações disponibilizadas por um celular (geolocalização) e armazená-los em uma plataforma de dados, onde poderão ser posteriormente analisados.
+A ideia básica é coletar dados de sensores já presentes em carros modernos através da porta OBD-II, que utiliza um padrão internacional de diagnóstico de parâmetros internos a um carro\textsuperscript{[2]}, assim como informações disponibilizadas por um celular (geolocalização e acelerômetros) e armazená-los em uma plataforma de dados (AWS), onde poderão ser posteriormente analisados.
 
 \section{Motivação}
 
 Qual o perfil de direção de um motorista? Como categorizar os condutores segundo um critério claro?
 
-Buscando responder essas perguntas e, consequentemente, entender as características de pessoas ao volante, este trabalho propõe-se a criar uma infraestrutura de captura e análise de dados em automóveis de uso pessoal.
+Buscando responder a essas perguntas e, consequentemente, entender as características de pessoas ao volante, este trabalho propõe-se a criar uma infraestrutura de captura e análise de dados em automóveis de uso pessoal.
 
 Com base nos dados de aceleração, é possível classificar o estilo de direção, identificar comportamentos perigosos, e até mesmo antecipar a necessidade de manutenção do veículo. A integração da análise da aceleração em sistemas de perfil de direção não apenas contribui para a segurança do veículo, mas também possibilita a personalização de feedbacks e sugestões ao motorista, promovendo uma condução mais eficiente e segura.
 
-As informações recolhidas foram armazenadas em uma plataforma de nuvem, protegidas por algum nível de segurança, implementado neste mesmo projeto e, por fim, foram analisadas para gerar conclusões interessantes sobre o modo de dirigir de cada participante do estudo.
+% As informações recolhidas foram armazenadas em uma plataforma de nuvem, protegidas por algum nível de segurança, implementado neste mesmo projeto e, por fim, foram analisadas para gerar conclusões interessantes sobre o modo de dirigir de cada participante do estudo.
 	
 Uma pesquisa preliminar sobre o assunto revelou que já existe uma patente para um produto parecido; ela foi registrada em 2013 e avalia o desempenho de um motorista a partir de dados pré-coletados de parâmetros relevantes à condução do carro \textsuperscript{[1]}.
 
@@ -33,15 +33,13 @@ Para isso, fez uso da infraestrutura já presente em carros atuais. Conforme pod
     \label{fig:sensors_car}
 \end{figure}
 
-Essas informações foram complementadas com o uso de um \textit{smartphone}. Já que no smartphone foi possivel capturados os dados referentes a aceleração.
+Essas informações foram complementadas com o uso de um \textit{smartphone}, o qual disponibilza outros tipos de dados graças a seus sensores embarcados e à sua conexão com os satélites de GPS.
 
 A análise da aceleração desempenha um papel crucial na avaliação do comportamento do motorista em sistemas de rastreamento de veículos. Ao monitorar padrões de aceleração, é possível extrair informações valiosas sobre a condução, como a suavidade nas transições de velocidade, a resposta a mudanças nas condições de tráfego e o grau de agressividade na condução. A aceleração fornece insights sobre a habilidade do motorista em manter uma condução estável e prever suas ações em situações específicas. 
 
-A coleta de dados foi feita, a princípio, a partir de ensaios em carros reais feitos por uma quantidade seleta de pessoas, que pode ser expandida para resultados mais precisos na análise posterior.
+A maior parte da coleta de dados foi feita em um Hyundai Ix35 e dados estáticos foram tomadas de outros modelos também (Mercedes-Benz C200, Ford EcoSport e Volkswagen Saveiro) para conferência de parâmetros disponibilizados em comum por veículos de marcas diferentes.
 
-Os dados coletados foram passados para o serviço de nuvem da AWS, usando conexão à \textit{internet}, caracterizando uma aplicação IoT.
-	
-Do lado da nuvem, foi possível utilizar os dados de cada usuário de forma anônima, para diagnosticar condutor e possivelmente gerar \textit{insights} sobre como a pessoa poderia melhorar.
+Os dados coletados foram passados para o serviço de nuvem da AWS, de onde foi possível recuperá-los com o objetivo de diagnosticar condutores e gerar estatísticas que possam contribuir para a redução do custo do seguro de um automóvel.
 
  
 \section{Justificativa}

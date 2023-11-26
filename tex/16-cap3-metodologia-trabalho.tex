@@ -8,13 +8,24 @@ Esta seção trata das fases do trabalho: como foram  executadas e em que sequê
 
 
 \section{Coleta de dados via celular}
-Para coletar dados de aceleração do celular neste sistema de rastreamento de veículos, é possível utilizar os sensores embutidos nos smartphones. Através de aplicativos móveis desenvolvidos para este fim, é viável acessar os dados provenientes dos acelerômetros do dispositivo. Esses sensores registram as mudanças na velocidade ao longo de diferentes eixos, permitindo a medição das acelerações lineares experimentadas pelo celular. 
+Para coletar dados de aceleração, é possível utilizar os sensores embutidos nos \textit{smartphones}. Através de aplicativos móveis desenvolvidos para este fim, é viável interagir com os acelerômetros do dispositivo. Esses sensores registram a aceleração em relação . 
 
-Ao integrar esses aplicativos ao sistema, é possível obter informações detalhadas sobre a aceleração do veículo em que o smartphone está instalado. A taxa de amostragem e a precisão desses dados podem ser ajustadas para atender às necessidades específicas do sistema de rastreamento. 
 
-Posteriormente, os dados coletados podem ser armazenados e processados para análises mais aprofundadas, contribuindo para a avaliação do comportamento de condução, identificação de padrões e fornecimento de feedback personalizado aos usuários. Essa abordagem, aproveitando os recursos dos smartphones, oferece uma solução prática e acessível para a coleta de dados de aceleração.
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/axis_android_device.png}
+    
+    \caption{Sistema de coordenadas que rege os valores dos acelerômetros de um dispositivo Android\textsuperscript{[27]}.}
+    
+    \label{fig:axis_android}
+\end{figure}
 
-A figura \ref{fig:aceleracao} mostra os gráficos da aceleração a partir dos dados coletados do smartphone. 
+Ao integrar esse aplicativo ao sistema, é possível obter informações detalhadas sobre a aceleração do veículo em que o \textit{smartphone} está instalado. A taxa de amostragem desses dados pode ser ajustada para atender às necessidades específicas do sistema por um parâmetro chamado \textit{minMillisBetweenData} no repositório do \textit{GitHub} https://github.com/APF2000/android-obd-reader-pires. 
+
+Posteriormente, os dados coletados foram armazenados e processados para análises mais aprofundadas, contribuindo para a avaliação do comportamento de condução e identificação de padrões. Essa abordagem, aproveitando os recursos dos \textit{smartphones}, oferece uma solução prática e acessível para a coleta de dados de aceleração.
+
+A figura \ref{fig:aceleracao} mostra os gráficos da aceleração a partir dos dados coletados do celular. 
 
 A relação entre o gráfico da aceleração e uma curva feita pelo carro é fundamental para compreender o comportamento dinâmico do veículo durante a condução. No contexto da física do movimento, a aceleração é a taxa de variação da velocidade em relação ao tempo. Quando um carro realiza uma curva, ele experimenta uma aceleração centrípeta, que é direcionada para o centro da curva. Isso significa que a aceleração varia em magnitude e direção conforme o veículo percorre a curva.
 
