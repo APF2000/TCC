@@ -13,7 +13,7 @@ Este capítulo tem como objetivo explicitar quais foram as decisões de projeto 
 O projeto pretende definir algumas tecnologias de base para serem usadas durante o desenvolvimento de cada fase dele.
 
     \subsection{Conexão OBD-II}
-A integração do OBD-II (On-Board Diagnostics) neste projeto de rastreamento de veículos representa um avanço significativo na obtenção de dados precisos e abrangentes sobre o desempenho do veículo. O OBD-II, um padrão presente em muitos veículos modernos, fornece acesso a uma variedade de parâmetros, como velocidade, rotações por minuto (RPM), temperatura do motor, e códigos de diagnóstico de falhas. Ao conectar o sistema de rastreamento ao conector OBD-II do veículo, é possível extrair informações em tempo real sobre a condução, condições do motor e possíveis problemas mecânicos.
+A integração do OBD-II (On-Board Diagnostics) neste projeto de sistema de coleta de dados representa um avanço significativo na obtenção de dados precisos e abrangentes sobre o desempenho do veículo. O OBD-II, um padrão presente em muitos veículos modernos, fornece acesso a uma variedade de parâmetros, como velocidade, rotações por minuto (RPM), temperatura do motor, e códigos de diagnóstico de falhas. Ao conectar a plataforma de captura de dados ao conector OBD-II do veículo, é possível extrair informações em tempo real sobre a condução, condições do motor e possíveis problemas mecânicos.
 
 Já existe uma plataforma aceleradora desenvolvida no GitHub que consegue
 comunicar-se com o veículo através do protocolo OBD-II\textsuperscript{[12]}. Esse outro projeto
@@ -32,9 +32,11 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
     \label{fig:obd2_plataforma}
 \end{figure}
     
-    \subsection{Android Studio} A utilização da IDE Android Studio neste projeto de rastreamento de veículos desempenha um papel central no desenvolvimento de aplicativos móveis dedicados à interação com o sistema. O Android Studio, sendo a principal ferramenta de desenvolvimento para aplicativos Android, oferece um ambiente integrado e robusto que simplifica a criação, teste e depuração de software. 
+    \subsection{Android Studio} A utilização da IDE Android Studio neste projeto de sistema de coleta de dados desempenha um papel central no desenvolvimento de aplicativos móveis dedicados à interação com o sistema. O Android Studio, sendo a principal ferramenta de desenvolvimento para aplicativos Android, oferece um ambiente integrado e robusto que simplifica a criação, teste e depuração de software. 
     
-    A plataforma fornece recursos avançados de design de interface do usuário, facilitando a criação de aplicativos intuitivos e visualmente atraentes para os usuários finais. A integração perfeita com o Android SDK (Software Development Kit) permite o acesso às APIs e recursos específicos do sistema operacional Android, garantindo uma implementação eficiente de funcionalidades como a transmissão Bluetooth, a visualização de dados de rastreamento e a interação em tempo real. Além disso, as ferramentas de emulação e depuração incorporadas no Android Studio simplificam o processo de teste em diferentes dispositivos, contribuindo para a criação de aplicativos estáveis e adaptáveis.
+    A plataforma fornece recursos avançados de design de interface do usuário, facilitando a criação de aplicativos intuitivos e visualmente atraentes para os usuários finais. A integração perfeita com o Android SDK (Software Development Kit) permite o acesso às APIs e recursos específicos do sistema operacional Android, garantindo uma implementação eficiente de funcionalidades como a transmissão Bluetooth, a visualização de dados de rastreamento e a interação em tempo real. 
+    
+    Além disso, as ferramentas de emulação e depuração incorporadas no Android Studio simplificam o processo de teste em diferentes dispositivos, contribuindo para a criação de aplicativos estáveis e adaptáveis.
 
      \begin{figure}[hp]
     \centering
@@ -45,9 +47,11 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
     
 \end{figure}
     
-     \subsection{Banco de dados} A integração do MySQL e do AWS RDS (Relational Database Service) em um projeto de rastreamento de veículos é uma estratégia robusta para o gerenciamento eficiente e escalável dos dados do sistema. O MySQL, um sistema de gerenciamento de banco de dados relacional de código aberto, proporciona uma estrutura confiável para armazenar e organizar informações como histórico de rotas e dados do OBD-II. 
+     \subsection{Banco de dados} A integração do MySQL e do AWS RDS (Relational Database Service) em um projeto de sistema de compilação de dados de veículos é uma estratégia robusta para o gerenciamento eficiente e escalável dos dados do sistema. O MySQL, um sistema de gerenciamento de banco de dados relacional de código aberto, proporciona uma estrutura confiável para armazenar e organizar informações como histórico de rotas e dados do OBD-II. 
      
-     Ao escolher o AWS RDS como a plataforma de hospedagem para o MySQL, ganha-se os benefícios adicionais de escalabilidade automática, alta disponibilidade e segurança avançada oferecidos pela infraestrutura em nuvem da Amazon. A integração dessas tecnologias permite o acesso eficiente aos dados, consultas rápidas e uma gestão simplificada do banco de dados. Além disso, o AWS RDS lida com tarefas operacionais, como backup automático e manutenção, permitindo que os desenvolvedores concentrem seus esforços em aprimorar as funcionalidades do sistema de rastreamento. 
+     Ao escolher o AWS RDS como a plataforma de hospedagem para o MySQL, ganha-se os benefícios adicionais de escalabilidade automática, alta disponibilidade e segurança avançada oferecidos pela infraestrutura em nuvem da Amazon. A integração dessas tecnologias permite o acesso eficiente aos dados, consultas rápidas e uma gestão simplificada do banco de dados. 
+     
+     Além disso, o AWS RDS lida com tarefas operacionais, como backup automático e manutenção, permitindo que os desenvolvedores concentrem seus esforços em aprimorar as funcionalidades do sistema de rastreamento. 
      
      Essa combinação proporciona uma base sólida para o armazenamento e recuperação de dados, promovendo a confiabilidade e eficácia do sistema de rastreamento de veículos.
 
@@ -63,7 +67,9 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
     
      \subsection{\textit{Python} e Folium} A junção do Python e do Folium em um projeto de sistema de coleta de dados oferece uma poderosa combinação para a visualização interativa e geoespacial dos dados. O Folium é uma biblioteca Python que simplifica a criação de mapas interativos baseados na web, utilizando a infraestrutura do Leaflet.js. Integrar o Folium ao projeto permite que os desenvolvedores gerem mapas dinâmicos que destacam informações específicas relacionadas ao rastreamento de veículos.
 
-    Essa integração Python-Folium é particularmente útil para análises geoespaciais em sistemas de rastreamento de veículos, proporcionando uma representação geográfica e visualmente intuitiva dos dados de telemetria. Além disso, a flexibilidade do Python permite a personalização dos mapas e a incorporação de recursos adicionais conforme as necessidades específicas do projeto, contribuindo para uma interface de usuário mais informativa e envolvente.
+    Essa integração Python-Folium é particularmente útil para análises geoespaciais em sistemas de rastreamento de veículos, proporcionando uma representação geográfica e visualmente intuitiva dos dados de telemetria. 
+    
+    A flexibilidade do Python permite a personalização dos mapas e a incorporação de recursos adicionais conforme as necessidades específicas do projeto, contribuindo para uma interface de usuário mais informativa e envolvente.
 
       \begin{figure}[hp]
     \centering
@@ -81,9 +87,7 @@ Esta seção descreverá as decisões feitas durante o trabalho.
 
 Para criar os mapas do aplicativo, foi utilizado o framework Folium. A biblioteca Folium é uma poderosa ferramenta para manipular e visualizar dados geoespaciais usando Python. Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando o Folium, pode-se começar importando a biblioteca e criando um objeto Map que representa o mapa. 
 
-Em seguida, pode-se adicionar camadas, como marcadores, polígonos e popups, para exibir dados de forma intuitiva no mapa. Além disso, o Folium permite a integração de dados geoespaciais em diferentes formatos, como GeoJSON, tornando-o uma ferramenta flexível para análise e visualização de dados geoespaciais em Python.
-
-A figura \ref{fig:python_libs} mostra as bibliotecas utilizadas para desenvolver o mapa:
+Em seguida, pode-se adicionar camadas, como marcadores, polígonos e popups, para exibir dados de forma intuitiva no mapa. O Folium permite a integração de dados geoespaciais em diferentes formatos, como GeoJSON, tornando-o uma ferramenta flexível para análise e visualização de dados geoespaciais em Python. A figura \ref{fig:python_libs} mostra as bibliotecas utilizadas para desenvolver o mapa.
 
 \begin{figure}[hp]
     \centering
@@ -100,7 +104,7 @@ A figura \ref{fig:python_libs} mostra as bibliotecas utilizadas para desenvolver
         %  
         %  \end{center}
 
-A função da classe RideParser é analisar dados dos trajetos.A classe pode receber dados de entrada que descrevem o destino, e então analisa esses dados para extrair informações úteis. Como, por exemplo, traçar a rota feita pelo automóvel. Já o módulo 
+A função da classe RideParser é analisar dados dos trajetos. A classe pode receber dados de entrada que descrevem o destino, e então analisa esses dados para extrair informações úteis. Como, por exemplo, traçar a rota feita pelo automóvel. Já o módulo 
 ''os'' fornece funcionalidades relacionadas ao sistema operacional, permitindo que você interaja com o ambiente do sistema, como manipular diretórios, arquivos, obter informações sobre o sistema, manipular variáveis de ambiente, entre outras tarefas relacionadas ao sistema operacional.
 Por fim, tanto a biblioteca pandas, como a matplotlib foram utilizadas para manipular os dados.
 
