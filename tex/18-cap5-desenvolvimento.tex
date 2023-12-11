@@ -9,6 +9,15 @@
 
 Este capítulo tem como objetivo explicitar quais foram as decisões de projeto que foram tomadas ao longo do desenvolvimento do sistema.
 
+\section{Justificativas das métricas escolhidas}
+
+As escolhas das métricas para o desenvolvimento desse projeto foram determinantes para avaliar e interpretar resultados com precisão. As métricas escolhidas auxiliam a avaliar o perfil dos motoristas.
+
+\subsection{RPM}
+
+ Em um motor de combustão interna, o RPM indica a velocidade com que os pistões se movem para cima e para baixo no cilindro. O controle preciso do RPM é essencial para otimizar a eficiência do motor e a entrega de potência, sendo um indicador chave para os motoristas ajustarem suas velocidades de condução.
+
+
 \section{Tecnologias utilizadas}
 O projeto pretende definir algumas tecnologias de base para serem usadas durante o desenvolvimento de cada fase dele.
 
@@ -32,11 +41,15 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
     \label{fig:obd2_plataforma}
 \end{figure}
     
-    \subsection{Android Studio} A utilização da IDE Android Studio neste projeto de sistema de coleta de dados desempenha um papel central no desenvolvimento de aplicativos móveis dedicados à interação com o sistema. O Android Studio, sendo a principal ferramenta de desenvolvimento para aplicativos Android, oferece um ambiente integrado e robusto que simplifica a criação, teste e depuração de software. 
+    \subsection{Android Studio} A utilização da IDE Android Studio neste projeto de sistema de coleta de dados desempenha um papel central no desenvolvimento de aplicativos móveis dedicados à interação com o sistema. 
+    
+    O Android Studio, sendo a principal ferramenta de desenvolvimento para aplicativos Android, oferece um ambiente integrado e robusto que simplifica a criação, teste e depuração de software. 
     
     A plataforma fornece recursos avançados de design de interface do usuário, facilitando a criação de aplicativos intuitivos e visualmente atraentes para os usuários finais. A integração perfeita com o Android SDK (Software Development Kit) permite o acesso às APIs e recursos específicos do sistema operacional Android, garantindo uma implementação eficiente de funcionalidades como a transmissão Bluetooth, a visualização de dados de rastreamento e a interação em tempo real. 
     
     Além disso, as ferramentas de emulação e depuração incorporadas no Android Studio simplificam o processo de teste em diferentes dispositivos, contribuindo para a criação de aplicativos estáveis e adaptáveis.
+
+    Por último, nenhuma tecnologia multiplataforma (React Native ou Flutter, por exemplo) ou específica de dispositivos iOS (Swift ou Objective C, por exemplo) foi escolhida, pois o intuito do projeto era ser compatível com os celulares dos membros do grupo e devido à familiaridade com a linguagem Java, usada para esse tipo de desenvolvimento.
 
      \begin{figure}[hp]
     \centering
@@ -57,23 +70,29 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
 
      A estrutura definida para as tabelas do banco de dados foi:
 
-     \item{tcc_schema}
-     \item{info} Armazena as informações coletadas através da porta OBD
 
-     \item{acceleration} Contém dados dos acelerômetros do celular do usuário
-     
-     \item{location} Guarda latitude e longitude obtidas por GPS pelo celular
+    \begin{itemize}
+         \item{\textbf{tcc-schema} (esquema do banco de dados onde se encontram as tabelas)}
+         
+        \begin{itemize}
+             \item{\textbf{info:} Armazena as informações coletadas através da porta OBD} 
+        
+             \item{\textbf{acceleration:} Contém dados dos acelerômetros do celular do usuário} 
+             
+             \item{\textbf{location: Guarda latitude e longitude obtidas por GPS pelo celular}}    
+        \end{itemize}  
+    \end{itemize}
 
      A especificação exata das colunas de cada tabela pode ser encontrada no apêndice. [MENCIONAR APENDICE POR NUMERO]
 
-      \begin{figure}[hp]
-    \centering
-    
-    \includegraphics[scale=0.4]{figures/logo_Mysql.jpg}
-    
-    \caption{Logo do Mysql.}
-    
-\end{figure}
+    \begin{figure}[hp]
+        \centering
+        
+        \includegraphics[scale=0.4]{figures/logo_Mysql.jpg}
+        
+        \caption{Logo do Mysql.}
+        
+    \end{figure}
 
     
      \subsection{\textit{Python} e Folium} A junção do Python e do Folium em um projeto de sistema de coleta de dados oferece uma poderosa combinação para a visualização interativa e geoespacial dos dados. O Folium é uma biblioteca Python que simplifica a criação de mapas interativos baseados na web, utilizando a infraestrutura do Leaflet.js. Integrar o Folium ao projeto permite que os desenvolvedores gerem mapas dinâmicos que destacam informações específicas relacionadas ao rastreamento de veículos.
@@ -92,60 +111,85 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
 
 % interface com usuario, banco de dados, conexão obd2
 
+    \subsection{Flask}
+
+    A seleção da biblioteca Flask para o projeto ocorreu devido à familiaridade com a linguagem Python, tornando o desenvolvimento mais acessível. Adicionalmente, a escolha se fundamentou na capacidade do Flask em facilitar a implementação eficiente de uma API, atendendo à necessidade do aplicativo de enviar e receber dados de maneira eficaz.
+
 
 \section{Projeto e implementação}
-Esta seção descreverá as decisões feitas durante o trabalho.
+% Esta seção descreverá as decisões feitas durante o trabalho.
 
-Para criar os mapas do aplicativo, foi utilizado o framework Folium. A biblioteca Folium é uma poderosa ferramenta para manipular e visualizar dados geoespaciais usando Python. Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando o Folium, pode-se começar importando a biblioteca e criando um objeto Map que representa o mapa. 
-
-Em seguida, pode-se adicionar camadas, como marcadores, polígonos e popups, para exibir dados de forma intuitiva no mapa. O Folium permite a integração de dados geoespaciais em diferentes formatos, como GeoJSON, tornando-o uma ferramenta flexível para análise e visualização de dados geoespaciais em Python. A figura \ref{fig:python_libs} mostra as bibliotecas utilizadas para desenvolver o mapa.
-
-\begin{figure}[hp]
-    \centering
+\subsection{Folium}
+    Para criar os mapas do aplicativo, foi utilizado o \textit{framework} Folium. Essa biblioteca é uma poderosa ferramenta para manipular e visualizar dados geoespaciais usando Python. 
     
-    \includegraphics[scale=0.8]{figures/bibliotecas.jpg}
+    Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando essa ferramenta, pode-se começar importando a biblioteca e criando um objeto Map que representa o mapa. 
     
-    \caption{Bibliotecas utilizadas para gerar o mapa da rota.}
+    Em seguida, pode-se adicionar camadas, como marcadores, polígonos e \textit{popups}, para exibir dados de forma intuitiva no mapa. 
     
-    \label{fig:python_libs}
-\end{figure}
-
-        % \begin{center}
-        %  \includegraphics[scale=0.8]{figures/bibliotecas.jpg}
-        %  
-        %  \end{center}
-
-A função da classe RideParser é analisar dados dos trajetos. A classe pode receber dados de entrada que descrevem o destino, e então analisa esses dados para extrair informações úteis. Como, por exemplo, traçar a rota feita pelo automóvel. Já o módulo 
-''os'' fornece funcionalidades relacionadas ao sistema operacional, permitindo que você interaja com o ambiente do sistema, como manipular diretórios, arquivos, obter informações sobre o sistema, manipular variáveis de ambiente, entre outras tarefas relacionadas ao sistema operacional.
-Por fim, tanto a biblioteca pandas, como a matplotlib foram utilizadas para manipular os dados.
-
-Para traçar uma trajetória no mapa usando a biblioteca Folium em Python, será necessário uma lista de pontos de latitude e longitude que representam a trajetória. A partir dos pontos de latitude e longitude colhidos dos sensores do celular, cria-se uma lista de coordenadas que representam os pontos da trajetória. Em seguida, criamos um objeto de mapa usando o Folium e é adicionado uma linha de trajetória (um polilinha) que conecta os pontos da lista e o mapa pode ser visualizado. Uma demonstração de uma trajetória pode ser vista na figura \ref{fig:car_route_1}.
-
-\begin{figure}[hp]
-    \centering
+    % O Folium permite a integração de dados geoespaciais em diferentes formatos, como GeoJSON, tornando-o uma ferramenta flexível para análise e visualização de dados geoespaciais em Python. 
     
-    \includegraphics[scale=0.8]{figures/rota_1.jpg}
+    A figura 
+    \ref{fig:python_libs} mostra as bibliotecas utilizadas para desenvolver os mapas do projeto.
     
-    \caption{Rota de uma das viagens fornecidas pelo \textit{UAH Driveset}.}
+    \begin{figure}[hp]
+        \centering
+        
+        \includegraphics[scale=0.8]{figures/bibliotecas.jpg}
+        
+        \caption{Bibliotecas utilizadas para gerar o mapa da rota do usuário.}
+        
+        \label{fig:python_libs}
+    \end{figure}
     
-    \label{fig:car_route_1}
-\end{figure}
-
-A visualização de um vídeo que apresenta o trajeto do veículo sincronizado com um gráfico de aceleração proporciona uma compreensão visual e analítica aprimorada do comportamento de condução. Este recurso permite aos usuários acompanhar de forma imersiva o percurso do veículo enquanto simultaneamente observam as variações na aceleração ao longo do tempo. 
-
-Ao visualizar o vídeo, os usuários podem identificar eventos específicos, como curvas acentuadas, frenagens bruscas ou acelerações rápidas, correlacionando-os diretamente com os picos e quedas no gráfico de aceleração exibido ao lado. Essa abordagem oferece uma representação mais holística da experiência de condução, permitindo uma análise detalhada de como o estilo de direção afeta diretamente a aceleração do veículo. 
-
-Além disso, essa visualização combinada pode ser uma ferramenta valiosa para treinamento de motoristas, análise de incidentes e \textit{feedbacks} personalizados, proporcionando uma compreensão mais rica e envolvente do desempenho do veículo e do comportamento do condutor.
-A figura \ref{fig:rota1integrante} mostra o video e o gráfico da aceleração.
-
-\begin{figure}[hp]
-    \centering
+            % \begin{center}
+            %  \includegraphics[scale=0.8]{figures/bibliotecas.jpg}
+            %  
+            %  \end{center}
+            
+    Para traçar uma trajetória no mapa usando a biblioteca Folium em Python, será necessário uma lista de pontos de latitude e longitude que representam a trajetória. A partir dos pontos de latitude e longitude colhidos dos sensores do celular, cria-se uma lista de coordenadas que representam os pontos da trajetória. Em seguida, criamos um objeto de mapa usando o Folium e é adicionado uma linha de trajetória (um polilinha) que conecta os pontos da lista e o mapa pode ser visualizado. Uma demonstração de uma trajetória pode ser vista na figura \ref{fig:car_route_1}.
     
-    \includegraphics[scale=0.3]{figures/rota_integrante.jpg}
+    \begin{figure}[hp]
+        \centering
+        
+        \includegraphics[scale=0.8]{figures/rota_1.jpg}
+        
+        \caption{Rota de uma das viagens fornecidas pelo \textit{UAH Driveset}.}
+        
+        \label{fig:car_route_1}
+    \end{figure}
     
-    \caption{Rota de uma viagem de um dos integrantes do grupo.}
-    \label{fig:rota1integrante}
-\end{figure}
+    A visualização de um vídeo que apresenta o trajeto do veículo sincronizado com um gráfico de aceleração proporciona uma compreensão visual e analítica aprimorada do comportamento de condução. Este recurso permite aos usuários acompanhar de forma imersiva o percurso do veículo enquanto simultaneamente observam as variações na aceleração ao longo do tempo. 
+    
+    Ao visualizar o vídeo, os usuários podem identificar eventos específicos, como curvas acentuadas, frenagens bruscas ou acelerações rápidas, correlacionando-os diretamente com os picos e quedas no gráfico de aceleração exibido ao lado. Essa abordagem oferece uma representação mais holística da experiência de condução, permitindo uma análise detalhada de como o estilo de direção afeta diretamente a aceleração do veículo. 
+    
+    Além disso, essa visualização combinada pode ser uma ferramenta valiosa para treinamento de motoristas, análise de incidentes e \textit{feedbacks} personalizados, proporcionando uma compreensão mais rica e envolvente do desempenho do veículo e do comportamento do condutor.
+
+    \subsection{Classe Analisadora - RideParser}
+
+    A função da classe RideParser é analisar dados dos trajetos feitos pelos motoristas. 
+    
+    Ela pode receber dados de entrada que descrevem o destino, e então analisa esses dados para extrair informações úteis. Como, por exemplo, traçar a rota feita pelo automóvel. 
+    
+    % Já o módulo 
+    % ''os'' fornece funcionalidades relacionadas ao sistema operacional, permitindo que você interaja com o ambiente do sistema, como manipular diretórios, arquivos, obter informações sobre o sistema, manipular variáveis de ambiente, entre outras tarefas relacionadas ao sistema operacional.
+    Dentro desse mesmo arquivo, algumas bibliotecas típicas de ciência de dados foram utilizadas para manipular os objetos de análise. Foram elas: pandas, matplotlib, numpy, scipy.
+    
+    A figura \ref{fig:rota1integrante} mostra o video e o gráfico da aceleração.
+    
+    \begin{figure}[hp]
+        \centering
+        
+        \includegraphics[scale=0.3]{figures/rota_integrante.jpg}
+        
+        \caption{Rota de uma viagem de um dos integrantes do grupo.}
+        \label{fig:rota1integrante}
+    \end{figure}
+
+    \subsection{Criação de relatório em PDF}
+
+    A opção pela geração de um PDF para as informações sobre a direção do motorista baseou-se na clareza e simplicidade desse formato de arquivo. 
+    
+    Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca Matplotlib, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
 
 \section{Testes e avaliação}
 % descrever o plano de testes do sistema: testes de software, modulo, integração e validação
