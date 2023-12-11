@@ -28,9 +28,25 @@ As escolhas das métricas para o desenvolvimento desse projeto foram determinant
     
     \label{fig:rpmxpotencia}
 \end{figure}
+
+\subsection{Trajetos e rotas perigosas}
+
+A relação entre rotas perigosas, marcadas por assaltos e roubos de carros e o perfil do motorista tornam-se elementos críticos na gestão da segurança. A escolha da rota, desempenha um papel significativo na mitigação desses perigos. 
+
+Motoristas que optam por passar frequentemente por áreas consideradas de alto risco podem estar mais suscetíveis a incidentes indesejados. Portanto, compreender o perfil do motorista em relação a essas rotas perigosas é importante para a implementação de estratégias eficazes de prevenção. A conscientização dos motoristas sobre áreas de risco podem contribuir para uma abordagem mais segura ao planejar e seguir rotas.
+Locais como Paulista, Augusta e Sé possuem altos índices de furtos. A figura 
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.8]{figures/rotas_autorisco.jpeg}
+    
+    \caption{Gráfico da aceleração nos eixos x, y, z.}
+    
+    \label{fig:aceleracao}
+\end{figure}
+
  
-
-
 \section{Tecnologias utilizadas}
 O projeto pretende definir algumas tecnologias de base para serem usadas durante o desenvolvimento de cada fase dele.
 
@@ -189,7 +205,7 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     
     Além disso, essa visualização combinada pode ser uma ferramenta valiosa para treinamento de motoristas, análise de incidentes e \textit{feedbacks} personalizados, proporcionando uma compreensão mais rica e envolvente do desempenho do veículo e do comportamento do condutor.
 
-    \subsection{Análise de Dados - RideParser}
+    \subsection{Análise de Dados - RideParser}\label{rideparser}
 
     A função da classe RideParser é analisar dados dos trajetos feitos pelos motoristas. 
     
@@ -210,7 +226,7 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
         \label{fig:rota1integrante}
     \end{figure}
 
-    \subsection{API Rest}
+    \subsection{API Rest - Flask}
     A implementação da API centraliza-se em uma arquitetura Python utilizando a biblioteca Flask, proporcionando uma estrutura ágil e eficiente para a comunicação com a base de dados MySQL, hospedada em um serviço de RDS na AWS. A escolha da linguagem Python e do framework Flask foi motivada pela sua simplicidade e flexibilidade, permitindo a rápida construção dos endpoints responsáveis pela interação entre o aplicativo e a base de dados.
 
     A lógica da API foi encapsulada em funções específicas, acionadas por meio de requisições POST. O corpo do JSON enviado nessas requisições determina a ação a ser executada, que pode ser uma entre seis operações distintas. Três destas operações referem-se a consultas (GET) e três a modificações (POST), cada uma vinculada a uma das três tabelas da base de dados.
@@ -219,10 +235,14 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 
 
     \subsection{Criação de relatório em PDF}
-
-    A opção pela geração de um PDF para as informações sobre a direção do motorista baseou-se na clareza e simplicidade desse formato de arquivo. 
     
-    Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca \textit{Matplotlib}, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
+    A geração de insights visuais e análise métrica a partir dos dados armazenados na base MySQL é um componente essencial do projeto. A decisão de fazer isso através da geração de um PDF para o motorista baseou-se na clareza e simplicidade desse formato de arquivo. Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca \textit{Matplotlib}, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
+    
+    Um segundo AWS Lambda desempenha um papel central nesse processo, funcionando como uma ponte entre a base de dados e as ferramentas de visualização. Ao ser acionado, esse Lambda realiza uma chamada ao outro Lambda, que extrai as informações relevantes da base de dados MySQL referentes ao usuário, para realizar a análise.
+
+    Utilizando a biblioteca Matplotlib em Python, a função Lambda então emprega métodos da classe RideParser, mencionada na sessão \ref{rideparser}, para criar um relatório do motorista, com gráficos e métricas relevantes referentes a sua condução. Isso proporciona aos usuários uma compreensão mais aprofundada das métricas associadas às suas atividades.
+    
+    Para proporcionar aos usuários uma maneira acessível de interagir com esses insights, um botão "gerar PDF" foi incorporado no aplicativo. Este botão aciona o segundo Lambda, que compila os gráficos e métricas gerados em um arquivo PDF. A utilização da biblioteca smtplib facilita o envio desse PDF diretamente para o usuário via email. Essa solução integrada oferece uma experiência completa aos usuários, permitindo-lhes não apenas visualizar, mas também compartilhar os resultados de suas análises de maneira eficaz.    
 
     \subsection{Autenticação com \textit{Firebase}}
 
@@ -230,31 +250,89 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     
     Essa decisão é fundamentada pela praticidade proporcionada pela integração do \textit{Firebase} com aplicativos \textit{Android} e páginas web\textsuperscript{[29]}, simplificando a implementação de autenticação e gestão de usuários, assegurando uma identificação singular e segura no âmbito do sistema em questão.
 
+    \subsection{Dependências do Gradlle}
+
+    Em um primeiro instante o app android-obd-reader não queria rodar na IDE Android studio. Para que isso fosse possível foi necessario fazer alterações no arquivo \textbf{gradle/wrapper/gradle-wrapper.properties}. Atualizar as dependências do Gradle  é muitas vezes necessário para garantir que o seu aplicativo possa se beneficiar das correções de bugs, melhorias de desempenho e novos recursos fornecidos pelas versões mais recentes das bibliotecas que você está utilizando. Este link \url{https://github.com/APF2000/android-obd-reader-pires/commit/def70ed262b1fad28cc9e2b98a48af45cfac5695} mostra as alterações que foram necessárias.
+
+    \subsection{Proteção dos dados}
+    
+    Na Lei Geral de Proteção de Dados (Lei n. 13.709/18-LGPD), parte-se da ideia de que todo dado pessoal tem importância e valor. Por essa razão se adotou conceito amplo de dado pessoal, assim como estabelecido no Regulamento europeu \textsuperscript{[30]} (GDPR-General Data Protection  Regulation). Quando se trata de um aplicativo projetado para analisar o perfil do motorista de carros, a LGPD impõe uma série de responsabilidades e requisitos ao desenvolvedor e operador do aplicativo. É necessário obter o consentimento  do usuário antes de coletar e processar quaisquer dados pessoais relacionados ao seu perfil de condução.
+    
+    Além disso, a LGPD exige que medidas de segurança apropriadas sejam implementadas para proteger esses dados contra acessos não autorizados e vazamentos. Os usuários têm o direito de acessar, corrigir e excluir suas informações pessoais, e o aplicativo deve fornecer meios para que esses direitos sejam exercidos.
 
 
-
+% Using \texttt{biblatex} you can display a bibliography divided into sections, depending on citation type. 
+% Let's cite! Einstein's journal paper \cite{einstein} and Dirac's book \cite{dirac} are physics-related items. 
+% Next, \textit{The \LaTeX\ Companion} book \cite{latexcompanion}, Donald Knuth's website \cite{knuthwebsite}, \textit{The Comprehensive Tex Archive Network} (CTAN) \cite{ctan} are \LaTeX-related items; but the others, Donald Knuth's items, \cite{knuth-fa,knuth-acp} are dedicated to programming. 
 
 
 
 
 \section{Testes e avaliação}
 % descrever o plano de testes do sistema: testes de software, modulo, integração e validação
-Alguns testes abstratos e macroscópicos podem ser definidos já antes de o projeto começar:
+Alguns testes foram definidos para a ratificação das funcionalidades do sistema:
 
 \begin{itemize}
-    \item \textbf{Conferir conexão OBD-II:} conectar o dispositivo de leitura na entrada do carro e fazer um \textit{Hello World} através do aplicativo de conexão, mostrando que o protocolo está sendo feito da forma correta.
+    \item \textbf{Conferir conexão OBD-II:} 
     
-    \item \textbf{Teste de continuidade de transferência de dados:} andar com o carro por alguns minutos e atestar que nenhum dado foi perdido por falta de conexão.
+    \begin{itemize}
+        \item Conectar o dispositivo de leitura na entrada do carro
+        \item Ligar a comunicação \textit{bluetooth} do celular
+        \item Parear os dois dispositivos
+        \item Digitar a senha 1234, padrão dos dispositivos de leitura OBD
+        \item Ligar a coleta de dados através do aplicativo
+        \item A tela deve sinalizar que o protocolo está sendo feito da forma correta
+    \end{itemize}
     
-    \item \textbf{Equivalência de envio e recepção de dados:} comparar o \textit{log} de envio de dados do aplicativo de interface com a porta OBD-II com o \textit{log} de salvamento do banco de dados hospedado na nuvem; a quantidade de dados, os \textit{timestamps} deles e seus conteúdos devem ser idênticos. 
+    \item \textbf{Teste de continuidade de transferência de dados:} 
+    \begin{itemize}
+        \item Fazer conexão com o OBD conforme descrito no teste anterior
+        \item Andar com o carro por alguns minutos com a tela do celular desbloqueada (de preferência mudar o \textit{timeout} da tela nas configuraçõs do celular)
+        \item Atestar que nenhum dado foi perdido por falta de conexão (pode ser visto por descontinuidade dos gráficos)
+    \end{itemize}
     
-    \item \textbf{Testes de segurança:} de forma bastante ampla, ratificar que não é possível ter acesso aos dados de um certo usuário sem ter as informações de \textit{login}.
+    \item \textbf{Equivalência de envio e recepção de dados:}
+    \begin{itemize}
+        \item Comparar o \textit{log} de envio de dados do aplicativo de interface com a porta OBD-II com o \textit{log} de salvamento do banco de dados hospedado na nuvem
+        \item A quantidade de dados, os \textit{timestamps} deles e seus conteúdos devem ser idênticos
+    \end{itemize}
     
-    \item \textbf{Geração de dados \textit{outliers}:} para verificar se o sistema descarta corretamente as informações que fogem totalmente do padrão esperado ou se consegue pelo menos esconder isso do usuário, para que o \textit{dashboard} mantenha-se com dados consistentes e "limpos", isto é, sem que mostrem números surpreendentes, mas falsos, para o usuário final.
+    \item \textbf{Testes de segurança:} 
+    \begin{itemize}
+        \item Ratificar que não é possível ter acesso aos dados de um certo usuário sem ter as informações de \textit{login}
+        \item Verificar o certificado SSL do remetente e só aceitar a mensagem se a informação condisser com as credenciais armazenadas daquele usuário
+    \end{itemize}
+    
+    \item \textbf{Geração de dados \textit{outliers}:}
+    \begin{itemize}
+        \item Verificar se o sistema descarta corretamente as informações que fogem totalmente do padrão esperado ou se consegue pelo menos esconder isso do usuário
+        \item Os PDFs gerados com o sistema devem sofrer um processo de análise de plausibilidade, o que deve averiguar que a análise automática está sendo feita corretamente
+    \end{itemize}
     
 \end{itemize}
 
-    \subsection{Carros utilizados para teste}
+
+\subsection{Fluxo de uso do sistema}
+
+    \begin{itemize}
+    \item \textbf{Autenticação com o Google:}
+    O aplicativo no celular deve ser iniciado para realizar a autenticação com as credenciais do Google, assegurando uma identificação segura do usuário.
+
+    \item \textbf{Conexão com o OBD:}
+    A conexão entre o celular e o OBD deve ser estabelecida, garantindo que o leitor esteja corretamente emparelhado para iniciar a comunicação.
+
+    \item \textbf{Início da Coleta de Dados:}
+    A coleta de dados deve ser ativada por meio do aplicativo.
+
+    \item \textbf{Condução do Veículo:}
+    O veículo deve ser conduzido normalmente, permitindo que o aplicativo faça a coleta de dados em tempo real.
+
+    \item \textbf{Posicionamento Fixo do Celular:}
+    O celular deve ser fixado em uma posição estável dentro do veículo usando um suporte apropriado. Isso garantirá que os dados de aceleração sejam confiáveis, o que evitará qualquer tipo de interferência na análise posterior da direção.
+\end{itemize}
+
+
+\subsection{Carros utilizados para teste}
 
     A escolha dos carros onde o leitor de OBD seria conectado foi feita a partir dos veículos de familiares.
 
@@ -277,19 +355,4 @@ Alguns testes abstratos e macroscópicos podem ser definidos já antes de o proj
         \item Samsung Galaxy A71
         \item Samsung Note S22
     \end{itemize}
-
-\section{Dependências do Gradlle}
-
-Em um primeiro instante o app android-obd-reader não queria rodar na IDE Android studio. Para que isso fosse possível foi necessario fazer alterações no arquivo \textbf{gradle/wrapper/gradle-wrapper.properties}. Atualizar as dependências do Gradle  é muitas vezes necessário para garantir que o seu aplicativo possa se beneficiar das correções de bugs, melhorias de desempenho e novos recursos fornecidos pelas versões mais recentes das bibliotecas que você está utilizando. Este link \url{https://github.com/APF2000/android-obd-reader-pires/commit/def70ed262b1fad28cc9e2b98a48af45cfac5695} mostra as alterações que foram necessárias.
-
-\section{Proteção dos dados}
-
-Na Lei Geral de Proteção de Dados (Lei n. 13.709/18-LGPD), parte-se da ideia de que todo dado pessoal tem importância e valor. Por essa razão se adotou conceito amplo de dado pessoal, assim como estabelecido no Regulamento europeu \textsuperscript{[30]} (GDPR-General Data Protection  Regulation). Quando se trata de um aplicativo projetado para analisar o perfil do motorista de carros, a LGPD impõe uma série de responsabilidades e requisitos ao desenvolvedor e operador do aplicativo. É necessário obter o consentimento  do usuário antes de coletar e processar quaisquer dados pessoais relacionados ao seu perfil de condução.
-
-Além disso, a LGPD exige que medidas de segurança apropriadas sejam implementadas para proteger esses dados contra acessos não autorizados e vazamentos. Os usuários têm o direito de acessar, corrigir e excluir suas informações pessoais, e o aplicativo deve fornecer meios para que esses direitos sejam exercidos.
-
-
-% Using \texttt{biblatex} you can display a bibliography divided into sections, depending on citation type. 
-% Let's cite! Einstein's journal paper \cite{einstein} and Dirac's book \cite{dirac} are physics-related items. 
-% Next, \textit{The \LaTeX\ Companion} book \cite{latexcompanion}, Donald Knuth's website \cite{knuthwebsite}, \textit{The Comprehensive Tex Archive Network} (CTAN) \cite{ctan} are \LaTeX-related items; but the others, Donald Knuth's items, \cite{knuth-fa,knuth-acp} are dedicated to programming. 
 
