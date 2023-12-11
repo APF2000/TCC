@@ -346,6 +346,8 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
         \item Ford Xsport - 2008
     \end{itemize}
 
+    
+
     O modelo Ix35 foi a principal fonte de dados do projeto, pois praticamente todos os testes feitos para a nova base de dados foram feitos com ele.
 
     \subsection{Aparelhos \textit{smartphone}}
@@ -356,3 +358,70 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
         \item Samsung Note S22
     \end{itemize}
 
+\subsection{Definição de dados relevantes para o perfilamento}
+
+    Os parâmetros identificados em comum em todos os carros testados foram:
+
+    \begin{itemize}
+        \item
+    \end{itemize}
+
+    No entanto, muitas dentre essas informações ou apresentavam o valor \textit{NODATA}, que significa que estavam sendo amostrados pelo OBD, mas não continham dados válidos, ou apresentavam dados constantes, os quais independem da direção do motorista.
+
+    \textbf{Parâmetros descartados}
+    
+    \begin{itemize}
+        \textit{    
+            \item Reset OBD
+            \item Echo Off
+            \item Line Feed Off
+            \item Timeout
+            \item Select Protocol AUTO
+            \item CONTROL_MODULE_VOLTAGE
+            \item DISTANCE_TRAVELED_MIL_ON
+            \item DTC_NUMBER
+            \item TROUBLE_CODES
+            \item VIN
+            \item MAF
+            \item FUEL_TYPE
+            \item FUEL_CONSUMPTION_RATE
+            \item FUEL_LEVEL
+            \item Long Term Fuel Trim Bank 2
+            \item Short Term Fuel Trim Bank 2
+            \item WIDEBAND_AIR_FUEL_RATIO
+            \item ENGINE_OIL_TEMP
+            \item FUEL_PRESSURE
+            \item FUEL_RAIL_PRESSURE
+        }
+    \end{itemize}
+    
+    \textbf{Parâmetros considerados para uso}
+    
+    \begin{itemize}
+        \textit{
+            \item AMBIENT_AIR_TEMP
+            \item EQUIV_RATIO
+            \item TIMING_ADVANCE
+            \item ENGINE_LOAD
+            \item ENGINE_RPM
+            \item ENGINE_RUNTIME
+            \item THROTTLE_POS
+            \item Long Term Fuel Trim Bank 1
+            \item Short Term Fuel Trim Bank 1
+            \item AIR_FUEL_RATIO
+            \item BAROMETRIC_PRESSURE
+            \item INTAKE_MANIFOLD_PRESSURE
+            \item AIR_INTAKE_TEMP
+            \item ENGINE_COOLANT_TEMP
+            \item SPEED
+        }
+    \end{itemize}
+
+    Entre os dados candidatos para serem usados no projeto, apenas os que foram citados em artigos científicos como determinantes para o acontecimento de acidentes e a deterioração do carro foram de fato levados em consideração:
+
+    \begin{itemize}
+        \textit{
+            \item ENGINE_RPM\textsuperscript{[28]}
+            \item SPEED\textsuperscript{[32]}
+        }
+    \end{itemize}
