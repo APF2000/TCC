@@ -355,7 +355,9 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
     O aplicativo foi rodado em dois modelos diferentes de celular:
     \begin{itemize}
         \item Samsung Galaxy A71
-        \item Samsung Note S22
+        \item Samsung Galaxy S9
+        \item Samsung Galaxy S22
+        \item Motorola Moto G
     \end{itemize}
 
 \subsection{Definição de dados relevantes para o perfilamento}
@@ -363,7 +365,41 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
     Os parâmetros identificados em comum em todos os carros testados foram:
 
     \begin{itemize}
-        \item
+        \item AIR_FUEL_RATIO
+        \item AIR_INTAKE_TEMP
+        \item AMBIENT_AIR_TEMP
+        \item BAROMETRIC_PRESSURE
+        \item CONTROL_MODULE_VOLTAGE
+        \item DISTANCE_TRAVELED_MIL_ON
+        \item DTC_NUMBER
+        \item ENGINE_COOLANT_TEMP
+        \item ENGINE_LOAD
+        \item ENGINE_OIL_TEMP
+        \item ENGINE_RPM
+        \item ENGINE_RUNTIME
+        \item EQUIV_RATIO
+        \item Echo Off
+        \item FUEL_CONSUMPTION_RATE
+        \item FUEL_LEVEL
+        \item FUEL_PRESSURE
+        \item FUEL_RAIL_PRESSURE
+        \item FUEL_TYPE
+        \item INTAKE_MANIFOLD_PRESSURE
+        \item Line Feed Off
+        \item Long Term Fuel Trim Bank 1
+        \item Long Term Fuel Trim Bank 2
+        \item MAF
+        \item Reset OBD
+        \item SPEED
+        \item Select Protocol AUTO
+        \item Short Term Fuel Trim Bank 1
+        \item Short Term Fuel Trim Bank 2
+        \item THROTTLE_POS
+        \item TIMING_ADVANCE
+        \item TROUBLE_CODES
+        \item Timeout
+        \item VIN
+        \item WIDEBAND_AIR_FUEL_RATIO
     \end{itemize}
 
     No entanto, muitas dentre essas informações ou apresentavam o valor \textit{NODATA}, que significa que estavam sendo amostrados pelo OBD, mas não continham dados válidos, ou apresentavam dados constantes, os quais independem da direção do motorista.
@@ -372,26 +408,26 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
     
     \begin{itemize}
         \textit{    
-            \item Reset OBD
-            \item Echo Off
-            \item Line Feed Off
-            \item Timeout
-            \item Select Protocol AUTO
             \item CONTROL_MODULE_VOLTAGE
             \item DISTANCE_TRAVELED_MIL_ON
             \item DTC_NUMBER
-            \item TROUBLE_CODES
-            \item VIN
-            \item MAF
-            \item FUEL_TYPE
+            \item Echo Off
+            \item ENGINE_OIL_TEMP
             \item FUEL_CONSUMPTION_RATE
             \item FUEL_LEVEL
-            \item Long Term Fuel Trim Bank 2
-            \item Short Term Fuel Trim Bank 2
-            \item WIDEBAND_AIR_FUEL_RATIO
-            \item ENGINE_OIL_TEMP
             \item FUEL_PRESSURE
             \item FUEL_RAIL_PRESSURE
+            \item FUEL_TYPE
+            \item Line Feed Off
+            \item Long Term Fuel Trim Bank 2
+            \item MAF
+            \item Reset OBD
+            \item Select Protocol AUTO
+            \item Short Term Fuel Trim Bank 2
+            \item Timeout
+            \item TROUBLE_CODES
+            \item VIN
+            \item WIDEBAND_AIR_FUEL_RATIO
         }
     \end{itemize}
     
@@ -399,21 +435,21 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
     
     \begin{itemize}
         \textit{
+            \item AIR_FUEL_RATIO
+            \item AIR_INTAKE_TEMP
             \item AMBIENT_AIR_TEMP
-            \item EQUIV_RATIO
-            \item TIMING_ADVANCE
+            \item BAROMETRIC_PRESSURE
+            \item ENGINE_COOLANT_TEMP
             \item ENGINE_LOAD
             \item ENGINE_RPM
             \item ENGINE_RUNTIME
-            \item THROTTLE_POS
+            \item EQUIV_RATIO
+            \item INTAKE_MANIFOLD_PRESSURE
             \item Long Term Fuel Trim Bank 1
             \item Short Term Fuel Trim Bank 1
-            \item AIR_FUEL_RATIO
-            \item BAROMETRIC_PRESSURE
-            \item INTAKE_MANIFOLD_PRESSURE
-            \item AIR_INTAKE_TEMP
-            \item ENGINE_COOLANT_TEMP
             \item SPEED
+            \item THROTTLE_POS
+            \item TIMING_ADVANCE
         }
     \end{itemize}
 
