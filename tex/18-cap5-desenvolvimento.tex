@@ -36,7 +36,49 @@ A relação entre rotas perigosas, marcadas por assaltos e roubos de carros e o 
 Motoristas que optam por passar frequentemente por áreas consideradas de alto risco podem estar mais suscetíveis a incidentes indesejados. Portanto, compreender o perfil do motorista em relação a essas rotas perigosas é importante para a implementação de estratégias eficazes de prevenção. 
 
 A conscientização dos motoristas sobre áreas de risco pode contribuir para uma abordagem mais segura ao planejar e seguir rotas.
-Locais como Paulista, Augusta e Sé possuem altos índices de furtos\textsuperscript{[34]}. A figura \ref{fig:rotas_altorisco} mostra
+Locais como Paulista, Augusta e Sé possuem altos índices de furtos\textsuperscript{[34]}. A figura \ref{fig:mapa_risco_acc_rpm} mostra as áreas perigosas em um trajeto no bairro do Pacaembu. E as tabelas \ref{fig:tab1} e \ref{fig:tab2} mostram o tipo de risco e a fração da aceleração, respectivamente.
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale= 1]{figures/tabela_fracao1.jpg}
+    
+    \caption{Potência versus velocidade do motor.}
+    
+    
+\end{figure}
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale=0.15]{figures/mapa_risco_acc_rpm.jpeg}
+    
+    \caption{Mapa de risco em acelerações e valor de RPM.}
+    
+    \label{fig:mapa_risco_acc_rpm}
+\end{figure}
+
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale= 0.85]{figures/tabela_2.jpg}
+    
+    \caption{Fração da aceleração.}
+    
+    \label{fig:tab1}
+\end{figure}
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale= 0.85]{figures/tabela_fracao1.jpg}
+    
+    \caption{Tipo de risco.}
+    
+    \label{fig:tab2}
+\end{figure}
+
 
 A construção dessa figura foi feita graças a uma base de dados encontrada no site Kaggle\textsuperscript{[33]}, conhecido por hospedar \textit{Jupyter notebooks} analisando certos conjuntos de informações.
 
@@ -52,33 +94,40 @@ def convert_coord_to_chunk(self, coord_1, coord_2, max_coord_diff):
     chunk = (self.segmentation_rate * coord_diff) // max_coord_diff
     return chunk
 
-    self.north = car_crimes_df["latitude"].max() + (0.5 / 111.11) # brasil: 5.27194444444  =	+05o 16"19"
-    self.south = car_crimes_df["latitude"].min() - (0.5 / 111.11) # brasil: -33.7519444444 =	-33o 45"07"
-    self.west = car_crimes_df["longitude"].max() + (0.5 / 111.11) # brasil: -73.9905555556 = 	-73o 59"26"
-    self.east = car_crimes_df["longitude"].min() - (0.5 / 111.11) # brasil: -34.7927777778 =	-34o 47"34"
+    self.north = car_crimes_df["latitude"].max() + (0.5 / 111.11)
+    self.south = car_crimes_df["latitude"].min() - (0.5 / 111.11)
+    self.west = car_crimes_df["longitude"].max() + (0.5 / 111.11)
+    self.east = car_crimes_df["longitude"].min() - (0.5 / 111.11)
 
-    # https://brasilescola.uol.com.br/brasil/pontos-extremos-do-brasil.htm
-    # biggest north-south dist: 4378.4 km
-    # biggest east-west dist: 4326.6 km
+    # maior distancia de norte a sul: 4378.4 km
+    # maior distancia de leste a oeste: 4326.6 km
     self.segmentation_rate = 4400
 
     self.lat_diff = self.north - self.south
     self.long_diff = self.east - self.west
 
     
-    car_crimes_df["chunk_i"] = car_crimes_df["latitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.south, self.lat_diff))
-    car_crimes_df["chunk_j"] = car_crimes_df["longitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.west, self.long_diff))
+    car_crimes_df["chunk_i"] = car_crimes_df["latitude"]
+        .apply(lambda x : 
+        self.convert_coord_to_chunk(x, self.south, self.lat_diff))
+    car_crimes_df["chunk_j"] = car_crimes_df["longitude"]
+        .apply(lambda x : 
+        self.convert_coord_to_chunk(x, self.west, self.long_diff))
 \end{python}
 
-\begin{figure}[hp]
-    \centering
+Alguns números mágicos utilizados levaram em consideração a equivalência entre graus e quilômetros da Terra e as distâncias entre os pontos mais a sul, norte, leste e oeste do Brasil\textsuperscript{[35, 36]}.
+
+A ideia dessa indexação é dividir o mapa em \textit{chunks}, os quais limitam o trabalho computacional a um subconjunto dos dados. Cada \textit{chunk} é um quadrado de lado 500m, o que obriga o programa a olhar alguns blocos adjacentes ao onde está a coordenada cuja segurança quer-se verificar.
+
+% \begin{figure}[hp]
+%     \centering
     
-    \includegraphics[scale=0.8]{figures/rotas_altorisco.jpeg}
+%     \includegraphics[scale=0.8]{figures/rotas_altorisco.jpeg}
     
-    \caption{}
+%     \caption{}
     
-    \label{fig:rotas_altorisco}
-\end{figure}
+%     \label{fig:rotas_altorisco}
+% \end{figure}
 
  
 \section{Tecnologias utilizadas}
@@ -109,7 +158,7 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 \begin{figure}[hp]
     \centering
     
-    \includegraphics[scale=0.3]{figures/obd2.jpg}
+    \includegraphics[scale=0.5]{figures/obd2.jpeg}
     
     \caption{Interface básica com porta OBD-II\textsuperscript{[12]}.}
     
@@ -125,6 +174,8 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     Além disso, as ferramentas de emulação e depuração incorporadas no Android Studio simplificam o processo de teste em diferentes dispositivos, contribuindo para a criação de aplicativos estáveis e adaptáveis.
 
     Por último, nenhuma tecnologia multiplataforma (React Native ou Flutter, por exemplo) ou específica de dispositivos iOS (Swift ou Objective C, por exemplo) foi escolhida, pois o intuito do projeto era ser compatível com os celulares dos membros do grupo e devido à familiaridade com a linguagem Java, usada para esse tipo de desenvolvimento.
+
+    O aplicativo em si (arquivo SDK) originalmente foi desenvolvido para a API de versão 22 do Android
 
      \begin{figure}[hp]
     \centering
@@ -254,7 +305,7 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     \begin{figure}[hp]
         \centering
         
-        \includegraphics[scale=0.3]{figures/rota_integrante.jpg}
+        \includegraphics[scale=0.6]{figures/rota_integrante.jpg}
         
         \caption{Rota de uma viagem de um dos integrantes do grupo.}
         \label{fig:rota1integrante}
