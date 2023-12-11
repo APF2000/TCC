@@ -17,21 +17,46 @@ As escolhas das métricas para o desenvolvimento desse projeto foram determinant
 
  Em um motor de combustão interna, o RPM indica a velocidade com que os pistões se movem para cima e para baixo no cilindro. O controle preciso do RPM é essencial para otimizar a eficiência do motor e a entrega de potência, sendo um indicador chave para os motoristas ajustarem suas velocidades de condução.
 
+ A figura \ref{fig:rpmxpotencia} mostra que a potência aumentou com o aumento da rotação do motor\textsuperscript{[28]}. Operar consistentemente em RPMs muito altos pode levar a um aumento do desgaste mecânico, já que componentes como pistões, bielas e válvulas são submetidos a forças intensas em altas velocidades. Por outro lado, operar em RPMs muito baixos pode resultar em acúmulo de resíduos e combustão incompleta, afetando negativamente a eficiência do motor.
+
+ \begin{figure}[hp]
+    \centering
+    
+    \includegraphics[scale= 1]{figures/rpmxpotencia.jpeg}
+    
+    \caption{Potência versus velocidade do motor.}
+    
+    \label{fig:rpmxpotencia}
+\end{figure}
+ 
+
 
 \section{Tecnologias utilizadas}
 O projeto pretende definir algumas tecnologias de base para serem usadas durante o desenvolvimento de cada fase dele.
 
+    \subsection{Amazon Web Services}
+
+    A escolha da AWS para o projeto é fundamentada em três pilares essenciais: escalabilidade, segurança e viabilidade econômica. 
+    
+    A capacidade desse serviço de nuvem de se adaptar dinamicamente às demandas do sistema assegura uma infraestrutura flexível, capaz de lidar eficientemente com variações na carga de trabalho. 
+    
+    Além disso, a reputação consolidada da Amazon em termos de segurança oferece uma base robusta para proteção dos dados e operações. 
+    
+    Por fim, a viabilidade econômica se destaca, uma vez que a AWS disponibiliza uma variedade de serviços e modelos de precificação que se alinham de maneira eficaz às necessidades do projeto, otimizando custos operacionais.
+
+    É evidente que todas essas vantagens só são concretizadas caso os implementadores do sistema façam uso de toda a funcionalidade da nuvem: projetos monolíticos, ainda que rodados em servidores distribuídos, não exploram a flexibilidade de serviços como a AWS. 
+
     \subsection{Conexão OBD-II}
-A integração do OBD-II (On-Board Diagnostics) neste projeto de sistema de coleta de dados representa um avanço significativo na obtenção de dados precisos e abrangentes sobre o desempenho do veículo. O OBD-II, um padrão presente em muitos veículos modernos, fornece acesso a uma variedade de parâmetros, como velocidade, rotações por minuto (RPM), temperatura do motor, e códigos de diagnóstico de falhas. Ao conectar a plataforma de captura de dados ao conector OBD-II do veículo, é possível extrair informações em tempo real sobre a condução, condições do motor e possíveis problemas mecânicos.
 
-Já existe uma plataforma aceleradora desenvolvida no GitHub que consegue
-comunicar-se com o veículo através do protocolo OBD-II\textsuperscript{[12]}. Esse outro projeto
-implementa o protocolo OBD-II e também uma interface gráfica básica para mostrar
-os dados fornecidos pelo carro.
+    A integração do OBD-II (\textit{On-Board Diagnostics}) neste projeto de sistema de coleta de dados representa um avanço significativo na obtenção de dados precisos e abrangentes sobre o desempenho do veículo. O OBD-II, um padrão presente em muitos veículos modernos, fornece acesso a uma variedade de parâmetros, como velocidade, rotações por minuto (RPM), temperatura do motor, e códigos de diagnóstico de falhas. Ao conectar a plataforma de captura de dados ao conector OBD-II do veículo, é possível extrair informações em tempo real sobre a condução, condições do motor e possíveis problemas mecânicos.
 
-A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver alguns dos dados quando o motorista estava dando uma volta ao redor do bairro.
+    Já existe uma plataforma aceleradora desenvolvida no GitHub que consegue comunicar-se com o veículo através do protocolo OBD-II\textsuperscript{[12]}. 
+    
+    Esse outro projeto implementa o protocolo OBD-II e também uma interface gráfica básica para mostrar os dados fornecidos pelo carro.
 
-    \begin{figure}[hp]
+    A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver alguns dos dados quando o motorista estava dando uma volta ao redor do bairro.
+
+\begin{figure}[hp]
     \centering
     
     \includegraphics[scale=0.3]{figures/obd2.jpg}
@@ -79,7 +104,7 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
         
              \item{\textbf{acceleration:} Contém dados dos acelerômetros do celular do usuário} 
              
-             \item{\textbf{location: Guarda latitude e longitude obtidas por GPS pelo celular}}    
+             \item{\textbf{location:} Guarda latitude e longitude obtidas por GPS pelo celular}   
         \end{itemize}  
     \end{itemize}
 
@@ -113,7 +138,7 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
 
     \subsection{Flask}
 
-    A seleção da biblioteca Flask para o projeto ocorreu devido à familiaridade com a linguagem Python, tornando o desenvolvimento mais acessível. Adicionalmente, a escolha se fundamentou na capacidade do Flask em facilitar a implementação eficiente de uma API, atendendo à necessidade do aplicativo de enviar e receber dados de maneira eficaz.
+    A seleção da biblioteca Flask para o projeto ocorreu devido à familiaridade com a linguagem Python, tornando o desenvolvimento mais acessível. Adicionalmente, a escolha se fundamentou na capacidade do Flask em facilitar a implementação eficiente de uma API, atendendo à necessidade do aplicativo de enviar e receber dados de maneira eficaz. O código python da API em Flask foi hospedado em um Lambda da AWS para facilitar o seu uso pelo APP posteriormente.
 
 
 \section{Projeto e implementação}
@@ -164,15 +189,15 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
     
     Além disso, essa visualização combinada pode ser uma ferramenta valiosa para treinamento de motoristas, análise de incidentes e \textit{feedbacks} personalizados, proporcionando uma compreensão mais rica e envolvente do desempenho do veículo e do comportamento do condutor.
 
-    \subsection{Classe Analisadora - RideParser}
+    \subsection{Análise de Dados - RideParser}
 
     A função da classe RideParser é analisar dados dos trajetos feitos pelos motoristas. 
     
-    Ela pode receber dados de entrada que descrevem o destino, e então analisa esses dados para extrair informações úteis. Como, por exemplo, traçar a rota feita pelo automóvel. 
+    Alguns filtros são recebidos pelo construtor dessa classe, para personalizar a geração de gráficos. Esses parâmetros são usados para restringir o que vem do banco de dados a uma certa janela de tempo e ao usuário que solicita aquela informação.
     
     % Já o módulo 
     % ''os'' fornece funcionalidades relacionadas ao sistema operacional, permitindo que você interaja com o ambiente do sistema, como manipular diretórios, arquivos, obter informações sobre o sistema, manipular variáveis de ambiente, entre outras tarefas relacionadas ao sistema operacional.
-    Dentro desse mesmo arquivo, algumas bibliotecas típicas de ciência de dados foram utilizadas para manipular os objetos de análise. Foram elas: pandas, matplotlib, numpy, scipy.
+    Dentro desse mesmo arquivo, algumas bibliotecas típicas de ciência de dados foram utilizadas para manipular os gráficos mencionados. Foram elas: pandas, matplotlib, numpy e scipy.
     
     A figura \ref{fig:rota1integrante} mostra o video e o gráfico da aceleração.
     
@@ -185,11 +210,32 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
         \label{fig:rota1integrante}
     \end{figure}
 
+    \subsection{API Rest}
+    A implementação da API centraliza-se em uma arquitetura Python utilizando a biblioteca Flask, proporcionando uma estrutura ágil e eficiente para a comunicação com a base de dados MySQL, hospedada em um serviço de RDS na AWS. A escolha da linguagem Python e do framework Flask foi motivada pela sua simplicidade e flexibilidade, permitindo a rápida construção dos endpoints responsáveis pela interação entre o aplicativo e a base de dados.
+
+    A lógica da API foi encapsulada em funções específicas, acionadas por meio de requisições POST. O corpo do JSON enviado nessas requisições determina a ação a ser executada, que pode ser uma entre seis operações distintas. Três destas operações referem-se a consultas (GET) e três a modificações (POST), cada uma vinculada a uma das três tabelas da base de dados.
+
+    Para facilitar a utilização da API pelo app, o código Python foi integrado ao ambiente serverless da AWS Lambda. Essa escolha estratégica permite que as funções sejam invocadas sob demanda, proporcionando uma resposta ágil às requisições do aplicativo Android, que, por sua vez, está sendo desenvolvido no ambiente Java do Android Studio. A combinação dessas tecnologias promove uma arquitetura eficiente para gerenciar a comunicação entre o aplicativo e a infraestrutura de banco de dados na nuvem.
+
+
     \subsection{Criação de relatório em PDF}
 
     A opção pela geração de um PDF para as informações sobre a direção do motorista baseou-se na clareza e simplicidade desse formato de arquivo. 
     
-    Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca Matplotlib, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
+    Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca \textit{Matplotlib}, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
+
+    \subsection{Autenticação com \textit{Firebase}}
+
+    A  escolha do \textit{Firebase} para a identificação única do usuário no sistema decorre da capacidade da plataforma em oferecer eficiência e segurança nesse processo, diminuindo-se a carga de responsabilidade do sistema em armazenar informações sensíveis de cada pessoa. 
+    
+    Essa decisão é fundamentada pela praticidade proporcionada pela integração do \textit{Firebase} com aplicativos \textit{Android} e páginas web\textsuperscript{[29]}, simplificando a implementação de autenticação e gestão de usuários, assegurando uma identificação singular e segura no âmbito do sistema em questão.
+
+
+
+
+
+
+
 
 \section{Testes e avaliação}
 % descrever o plano de testes do sistema: testes de software, modulo, integração e validação
@@ -208,9 +254,39 @@ Alguns testes abstratos e macroscópicos podem ser definidos já antes de o proj
     
 \end{itemize}
 
+    \subsection{Carros utilizados para teste}
+
+    A escolha dos carros onde o leitor de OBD seria conectado foi feita a partir dos veículos de familiares.
+
+    Os modelos em que o sistema foi testado, foram em maioria para analisar quais parâmetros de OBD haviam sido implementados em todos eles.
+
+    Os carros usados foram:
+
+    \begin{itemize}
+        \item Hyundai Ix35 - 2012
+        \item Mercedes C200 CGI - 2014
+        \item Ford Xsport - 2008
+    \end{itemize}
+
+    O modelo Ix35 foi a principal fonte de dados do projeto, pois praticamente todos os testes feitos para a nova base de dados foram feitos com ele.
+
+    \subsection{Aparelhos \textit{smartphone}}
+
+    O aplicativo foi rodado em dois modelos diferentes de celular:
+    \begin{itemize}
+        \item Samsung Galaxy A71
+        \item Samsung Note S22
+    \end{itemize}
+
 \section{Dependências do Gradlle}
 
 Em um primeiro instante o app android-obd-reader não queria rodar na IDE Android studio. Para que isso fosse possível foi necessario fazer alterações no arquivo \textbf{gradle/wrapper/gradle-wrapper.properties}. Atualizar as dependências do Gradle  é muitas vezes necessário para garantir que o seu aplicativo possa se beneficiar das correções de bugs, melhorias de desempenho e novos recursos fornecidos pelas versões mais recentes das bibliotecas que você está utilizando. Este link \url{https://github.com/APF2000/android-obd-reader-pires/commit/def70ed262b1fad28cc9e2b98a48af45cfac5695} mostra as alterações que foram necessárias.
+
+\section{Proteção dos dados}
+
+Na Lei Geral de Proteção de Dados (Lei n. 13.709/18-LGPD), parte-se da ideia de que todo dado pessoal tem importância e valor. Por essa razão se adotou conceito amplo de dado pessoal, assim como estabelecido no Regulamento europeu \textsuperscript{[30]} (GDPR-General Data Protection  Regulation). Quando se trata de um aplicativo projetado para analisar o perfil do motorista de carros, a LGPD impõe uma série de responsabilidades e requisitos ao desenvolvedor e operador do aplicativo. É necessário obter o consentimento  do usuário antes de coletar e processar quaisquer dados pessoais relacionados ao seu perfil de condução.
+
+Além disso, a LGPD exige que medidas de segurança apropriadas sejam implementadas para proteger esses dados contra acessos não autorizados e vazamentos. Os usuários têm o direito de acessar, corrigir e excluir suas informações pessoais, e o aplicativo deve fornecer meios para que esses direitos sejam exercidos.
 
 
 % Using \texttt{biblatex} you can display a bibliography divided into sections, depending on citation type. 
