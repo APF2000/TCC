@@ -45,27 +45,30 @@ Embora a descrição do \textit{dataset} mencione que os dados referem-se só a 
 Importante mencionar que, devido ao tamanho dessa base de dados, de 12899 linhas, foi preciso pensar-se em como comparar os dados nela contidos com cada um dos registros de GPS fornecidos pelo \textit{app} sem que o desempenho dessa análise fosse comprometido.
 
 Para tal, as coordenadas geográficas da planilha foram indexadas da seguinte forma: 
-	def convert_coord_to_chunk(self, coord_1, coord_2, max_coord_diff):
-		coord_diff = coord_1 - coord_2
-		chunk = (self.segmentation_rate * coord_diff) // max_coord_diff
-		return chunk
 
-  		self.north = car_crimes_df["latitude"].max() + (0.5 / 111.11) # brasil: 5.27194444444  =	+05o 16"19"
-		self.south = car_crimes_df["latitude"].min() - (0.5 / 111.11) # brasil: -33.7519444444 =	-33o 45"07"
-		self.west = car_crimes_df["longitude"].max() + (0.5 / 111.11) # brasil: -73.9905555556 = 	-73o 59"26"
-		self.east = car_crimes_df["longitude"].min() - (0.5 / 111.11) # brasil: -34.7927777778 =	-34o 47"34"
+\begin{python}
+def convert_coord_to_chunk(self, coord_1, coord_2, max_coord_diff):
+    coord_diff = coord_1 - coord_2
+    chunk = (self.segmentation_rate * coord_diff) // max_coord_diff
+    return chunk
 
-		# https://brasilescola.uol.com.br/brasil/pontos-extremos-do-brasil.htm
-		# biggest north-south dist: 4378.4 km
-		# biggest east-west dist: 4326.6 km
-		self.segmentation_rate = 4400
+    self.north = car_crimes_df["latitude"].max() + (0.5 / 111.11) # brasil: 5.27194444444  =	+05o 16"19"
+    self.south = car_crimes_df["latitude"].min() - (0.5 / 111.11) # brasil: -33.7519444444 =	-33o 45"07"
+    self.west = car_crimes_df["longitude"].max() + (0.5 / 111.11) # brasil: -73.9905555556 = 	-73o 59"26"
+    self.east = car_crimes_df["longitude"].min() - (0.5 / 111.11) # brasil: -34.7927777778 =	-34o 47"34"
 
-		self.lat_diff = self.north - self.south
-		self.long_diff = self.east - self.west
+    # https://brasilescola.uol.com.br/brasil/pontos-extremos-do-brasil.htm
+    # biggest north-south dist: 4378.4 km
+    # biggest east-west dist: 4326.6 km
+    self.segmentation_rate = 4400
 
-		
-		car_crimes_df["chunk_i"] = car_crimes_df["latitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.south, self.lat_diff))
-		car_crimes_df["chunk_j"] = car_crimes_df["longitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.west, self.long_diff))
+    self.lat_diff = self.north - self.south
+    self.long_diff = self.east - self.west
+
+    
+    car_crimes_df["chunk_i"] = car_crimes_df["latitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.south, self.lat_diff))
+    car_crimes_df["chunk_j"] = car_crimes_df["longitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.west, self.long_diff))
+\end{python}
 
 \begin{figure}[hp]
     \centering
