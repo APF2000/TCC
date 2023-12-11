@@ -8,15 +8,12 @@ Adicionalmente, são coletadas informações fornecidas por um dispositivo móve
 
 \section{Motivação}
 
-Qual o perfil de direção de um motorista? Como categorizar os condutores segundo um critério claro?
+Buscando traçar o perfil de condução de um motorista e desenvolver uma categorização clara para os condutores, este projeto empenha-se na criação de uma infraestrutura dedicada à captação e análise de dados em veículos de uso pessoal.
 
-Buscando responder a essas perguntas e, consequentemente, entender as características de pessoas ao volante, este trabalho propõe-se a criar uma infraestrutura de captura e análise de dados em automóveis de uso pessoal.
+Com base nos dados de aceleração, é possível classificar o estilo de direção, identificar comportamentos potencialmente perigosos no trânsito e antecipar a necessidade de manutenção do veículo. Ao integrar a análise dos dados aos sistemas de perfil de direção, não apenas se contribui para a segurança do veículo, mas também se viabiliza a personalização de feedbacks e sugestões ao condutor, promovendo uma condução mais eficaz e segura.
 
-Com base nos dados de aceleração, é possível classificar o estilo de direção, identificar comportamentos perigosos, e até mesmo antecipar a necessidade de manutenção do veículo. A integração da análise da aceleração em sistemas de perfil de direção não apenas contribui para a segurança do veículo, mas também possibilita a personalização de \textit{feedbacks} e sugestões ao motorista, promovendo uma condução mais eficiente e segura.
+Uma investigação preliminar sobre o tema revelou a existência de uma patente para um produto semelhante, registrada em 2013, que avalia o desempenho do motorista a partir de dados previamente coletados de parâmetros relevantes à condução do veículo\textsuperscript{[1]}.
 
-% As informações recolhidas foram armazenadas em uma plataforma de nuvem, protegidas por algum nível de segurança, implementado neste mesmo projeto e, por fim, foram analisadas para gerar conclusões interessantes sobre o modo de dirigir de cada participante do estudo.
-	
-Uma pesquisa preliminar sobre o assunto revelou que já existe uma patente para um produto parecido; ela foi registrada em 2013 e avalia o desempenho de um motorista a partir de dados pré-coletados de parâmetros relevantes à condução do carro \textsuperscript{[1]}.
 
 \section{Objetivo}
 
@@ -30,22 +27,22 @@ Para isso, fez uso da infraestrutura já presente em carros atuais. Conforme pod
     
     \includegraphics[]{figures/sensores_carro.png}
     
-    \caption{Sensores estão presentes em um carro atual na ordem de dezenas\textsuperscript{[2]}.}
+    \caption{Veículos modernos estão equipados com dezenas de sensores\textsuperscript{[2]}.}
     
     \label{fig:sensors_car}
 \end{figure}
 
 Essas informações foram complementadas com o uso de um \textit{smartphone}, o qual disponibiliza outros tipos de dados graças a seus sensores embarcados e à sua conexão com os satélites de GPS.
 
-A análise da aceleração desempenha um papel crucial na avaliação do comportamento do motorista em sistemas de coleta de dados. Ao monitorar padrões de aceleração, é possível extrair informações valiosas sobre a condução, como a suavidade nas transições de velocidade, a resposta a mudanças nas condições de tráfego e o grau de agressividade na condução. A aceleração fornece \textit{insights} sobre a habilidade do motorista em manter uma condução estável e prever suas ações em situações específicas. 
+A análise da aceleração desempenha um papel essencial na avaliação do comportamento do motorista em sistemas de coleta de dados. Ao monitorar os padrões de aceleração, é possível extrair informações valiosas sobre a condução, tais como a suavidade nas transições de velocidade, a resposta a alterações nas condições de tráfego e o nível de agressividade ao volante. A aceleração fornece \textit{insights} cruciais sobre a habilidade do motorista em manter uma condução estável e antecipar suas ações em situações específicas. Esse entendimento contribui para a compreensão do estilo de direção de cada condutor. 
 
-A maior parte da coleta de dados foi feita em um Hyundai Ix35 e dados estáticos foram tomadas de outros modelos também (Mercedes-Benz C200, Ford EcoSport e Volkswagen Saveiro) para conferência de parâmetros disponibilizados em comum por veículos de marcas diferentes.
+A maior parte da coleta de dados foi feita em um Hyundai Ix35, e dados estáticos foram tomadas de outros modelos também (Mercedes-Benz C200, Ford EcoSport e Volkswagen Saveiro) para conferência de parâmetros disponibilizados em comum por veículos de marcas diferentes.
 
-O objetivo deste sistema é desenvolver e apresentar um sistema inovador de coleta de dados voltado para empresas de seguro automotivo. A proposta é fornecer uma solução abrangente e eficiente que utilize tecnologias de análise de dados para traçar perfis detalhados de motoristas. 
+Uma possível aplicação desse sistema encontra-se no âmbito das empresas de seguro automotivo. Os dados e análises disponibilizados pelo aplicativo podem ser empregados na elaboração de políticas de precificação de seguros de veículos. Essa abordagem oferece a possibilidade de estabelecer um preço mais personalizado e justo para cada indivíduo, promovendo, assim, comportamentos mais responsáveis no trânsito. Essa iniciativa não apenas contribui para a equidade na precificação, mas também estimula práticas de condução mais seguras e conscientes.
 
-O sistema visa oferecer informações cruciais sobre o comportamento de condução, permitindo às empresas de seguro uma avaliação mais precisa dos riscos associados a cada segurado. Com base em métricas como velocidade média, padrões de aceleração e padrões  de frenagem, o sistema proposto tem o objetivo de otimizar a precificação dos seguros, promover a segurança viária e proporcionar uma abordagem mais personalizada na gestão de apólices. 
+%O sistema visa oferecer informações cruciais sobre o comportamento de condução, permitindo às empresas de seguro uma avaliação mais precisa dos riscos associados a cada segurado. Com base em métricas como velocidade média, padrões de aceleração e padrões  de frenagem, o sistema proposto tem o objetivo de otimizar a precificação dos seguros, promover a segurança viária e proporcionar uma abordagem mais personalizada na gestão de apólices. 
 
-Este projeto busca contribuir para a inovação no setor de seguros automotivos, alinhando-se às demandas crescentes por soluções tecnológicas avançadas que maximizem a eficiência operacional e a satisfação do cliente.
+%Este projeto busca contribuir para a inovação no setor de seguros automotivos, alinhando-se às demandas crescentes por soluções tecnológicas avançadas que maximizem a eficiência operacional e a satisfação do cliente.
 
  
 \section{Justificativa}

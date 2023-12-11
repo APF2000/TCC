@@ -31,19 +31,50 @@ As escolhas das métricas para o desenvolvimento desse projeto foram determinant
 
 \subsection{Trajetos e rotas perigosas}
 
-A relação entre rotas perigosas, marcadas por assaltos e roubos de carros e o perfil do motorista tornam-se elementos críticos na gestão da segurança. A escolha da rota, desempenha um papel significativo na mitigação desses perigos. 
+A relação entre rotas perigosas, marcadas por assaltos e roubos de carros e o perfil do motorista tornam-se elementos críticos na gestão da segurança. A escolha da rota desempenha um papel significativo na mitigação desses perigos. 
 
-Motoristas que optam por passar frequentemente por áreas consideradas de alto risco podem estar mais suscetíveis a incidentes indesejados. Portanto, compreender o perfil do motorista em relação a essas rotas perigosas é importante para a implementação de estratégias eficazes de prevenção. A conscientização dos motoristas sobre áreas de risco podem contribuir para uma abordagem mais segura ao planejar e seguir rotas.
-Locais como Paulista, Augusta e Sé possuem altos índices de furtos. A figura 
+Motoristas que optam por passar frequentemente por áreas consideradas de alto risco podem estar mais suscetíveis a incidentes indesejados. Portanto, compreender o perfil do motorista em relação a essas rotas perigosas é importante para a implementação de estratégias eficazes de prevenção. 
+
+A conscientização dos motoristas sobre áreas de risco pode contribuir para uma abordagem mais segura ao planejar e seguir rotas.
+Locais como Paulista, Augusta e Sé possuem altos índices de furtos\textsuperscript{[34]}. A figura \ref{fig:rotas_altorisco} mostra
+
+A construção dessa figura foi feita graças a uma base de dados encontrada no site Kaggle\textsuperscript{[33]}, conhecido por hospedar \textit{Jupyter notebooks} analisando certos conjuntos de informações.
+
+Embora a descrição do \textit{dataset} mencione que os dados referem-se só a São Paulo (o que já gera ambiguidade entre cidade e estado), existem lá registros de Curitiba, Rio de Janeiro e Pará também.
+
+Importante mencionar que, devido ao tamanho dessa base de dados, de 12899 linhas, foi preciso pensar-se em como comparar os dados nela contidos com cada um dos registros de GPS fornecidos pelo \textit{app} sem que o desempenho dessa análise fosse comprometido.
+
+Para tal, as coordenadas geográficas da planilha foram indexadas da seguinte forma: 
+	def convert_coord_to_chunk(self, coord_1, coord_2, max_coord_diff):
+		coord_diff = coord_1 - coord_2
+		chunk = (self.segmentation_rate * coord_diff) // max_coord_diff
+		return chunk
+
+  		self.north = car_crimes_df["latitude"].max() + (0.5 / 111.11) # brasil: 5.27194444444  =	+05o 16"19"
+		self.south = car_crimes_df["latitude"].min() - (0.5 / 111.11) # brasil: -33.7519444444 =	-33o 45"07"
+		self.west = car_crimes_df["longitude"].max() + (0.5 / 111.11) # brasil: -73.9905555556 = 	-73o 59"26"
+		self.east = car_crimes_df["longitude"].min() - (0.5 / 111.11) # brasil: -34.7927777778 =	-34o 47"34"
+
+		# https://brasilescola.uol.com.br/brasil/pontos-extremos-do-brasil.htm
+		# biggest north-south dist: 4378.4 km
+		# biggest east-west dist: 4326.6 km
+		self.segmentation_rate = 4400
+
+		self.lat_diff = self.north - self.south
+		self.long_diff = self.east - self.west
+
+		
+		car_crimes_df["chunk_i"] = car_crimes_df["latitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.south, self.lat_diff))
+		car_crimes_df["chunk_j"] = car_crimes_df["longitude"].apply(lambda x : self.convert_coord_to_chunk(x, self.west, self.long_diff))
 
 \begin{figure}[hp]
     \centering
     
-    \includegraphics[scale=0.8]{figures/rotas_autorisco.jpeg}
+    \includegraphics[scale=0.8]{figures/rotas_altorisco.jpeg}
     
-    \caption{Gráfico da aceleração nos eixos x, y, z.}
+    \caption{}
     
-    \label{fig:aceleracao}
+    \label{fig:rotas_altorisco}
 \end{figure}
 
  
@@ -362,102 +393,88 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
 
 \subsection{Definição de dados relevantes para o perfilamento}
 
-    Os parâmetros identificados em comum em todos os carros testados foram:
-
-    \begin{itemize}
-        \item AIR_FUEL_RATIO
-        \item AIR_INTAKE_TEMP
-        \item AMBIENT_AIR_TEMP
-        \item BAROMETRIC_PRESSURE
-        \item CONTROL_MODULE_VOLTAGE
-        \item DISTANCE_TRAVELED_MIL_ON
-        \item DTC_NUMBER
-        \item ENGINE_COOLANT_TEMP
-        \item ENGINE_LOAD
-        \item ENGINE_OIL_TEMP
-        \item ENGINE_RPM
-        \item ENGINE_RUNTIME
-        \item EQUIV_RATIO
-        \item Echo Off
-        \item FUEL_CONSUMPTION_RATE
-        \item FUEL_LEVEL
-        \item FUEL_PRESSURE
-        \item FUEL_RAIL_PRESSURE
-        \item FUEL_TYPE
-        \item INTAKE_MANIFOLD_PRESSURE
-        \item Line Feed Off
-        \item Long Term Fuel Trim Bank 1
-        \item Long Term Fuel Trim Bank 2
-        \item MAF
-        \item Reset OBD
-        \item SPEED
-        \item Select Protocol AUTO
-        \item Short Term Fuel Trim Bank 1
-        \item Short Term Fuel Trim Bank 2
-        \item THROTTLE_POS
-        \item TIMING_ADVANCE
-        \item TROUBLE_CODES
-        \item Timeout
-        \item VIN
-        \item WIDEBAND_AIR_FUEL_RATIO
-    \end{itemize}
+    Os parâmetros identificados em comum em todos os carros testados foram: \textit{AIR-FUEL-RATIO, AIR-INTAKE-TEMP, AMBIENT-AIR-TEMP, BAROMETRIC-PRESSURE, CONTROL-MODULE-VOLTAGE, DISTANCE-TRAVELED-MIL-ON, DTC-NUMBER, ENGINE-COOLANT-TEMP, ENGINE-LOAD, ENGINE-OIL-TEMP, ENGINE-RPM, ENGINE-RUNTIME, EQUIV-RATIO, Echo Off, FUEL-CONSUMPTION-RATE, FUEL-LEVEL, FUEL-PRESSURE, FUEL-RAIL-PRESSURE, FUEL-TYPE, INTAKE-MANIFOLD-PRESSURE, Line Feed Off, Long Term Fuel Trim Bank 1, Long Term Fuel Trim Bank 2, MAF, Reset OBD, SPEED, Select Protocol AUTO, Short Term Fuel Trim Bank 1, Short Term Fuel Trim Bank 2, THROTTLE-POS, TIMING-ADVANCE, TROUBLE-CODES, Timeout, VIN, WIDEBAND-AIR-FUEL-RATIO}.
 
     No entanto, muitas dentre essas informações ou apresentavam o valor \textit{NODATA}, que significa que estavam sendo amostrados pelo OBD, mas não continham dados válidos, ou apresentavam dados constantes, os quais independem da direção do motorista.
 
-    \textbf{Parâmetros descartados}
+    Os \textbf{parâmetros descartados} foram \textit{CONTROL-MODULE-VOLTAGE, DISTANCE-TRAVELED-MIL-ON, DTC-NUMBER, Echo Off, ENGINE-OIL-TEMP, FUEL-CONSUMPTION-RATE, FUEL-LEVEL, FUEL-PRESSURE, FUEL-RAIL-PRESSURE, FUEL-TYPE, Line Feed Off, Long Term Fuel Trim Bank 2, MAF, Reset OBD, Select Protocol AUTO, Short Term Fuel Trim Bank 2, Timeout, TROUBLE-CODES, VIN, WIDEBAND-AIR-FUEL-RATIO}.
     
-    \begin{itemize}
-        \textit{    
-            \item CONTROL_MODULE_VOLTAGE
-            \item DISTANCE_TRAVELED_MIL_ON
-            \item DTC_NUMBER
-            \item Echo Off
-            \item ENGINE_OIL_TEMP
-            \item FUEL_CONSUMPTION_RATE
-            \item FUEL_LEVEL
-            \item FUEL_PRESSURE
-            \item FUEL_RAIL_PRESSURE
-            \item FUEL_TYPE
-            \item Line Feed Off
-            \item Long Term Fuel Trim Bank 2
-            \item MAF
-            \item Reset OBD
-            \item Select Protocol AUTO
-            \item Short Term Fuel Trim Bank 2
-            \item Timeout
-            \item TROUBLE_CODES
-            \item VIN
-            \item WIDEBAND_AIR_FUEL_RATIO
-        }
-    \end{itemize}
+    Os \textbf{parâmetros considerados} para uso foram \textit{AIR-FUEL-RATIO, AIR-INTAKE-TEMP, AMBIENT-AIR-TEMP, BAROMETRIC-PRESSURE, ENGINE-COOLANT-TEMP, ENGINE-LOAD, ENGINE-RPM, ENGINE-RUNTIME, EQUIV-RATIO, INTAKE-MANIFOLD-PRESSURE, Long Term Fuel Trim Bank 1, Short Term Fuel Trim Bank 1, SPEED, THROTTLE-POS, TIMING-ADVANCE}.
     
-    \textbf{Parâmetros considerados para uso}
-    
-    \begin{itemize}
-        \textit{
-            \item AIR_FUEL_RATIO
-            \item AIR_INTAKE_TEMP
-            \item AMBIENT_AIR_TEMP
-            \item BAROMETRIC_PRESSURE
-            \item ENGINE_COOLANT_TEMP
-            \item ENGINE_LOAD
-            \item ENGINE_RPM
-            \item ENGINE_RUNTIME
-            \item EQUIV_RATIO
-            \item INTAKE_MANIFOLD_PRESSURE
-            \item Long Term Fuel Trim Bank 1
-            \item Short Term Fuel Trim Bank 1
-            \item SPEED
-            \item THROTTLE_POS
-            \item TIMING_ADVANCE
-        }
-    \end{itemize}
+    Entre os dados candidatos para serem usados no projeto, apenas os que foram \textbf{citados em artigos científicos} como determinantes para o acontecimento de acidentes e a deterioração do carro foram de fato levados em consideração: \textit{ENGINE-RPM}\textsuperscript{[28]}, \textit{SPEED}\textsuperscript{[32]}
 
-    Entre os dados candidatos para serem usados no projeto, apenas os que foram citados em artigos científicos como determinantes para o acontecimento de acidentes e a deterioração do carro foram de fato levados em consideração:
+            %     \item CONTROL-MODULE-VOLTAGE
+            % \item DISTANCE-TRAVELED-MIL-ON
+            % \item DTC-NUMBER
+            % \item Echo Off
+            % \item ENGINE-OIL-TEMP
+            % \item FUEL-CONSUMPTION-RATE
+            % \item FUEL-LEVEL
+            % \item FUEL-PRESSURE
+            % \item FUEL-RAIL-PRESSURE
+            % \item FUEL-TYPE
+            % \item Line Feed Off
+            % \item Long Term Fuel Trim Bank 2
+            % \item MAF
+            % \item Reset OBD
+            % \item Select Protocol AUTO
+            % \item Short Term Fuel Trim Bank 2
+            % \item Timeout
+            % \item TROUBLE-CODES
+            % \item VIN
+            % \item WIDEBAND-AIR-FUEL-RATIO
 
-    \begin{itemize}
-        \textit{
-            \item ENGINE_RPM\textsuperscript{[28]}
-            \item SPEED\textsuperscript{[32]}
-        }
-    \end{itemize}
+            % \item AIR-FUEL-RATIO
+            % \item AIR-INTAKE-TEMP
+            % \item AMBIENT-AIR-TEMP
+            % \item BAROMETRIC-PRESSURE
+            % \item ENGINE-COOLANT-TEMP
+            % \item ENGINE-LOAD
+            % \item ENGINE-RPM
+            % \item ENGINE-RUNTIME
+            % \item EQUIV-RATIO
+            % \item INTAKE-MANIFOLD-PRESSURE
+            % \item Long Term Fuel Trim Bank 1
+            % \item Short Term Fuel Trim Bank 1
+            % \item SPEED
+            % \item THROTTLE-POS
+            % \item TIMING-ADVANCE
+
+
+    % \begin{itemize}
+    %     \item AIR-FUEL-RATIO
+    %     \item AIR-INTAKE-TEMP
+    %     \item AMBIENT-AIR-TEMP
+    %     \item BAROMETRIC-PRESSURE
+    %     \item CONTROL-MODULE-VOLTAGE
+    %     \item DISTANCE-TRAVELED-MIL-ON
+    %     \item DTC-NUMBER
+    %     \item ENGINE-COOLANT-TEMP
+    %     \item ENGINE-LOAD
+    %     \item ENGINE-OIL-TEMP
+    %     \item ENGINE-RPM
+    %     \item ENGINE-RUNTIME
+    %     \item EQUIV-RATIO
+    %     \item Echo Off
+    %     \item FUEL-CONSUMPTION-RATE
+    %     \item FUEL-LEVEL
+    %     \item FUEL-PRESSURE
+    %     \item FUEL-RAIL-PRESSURE
+    %     \item FUEL-TYPE
+    %     \item INTAKE-MANIFOLD-PRESSURE
+    %     \item Line Feed Off
+    %     \item Long Term Fuel Trim Bank 1
+    %     \item Long Term Fuel Trim Bank 2
+    %     \item MAF
+    %     \item Reset OBD
+    %     \item SPEED
+    %     \item Select Protocol AUTO
+    %     \item Short Term Fuel Trim Bank 1
+    %     \item Short Term Fuel Trim Bank 2
+    %     \item THROTTLE-POS
+    %     \item TIMING-ADVANCE
+    %     \item TROUBLE-CODES
+    %     \item Timeout
+    %     \item VIN
+    %     \item WIDEBAND-AIR-FUEL-RATIO
+    % \end{itemize}
