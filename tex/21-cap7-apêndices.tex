@@ -4,8 +4,41 @@ Como juntar todas as subpartes do projeto é uma outra tarefaimportante de engen
 
 A seguir é descrito como isso pode ser feito.
 
+\section{Colunas da tabela do banco de dados}
+
+CREATE TABLE `tcc_main`.`info` (
+  `id` INT NOT NULL AUTO_INCREMENT, 
+  `timestamp` TIMESTAMP(3) NOT NULL,
+  `user_token` VARCHAR(40),
+  `name` VARCHAR(45) NOT NULL,
+  `result` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+CREATE TABLE `acceleration` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `timestamp` TIMESTAMP(3) NOT NULL,
+  `user_token` VARCHAR(40),
+  `acceleration_x` VARCHAR(10) NOT NULL,
+  `acceleration_y` VARCHAR(10) NOT NULL,
+  `acceleration_z` VARCHAR(10) NOT NULL,
+  `gravity_x` VARCHAR(10) NOT NULL,
+  `gravity_y` VARCHAR(10) NOT NULL,
+  `gravity_z` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+CREATE TABLE `location` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `timestamp` TIMESTAMP(3) NOT NULL,
+  `user_token` VARCHAR(40),
+  `latitude` VARCHAR(20) NOT NULL,
+  `longitude` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
 \section{Compra da placa ATMEGA}
 \section{Compra da placa ATMEGA}
 \section{Compra da placa ATMEGA}
 \section{Compra da placa ATMEGA}
-\section{Compra da placa ATMEGA}
+

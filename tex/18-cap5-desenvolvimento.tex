@@ -53,7 +53,18 @@ A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver a
      
      Além disso, o AWS RDS lida com tarefas operacionais, como backup automático e manutenção, permitindo que os desenvolvedores concentrem seus esforços em aprimorar as funcionalidades do sistema de rastreamento. 
      
-     Essa combinação proporciona uma base sólida para o armazenamento e recuperação de dados, promovendo a confiabilidade e eficácia do sistema de rastreamento de veículos.
+     Essa combinação proporciona uma base sólida para o armazenamento e recuperação de dados, promovendo a confiabilidade e eficácia do sistema.
+
+     A estrutura definida para as tabelas do banco de dados foi:
+
+     \item{tcc_schema}
+     \item{info} Armazena as informações coletadas através da porta OBD
+
+     \item{acceleration} Contém dados dos acelerômetros do celular do usuário
+     
+     \item{location} Guarda latitude e longitude obtidas por GPS pelo celular
+
+     A especificação exata das colunas de cada tabela pode ser encontrada no apêndice. [MENCIONAR APENDICE POR NUMERO]
 
       \begin{figure}[hp]
     \centering
