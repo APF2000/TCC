@@ -11,13 +11,17 @@ Este capítulo tem como objetivo explicitar quais foram as decisões de projeto 
 
 \section{Justificativas das métricas escolhidas}
 
-As escolhas das métricas para o desenvolvimento desse projeto foram determinantes para avaliar e interpretar resultados com precisão. As métricas escolhidas auxiliam a avaliar o perfil dos motoristas.
+A escolha das métricas para o desenvolvimento desse projeto foi determinante para avaliar e interpretar resultados com precisão e, como era o objetivo do trabalho, avaliar o perfil de motoristas.
 
-\subsection{RPM}
+Uma conversa com um funcionário da empresa Porto Seguro foi determinante para ratificar a relevância das métricas definidas. Essa conversa pode ser vista no Apêndice 7.1 deste documento.
+
+\subsection{Gasto do motor a parti do RPM}
 
  Em um motor de combustão interna, o RPM indica a velocidade com que os pistões se movem para cima e para baixo no cilindro. O controle preciso do RPM é essencial para otimizar a eficiência do motor e a entrega de potência, sendo um indicador chave para os motoristas ajustarem suas velocidades de condução.
 
- A figura \ref{fig:rpmxpotencia} mostra que a potência aumentou com o aumento da rotação do motor\textsuperscript{[28]}. Operar consistentemente em RPMs muito altos pode levar a um aumento do desgaste mecânico, já que componentes como pistões, bielas e válvulas são submetidos a forças intensas em altas velocidades. Por outro lado, operar em RPMs muito baixos pode resultar em acúmulo de resíduos e combustão incompleta, afetando negativamente a eficiência do motor.
+ A figura \ref{fig:rpmxpotencia} mostra que a potência gasta por um moto aumenta quando a rotação dele também ascende \textsuperscript{[28]}. 
+ 
+ Operar consistentemente em RPMs muito altos pode levar a um aumento do desgaste mecânico, já que componentes como pistões, bielas e válvulas são submetidos a forças intensas em altas velocidades. Por outro lado, operar em RPMs muito baixos pode resultar em acúmulo de resíduos e combustão incompleta, afetando negativamente a eficiência do motor.
 
  \begin{figure}[hp]
     \centering
@@ -155,6 +159,7 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 
     A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver alguns dos dados quando o motorista estava dando uma volta ao redor do bairro.
 
+    
 \begin{figure}[hp]
     \centering
     
@@ -164,8 +169,15 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     
     \label{fig:obd2_plataforma}
 \end{figure}
+
+    A ausência de um carro físico no início do projeto foi contornada por meio da utilização de um simulador de OBD. Esse dispositivo desempenhou um papel crucial como um substituto temporário do automóvel, permitindo que o trabalho continuasse normalmente. 
     
-    \subsection{Android Studio} A utilização da IDE Android Studio neste projeto de sistema de coleta de dados desempenha um papel central no desenvolvimento de aplicativos móveis dedicados à interação com o sistema. 
+    Em vez de depender de um veículo real, a equipe conseguiu controlar e reproduzir dados e comportamentos típicos de um carro a partir do programa de controle do simulador\textsuperscript{[21]}.
+
+    Além disso, o uso desse dispositivo proporcionou um ambiente controlado para a validação do \textit{software} em diferentes cenários, contribuindo para a eficiência e progresso do projeto enquanto não se podia realizar testes práticos.
+    
+    \subsection{Android Studio e Java} 
+    A utilização da IDE Android Studio neste projeto de sistema de coleta de dados desempenha um papel central no desenvolvimento de aplicativos móveis dedicados à interação com o sistema. 
     
     O Android Studio, sendo a principal ferramenta de desenvolvimento para aplicativos Android, oferece um ambiente integrado e robusto que simplifica a criação, teste e depuração de software. 
     
@@ -173,9 +185,21 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     
     Além disso, as ferramentas de emulação e depuração incorporadas no Android Studio simplificam o processo de teste em diferentes dispositivos, contribuindo para a criação de aplicativos estáveis e adaptáveis.
 
-    Por último, nenhuma tecnologia multiplataforma (React Native ou Flutter, por exemplo) ou específica de dispositivos iOS (Swift ou Objective C, por exemplo) foi escolhida, pois o intuito do projeto era ser compatível com os celulares dos membros do grupo e devido à familiaridade com a linguagem Java, usada para esse tipo de desenvolvimento.
+    Nenhuma tecnologia multiplataforma (React Native ou Flutter, por exemplo) ou específica de dispositivos iOS (Swift ou Objective C, por exemplo) foi escolhida, pois o intuito do projeto era ser compatível com os celulares dos membros do grupo e devido à familiaridade com a linguagem Java, usada para esse tipo de desenvolvimento.
 
     O aplicativo em si (arquivo SDK) originalmente foi desenvolvido para a API de versão 22 do Android. Condição que foi alterada para comportar funcionalidades que foram adicionadas ao sistema operacional desde 2013. A versão atual de compilação é a 33.
+
+    O desenvolvimento do aplicativo Android envolveu várias etapas, sendo o primeiro passo a modificação apropriada do arquivo \textit{build.gradle}. Este processo, no entanto, consumiu considerável tempo devido à falta de experiência dos membros do grupo. 
+    
+    Após a configuração inicial, a equipe se dedicou a identificar onde os parâmetros do OBD estavam disponíveis no código-fonte. Esta fase de investigação foi crucial para possibilitar o subsequente envio desses dados para a nuvem.
+
+    No entanto, as dificuldades técnicas foram tão significativas que inicialmente não foi possível realizar o envio de dados para a nuvem. 
+    
+    Diante desse impasse, uma exceção teve que ser aberta no projeto, resultando na geração de arquivos \textit{.txt} locais no \textit{smartphone} em que o aplicativo estivesse rodando. 
+    
+    Essa solução permitiu que o trabalho de análise dos dados começasse, já que a produção de informações já estava funcional naquele momento.
+    
+    Posteriormente, a equipe conseguiu superar os obstáculos e implementou com sucesso o envio de dados para a nuvem, empregando a biblioteca Volley do Android. Essa abordagem proporcionou uma resolução eficaz para a integração com serviços de armazenamento na nuvem, consolidando a funcionalidade do \textit{app}. 
 
      \begin{figure}[hp]
     \centering
@@ -186,7 +210,8 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     
 \end{figure}
     
-     \subsection{Banco de dados} A integração do MySQL e do AWS RDS (Relational Database Service) em um projeto de sistema de compilação de dados de veículos é uma estratégia robusta para o gerenciamento eficiente e escalável dos dados do sistema. O MySQL, um sistema de gerenciamento de banco de dados relacional de código aberto, proporciona uma estrutura confiável para armazenar e organizar informações como histórico de rotas e dados do OBD-II. 
+    \subsection{Banco de dados} 
+    A integração do MySQL e do AWS RDS (Relational Database Service) em um projeto de sistema de compilação de dados de veículos é uma estratégia robusta para o gerenciamento eficiente e escalável dos dados do sistema. O MySQL, um sistema de gerenciamento de banco de dados relacional de código aberto, proporciona uma estrutura confiável para armazenar e organizar informações como histórico de rotas e dados do OBD-II. 
      
      Ao escolher o AWS RDS como a plataforma de hospedagem para o MySQL, ganha-se os benefícios adicionais de escalabilidade automática, alta disponibilidade e segurança avançada oferecidos pela infraestrutura em nuvem da Amazon. A integração dessas tecnologias permite o acesso eficiente aos dados, consultas rápidas e uma gestão simplificada do banco de dados. 
      
@@ -220,10 +245,40 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
         
     \end{figure}
 
+    Importante mencionar que o tamanho do banco de dados foi limitado, visando impedir que o serviço da AWS cobrasse qualquer valor monetário.
+    
+    O \textit{Free Tier} é um conjunto de limites de execução e armazenamento em nuvem definido para projetos-teste de contas novas na plataforma (com menos de 1 ano de existência\textsuperscript{[40]}). A forma de zerar os gastos com esse projeto é não exceder a fronteira dessas cortesias.
+
     
      \subsection{\textit{Python}} 
 
     A versão do Python usada para todos os arquivos \textit{.py} do projeto foi a 3.12.0.
+
+    É importante mencionar que junto a cada módulo feito em Python neste projeto, as dependências necessárias para rodá-los foram escritas em arquivos \textit{requirements.txt}
+
+    As seguir um exemplo desse arquivo:
+
+\begin{python}
+ipykernel
+numpy
+pandas
+matplotlib
+folium
+geopy
+pyproj
+scipy
+plotly-express
+nbformat
+\end{python}
+
+    Para poder-se executar os \textit{Jupyter Notebooks} desenvolvidos, é preciso desencadear os seguintes comandos em um terminal (em sistema operacional \textit{Linux}):
+
+\begin{python}
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install requirements.txt
+\end{python}
+    
 
 % \subsubsection{Folium}
      
@@ -272,11 +327,11 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     \end{figure}
 
     \subsection{API Rest - Flask}
-    A implementação da API centraliza-se em uma arquitetura Python utilizando a biblioteca Flask, proporcionando uma estrutura ágil e eficiente para a comunicação com a base de dados MySQL, hospedada em um serviço de RDS na AWS. A escolha da linguagem Python e do framework Flask foi motivada pela sua simplicidade e flexibilidade, permitindo a rápida construção dos endpoints responsáveis pela interação entre o aplicativo e a base de dados.
+    A implementação da API centraliza-se em uma arquitetura Python utilizando a biblioteca Flask, proporcionando uma estrutura ágil e eficiente para a comunicação com a base de dados MySQL, hospedada em um serviço de RDS na AWS. A escolha da linguagem Python e do framework Flask foi motivada pela sua simplicidade e flexibilidade, permitindo a rápida construção dos \textit{endpoints} responsáveis pela interação entre o aplicativo e a base de dados.
 
     A lógica da API foi encapsulada em funções específicas, acionadas por meio de requisições POST. O corpo do JSON enviado nessas requisições determina a ação a ser executada, que pode ser uma entre seis operações distintas. Três destas operações referem-se a consultas (GET) e três a modificações (POST), cada uma vinculada a uma das três tabelas da base de dados.
 
-    Para facilitar a utilização da API pelo app, o código Python foi integrado ao ambiente serverless da AWS Lambda. Essa escolha estratégica permite que as funções sejam invocadas sob demanda, proporcionando uma resposta ágil às requisições do aplicativo Android, que, por sua vez, está sendo desenvolvido no ambiente Java do Android Studio. A combinação dessas tecnologias promove uma arquitetura eficiente para gerenciar a comunicação entre o aplicativo e a infraestrutura de banco de dados na nuvem.
+    Para facilitar a utilização da API pelo \textit{app}, o código Python foi integrado ao ambiente \textit{serverless} da AWS Lambda. Essa escolha estratégica permite que as funções sejam invocadas sob demanda, proporcionando uma resposta ágil às requisições do aplicativo Android, que, por sua vez, está sendo desenvolvido no ambiente Java do Android Studio. A combinação dessas tecnologias promove uma arquitetura eficiente para gerenciar a comunicação entre o aplicativo e a infraestrutura de banco de dados na nuvem.
 
     \subsection{Folium}
 
@@ -290,7 +345,7 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 
  Para criar os mapas do aplicativo, foi utilizado o \textit{framework} Folium. Essa biblioteca é uma poderosa ferramenta para manipular e visualizar dados geoespaciais usando Python. 
     
-    Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando essa ferramenta, pode-se começar importando a biblioteca e criando um objeto Map que representa o mapa. 
+    Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando essa ferramenta, pode-se começar importando a biblioteca e criando um objeto \textit{Map} que representa o mapa. 
     
     Em seguida, pode-se adicionar camadas, como marcadores, polígonos e \textit{popups}, para exibir dados de forma intuitiva no mapa. 
     
@@ -335,13 +390,15 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 
     \subsection{Criação de relatório em PDF}
     
-    A geração de insights visuais e análise métrica a partir dos dados armazenados na base MySQL é um componente essencial do projeto. A decisão de fazer isso através da geração de um PDF para o motorista baseou-se na clareza e simplicidade desse formato de arquivo. Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca \textit{Matplotlib}, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
+    A geração de \textit{insights} visuais e análise métrica a partir dos dados armazenados na base MySQL é um componente essencial do projeto. A decisão de fazer isso através da geração de um PDF para o motorista baseou-se na clareza e simplicidade desse formato de arquivo. Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca \textit{Matplotlib}, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
     
     Um segundo AWS Lambda desempenha um papel central nesse processo, funcionando como uma ponte entre a base de dados e as ferramentas de visualização. Ao ser acionado, esse Lambda realiza uma chamada ao outro Lambda, que extrai as informações relevantes da base de dados MySQL referentes ao usuário, para realizar a análise.
 
     Utilizando a biblioteca Matplotlib em Python, a função Lambda então emprega métodos da classe RideParser, mencionada na sessão \ref{rideparser}, para criar um relatório do motorista, com gráficos e métricas relevantes referentes a sua condução. Isso proporciona aos usuários uma compreensão mais aprofundada das métricas associadas às suas atividades.
     
-    Para proporcionar aos usuários uma maneira acessível de interagir com esses insights, um botão "gerar PDF" foi incorporado no aplicativo. Este botão aciona o segundo Lambda, que compila os gráficos e métricas gerados em um arquivo PDF. A utilização da biblioteca smtplib facilita o envio desse PDF diretamente para o usuário via email. Essa solução integrada oferece uma experiência completa aos usuários, permitindo-lhes não apenas visualizar, mas também compartilhar os resultados de suas análises de maneira eficaz.    
+    Para proporcionar aos usuários uma maneira acessível de interagir com esses \textit{insights}, um botão "gerar PDF" foi incorporado no aplicativo. Este botão aciona o segundo Lambda, que compila os gráficos e métricas gerados em um arquivo PDF. 
+    
+    A utilização da biblioteca \textit{smtplib} facilita o envio desse PDF diretamente para o usuário via \textit{email}. Essa solução integrada oferece uma experiência completa aos usuários, permitindo-lhes não apenas visualizar, mas também compartilhar os resultados de suas análises de maneira eficaz.    
 
     \subsection{Autenticação com \textit{Firebase}}
 
@@ -351,11 +408,11 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 
     \subsection{Dependências do Gradlle}
 
-    Em um primeiro instante o app android-obd-reader não queria rodar na IDE Android studio. Para que isso fosse possível foi necessario fazer alterações no arquivo \textbf{gradle/wrapper/gradle-wrapper.properties}. Atualizar as dependências do Gradle  é muitas vezes necessário para garantir que o seu aplicativo possa se beneficiar das correções de bugs, melhorias de desempenho e novos recursos fornecidos pelas versões mais recentes das bibliotecas que você está utilizando. Este link \url{https://github.com/APF2000/android-obd-reader-pires/commit/def70ed262b1fad28cc9e2b98a48af45cfac5695} mostra as alterações que foram necessárias.
+    Em um primeiro instante o \textit{app} android-obd-reader não queria rodar na IDE Android studio. Para que isso fosse possível foi necessário fazer alterações no arquivo \textbf{gradle/wrapper/gradle-wrapper.properties}. Atualizar as dependências do Gradle  é muitas vezes necessário para garantir que o seu aplicativo possa se beneficiar das correções de \textit{bugs}, melhorias de desempenho e novos recursos fornecidos pelas versões mais recentes das bibliotecas que você está utilizando. Este link \url{https://github.com/APF2000/android-obd-reader-pires/commit/def70ed262b1fad28cc9e2b98a48af45cfac5695} mostra as alterações que foram necessárias.
 
     \subsection{Proteção dos dados}
     
-    Na Lei Geral de Proteção de Dados (Lei n. 13.709/18-LGPD), parte-se da ideia de que todo dado pessoal tem importância e valor. Por essa razão se adotou conceito amplo de dado pessoal, assim como estabelecido no Regulamento europeu \textsuperscript{[30]} (GDPR-General Data Protection  Regulation). Quando se trata de um aplicativo projetado para analisar o perfil do motorista de carros, a LGPD impõe uma série de responsabilidades e requisitos ao desenvolvedor e operador do aplicativo. É necessário obter o consentimento  do usuário antes de coletar e processar quaisquer dados pessoais relacionados ao seu perfil de condução.
+    Na Lei Geral de Proteção de Dados (Lei n. 13.709/18-LGPD), parte-se da ideia de que todo dado pessoal tem importância e valor. Por essa razão se adotou conceito amplo de dado pessoal, assim como estabelecido no Regulamento europeu \textsuperscript{[30]} (\textit{GDPR-General Data Protection  Regulation}). Quando se trata de um aplicativo projetado para analisar o perfil do motorista de carros, a LGPD impõe uma série de responsabilidades e requisitos ao desenvolvedor e operador do aplicativo. É necessário obter o consentimento  do usuário antes de coletar e processar quaisquer dados pessoais relacionados ao seu perfil de condução.
     
     Além disso, a LGPD exige que medidas de segurança apropriadas sejam implementadas para proteger esses dados contra acessos não autorizados e vazamentos. Os usuários têm o direito de acessar, corrigir e excluir suas informações pessoais, e o aplicativo deve fornecer meios para que esses direitos sejam exercidos.
 
@@ -386,7 +443,7 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
     \item \textbf{Teste de continuidade de transferência de dados:} 
     \begin{itemize}
         \item Fazer conexão com o OBD conforme descrito no teste anterior
-        \item Andar com o carro por alguns minutos com a tela do celular desbloqueada (de preferência mudar o \textit{timeout} da tela nas configuraçõs do celular)
+        \item Andar com o carro por alguns minutos com a tela do celular desbloqueada (de preferência mudar o \textit{timeout} da tela nas configurações do celular)
         \item Atestar que nenhum dado foi perdido por falta de conexão (pode ser visto por descontinuidade dos gráficos)
     \end{itemize}
     

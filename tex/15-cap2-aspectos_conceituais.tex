@@ -15,7 +15,7 @@ A comunicação é feita através de uma conexão física que normalmente pode s
 
 Nesse padrão de conexão e comunicação é definida uma interface por onde parâmetros internos a um carro podem ser monitorados.
 
-As mensagens definidas pelo OBD-II têm cada uma um PID (parameter ID). O conjunto comum de PIDs de serviços que podem ser solicitados pela porta OBD-II e para que servem pode ser visto na tabela \ref{Tb:tab1}\textsuperscript{[3]}.
+As mensagens definidas pelo OBD-II têm cada uma um PID (\textit{Parameter ID}). O conjunto comum de PIDs de serviços que podem ser solicitados pela porta OBD-II e para que servem pode ser visto na tabela \ref{Tb:tab1}\textsuperscript{[3]}.
 
 \input{tabelas/tab1}
 
@@ -37,9 +37,9 @@ Os dados que podem ser coletados de qualquer carro são explicitados na tabela \
 
 Interessante notar que, embora não esteja representado na tabela, os PIDs 0x00, 0x20, 0x40, etc, ou seja, a cada 32 valores de PID, existe um parâmetro apenas para indicar quais entre os PIDs seguintes são fornecidos por aquele carro.
 
-Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma flag binária. 
+Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma \textit{flag} binária. 
 
-Na figura \ref{fig:bitwise_obd2} é possível visualizar como esse processo é feito, usando como exemplo o valor 0xBE1FA813 para representar os 4 bytes oferecidos\textsuperscript{[3]}.
+Na figura \ref{fig:bitwise_obd2} é possível visualizar como esse processo é feito, usando como exemplo o valor \textit{0xBE1FA813} para representar os 4 bytes oferecidos\textsuperscript{[3]}.
 
 \begin{figure}[hp]
     \centering
@@ -85,7 +85,7 @@ Utilizando o RDS, os dados coletados, como informações de localização, veloc
 
 A flexibilidade do Amazon RDS permite a escolha de diferentes motores de banco de dados, como MySQL, PostgreSQL, ou SQL Server, adequando-se às necessidades específicas do sistema.
 
-Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet. O volume de dados recebidos no sistema é, portanto, variável e por isso fez sentido que o serviço de nuvem contratado siga o modelo \textit{on demand}. A figura \ref{figure:custo_aws_inicial} mostra o custo calculado no serviço da AWS RDS.
+Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet. O volume de dados recebidos no sistema é, portanto, variável e por isso fez sentido que o serviço de nuvem contratado siga o modelo \textit{on-demand}. A figura \ref{figure:custo_aws_inicial} mostra o custo calculado no serviço da AWS RDS.
 
 \begin{figure}[hp]
     \centering
@@ -104,49 +104,16 @@ Um RDS Proxy é um serviço que facilita a escalabilidade e a alta disponibilida
 
 Também não há necessidade de ter um ambiente de zona de disponibilidade múltipla para garantir escalabilidade, pois haveria custo adicional. Por isso, a instância RDS foi configurada para o modo Single-AZ. E a capacidade de armazenamento foi 20 GB.
 
-As figuras \ref{figure:custo_aws_configuracao_1}, \ref{figure:custo_aws_configuracao_2} e \ref{figure:custo_aws_configuracao_3} mostram a configuração no serviço da AWS RDS.
 
 \begin{table}[]
-\begin{tabular}{llllll}
-\multicolumn{5}{c}{\textbf{Amazon RDS para MySQL}}                                                           &  \\
-                                               &        &  &                  &                              &  \\
-\textbf{Escolha o tipo de localização}         & Região &  & Escolha a região & \textbf{US East(N.Virginia)} &  \\
-                                               &        &  &                  &                              &  \\
-                                               &        &  &                  &                              &  \\
-\textbf{Especificação das instancias do MySql} &        &  &                  &                              &  \\
-\textbf{Quantidade}                            & 1      &  &                  &                              &  \\
-                                               &        &  &                  &                              &  \\
-\textbf{Instância Selecionada}                 &        &  &                  &                              &  \\
-db.t3.micro                                    &        &  &                  &                              &  \\
-vCPU:2                                         &        &  &                  &                              &  \\
-Memória: 1 GiB                                 &        &  &                  &                              & 
+\begin{tabular}{|ll|}
+\hline
+\multicolumn{1}{|l|}{\textbf{Região}}                 & Virgínia     \\ \hline
+\multicolumn{1}{|l|}{}                                &              \\ \hline
+\multicolumn{2}{|c|}{\textbf{Especificação das instancias do MySQL}} \\ \hline
+\multicolumn{1}{|l|}{Quantidade de Instancias MYSQL}  & 1            \\ \hline
+\multicolumn{1}{|l|}{tipo da instancia}               & db.t3.micro  \\ \hline
+\multicolumn{1}{|l|}{vCPU}                            & 2            \\ \hline
+\multicolumn{1}{|l|}{Memória}                         & 1GiB         \\ \hline
 \end{tabular}
 \end{table}
-
- 
-\begin{figure}[hp]
-    \centering
-    
-    \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
-    \caption{Custo da AWS - Configuração 1.}
-    \label{figure:custo_aws_configuracao_1}
-    
-\end{figure}
-
-\begin{figure}[hp]
-    \centering
-    
-    \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
-    \caption{Custo da AWS - Configuração 2.}
-    \label{figure:custo_aws_configuracao_2}
-    
-\end{figure}
-
-\begin{figure}[hp]
-    \centering
-    
-    \includegraphics[scale=0.5]{figures/custo_aws_configuracao.PNG}
-    \caption{Custo da AWS - Configuração 3.}
-    \label{figure:custo_aws_configuracao_3}
-    
-\end{figure}

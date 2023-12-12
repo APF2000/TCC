@@ -31,7 +31,7 @@ A relação entre o gráfico da aceleração e uma curva feita pelo carro é fun
 
 Em um gráfico típico de aceleração durante uma curva, a forma da curva no gráfico pode fornecer informações sobre a suavidade da curva, a intensidade da aceleração lateral e até mesmo indicar a presença de manobras abruptas. Curvas suaves geralmente se refletem em padrões de aceleração mais graduais, enquanto curvas mais acentuadas ou manobras rápidas podem resultar em picos agudos no gráfico.
 
-Essa relação entre o gráfico de aceleração e a curva feita pelo carro é valiosa não apenas para entender a dinâmica do veículo, mas também para avaliar a qualidade da condução. O Sistema de coleta de informaões de veículos que incorporam a análise desses dados podem oferecer insights importantes sobre o estilo de direção, ajudando na identificação de comportamentos agressivos, curvas perigosas ou necessidade de aprimoramento nas habilidades de condução. 
+Essa relação entre o gráfico de aceleração e a curva feita pelo carro é valiosa não apenas para entender a dinâmica do veículo, mas também para avaliar a qualidade da condução. O Sistema de coleta de informações de veículos que incorporam a análise desses dados podem oferecer \textit{insights} importantes sobre o estilo de direção, ajudando na identificação de comportamentos agressivos, curvas perigosas ou necessidade de aprimoramento nas habilidades de condução. 
 
 Essa integração contribui para a segurança e eficiência do sistema de rastreamento, proporcionando uma compreensão mais completa do desempenho do veículo em diferentes cenários de condução. A figura \ref{fig:sudden_acc_car} ilustra como essa análise pode ser feita.
 
@@ -79,11 +79,11 @@ A diversidade de percursos percorridos por motoristas voluntários contribui par
 \end{figure}
 
 \section{Visualização dos dados}
-A análise de dados no contexto deste projeto pode ser eficientemente conduzida utilizando o \textit{Jupyter Notebook}, uma poderosa ferramenta interativa para análise de dados e programação em \textit{Python}. Ao importar os conjuntos de informações coletadas pelo sistema para o Jupyter Notebook, é possível explorar, visualizar e interpretar os dados de maneira flexível. 
+A análise de dados no contexto deste projeto pode ser eficientemente conduzida utilizando o Jupyter Notebook, uma poderosa ferramenta interativa para análise de dados e programação em Python. Ao importar os conjuntos de informações coletadas pelo sistema para o Jupyter Notebook, é possível explorar, visualizar e interpretar os dados de maneira flexível. 
 
 A variedade de bibliotecas de análise de dados em Python, como Pandas, NumPy e Matplotlib, podem ser aplicadas para realizar operações estatísticas, identificar padrões de comportamento do motorista e gerar visualizações informativas. A combinação da facilidade de codificação do Python com a interface interativa do Jupyter Notebook permite a criação de análises exploratórias e gráficos informativos  para identificar tendências ou comportamentos específicos dos motoristas.
 
-Dessa forma, o Jupyter Notebook emerge como uma ferramenta essencial para a compreensão aprofundada dos dados coletados, contribuindo significativamente para insights valiosos no contexto do sistema de rastreamento de veículos.
+Dessa forma, o Jupyter Notebook emerge como uma ferramenta essencial para a compreensão aprofundada dos dados coletados, contribuindo significativamente para \textit{insights} valiosos no contexto do sistema de rastreamento de veículos.
 
 \section{Análise dos dados}
 A análise de dados se torna uma jornada dinâmica e poderosa quando é combinado o AWS RDS (Relational Database Service) e o Jupyter Notebook. Ao armazenar os dados do sistema de rastreamento de veículos no AWS RDS, foi uma infraestrutura segura e escalável para a gestão eficiente de grandes volumes de informações dos parâmetros utilizados para analise. 
@@ -92,7 +92,9 @@ A integração com o Jupyter Notebook permite a exploração dos dados de maneir
 
 A combinação dessas ferramentas facilita a visualização de tendências, identificação de padrões e até mesmo a implementação de algoritmos de aprendizado de máquina para prever comportamentos de condução. Essa sinergia entre AWS RDS e Jupyter Notebook não apenas agiliza o processo de análise de dados, mas também contribui para insights acionáveis que impulsionam a tomada de decisões informadas no aprimoramento contínuo do sistema de rastreamento de veículos.
 
-Conforme o artigo citado anteriormente (\textit{Driver behaviour profiling using smartphone sensory data in a V2I environment}\textsuperscript{[15]}), é possível usar métricas de movimentação brusca do carro para classificar motoristas segundo a segurança de sua direção.
+% (\textit{Driver behaviour profiling using smartphone sensory data in a V2I environment}\textsuperscript{[15]})
+
+Conforme o artigo citado anteriormente, é possível usar métricas de movimentação brusca do carro para classificar motoristas segundo a segurança de sua direção\textsuperscript{[15]}.
 
 Mais especificamente, o estudo determina quatro tipos de condutores: muito cautelosos, cautelosos, agressivos e muito agressivo\textsuperscript{[15]}.
 

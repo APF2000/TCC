@@ -4,13 +4,13 @@ Este documento detalha a concepção e implementação de um sistema dedicado à
 
 A abordagem central consiste na extração de informações provenientes de sensores já presentes em veículos contemporâneos, acessando a porta OBD-II, que adota um padrão internacional para o diagnóstico de parâmetros internos de um automóvel\textsuperscript{[2]}.
 
-Adicionalmente, são coletadas informações fornecidas por um dispositivo móvel, incluindo dados de geolocalização e acelerômetros, e esses dados são centralizados em uma base de dados hospedada na AWS. Esta arquitetura permite uma análise posterior aprofundada desses dados, promovendo insights valiosos sobre os padrões e comportamentos de direção.
+Adicionalmente, são coletadas informações fornecidas por um dispositivo móvel, incluindo dados de geolocalização e acelerômetros, e esses dados são centralizados em uma base de dados hospedada na AWS. Esta arquitetura permite uma análise posterior aprofundada desses dados, promovendo \textit{insights} valiosos sobre os padrões e comportamentos de direção.
 
 \section{Motivação}
 
 Buscando traçar o perfil de condução de um motorista e desenvolver uma categorização clara para os condutores, este projeto empenha-se na criação de uma infraestrutura dedicada à captação e análise de dados em veículos de uso pessoal.
 
-Com base nos dados de aceleração, é possível classificar o estilo de direção, identificar comportamentos potencialmente perigosos no trânsito e antecipar a necessidade de manutenção do veículo. Ao integrar a análise dos dados aos sistemas de perfil de direção, não apenas se contribui para a segurança do veículo, mas também se viabiliza a personalização de feedbacks e sugestões ao condutor, promovendo uma condução mais eficaz e segura.
+Com base nos dados de aceleração, é possível classificar o estilo de direção, identificar comportamentos potencialmente perigosos no trânsito e antecipar a necessidade de manutenção do veículo. Ao integrar a análise dos dados aos sistemas de perfil de direção, não apenas se contribui para a segurança do veículo, mas também se viabiliza a personalização de \textit{feedbacks} e sugestões ao condutor, promovendo uma condução mais eficaz e segura.
 
 Uma investigação preliminar sobre o tema revelou a existência de uma patente para um produto semelhante, registrada em 2013, que avalia o desempenho do motorista a partir de dados previamente coletados de parâmetros relevantes à condução do veículo\textsuperscript{[1]}.
 
