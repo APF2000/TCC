@@ -16,7 +16,7 @@ As mensagens definidas pelo OBD-II têm cada uma um PID (\textit{Parameter ID}).
 \input{tabelas/tab1}
 
 
-É importante notar que os serviços do padrão OBD-II comuns a todos os carros sempre começam com o dígito zero (hexadecimal), por isso, serviços específicos de cada fabricante devem começam a partir do código 0x10.
+É importante notar que os serviços do padrão OBD-II comuns a todos os carros sempre começam com o dígito zero (hexadecimal), por isso, serviços específicos de cada fabricante precisam começam a partir do código 0x10.
 
 \begin{figure}[hp]
     \centering
@@ -34,9 +34,9 @@ Os dados, que podem ser coletados de qualquer carro, são explicitados na tabela
 
 
 
-Embora não esteja explicitamente representado na tabela, os PIDs 0x00, 0x20, 0x40, etc., ou seja, a cada 32 valores de PID, possuem um parâmetro dedicado exclusivamente para indicar quais, dentre os PIDs subsequentes, são fornecidos pelo veículo em questão. Esses PIDs de marcação, por assim dizer, utilizam 4 bytes para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada bit como uma \textit{flag} binária. 
+Embora não esteja explicitamente representado na tabela, os PIDs 0x00, 0x20, 0x40, etc., ou seja, a cada 32 valores de PID, possuem um parâmetro dedicado exclusivamente para indicar quais, dentre os PIDs subsequentes, são fornecidos pelo veículo em questão. Esses PIDs de marcação, por assim dizer, utilizam 4 \textit{bytes} para comunicar quais dos próximos PIDs estão disponíveis, utilizando cada \textit{bit} como uma \textit{flag} binária. 
 
-Na figura \ref{fig:bitwise_obd2} é possível visualizar como esse processo é feito, usando como exemplo o valor \textit{0xBE1FA813} para representar os 4 bytes oferecidos\textsuperscript{[3]}.
+Na figura \ref{fig:bitwise_obd2} é possível visualizar como esse processo é feito, usando como exemplo o valor \textit{0xBE1FA813} para representar os 4 \textit{bytes} oferecidos\textsuperscript{[3]}.
 
 \begin{figure}[hp]
     \centering
@@ -49,19 +49,21 @@ Na figura \ref{fig:bitwise_obd2} é possível visualizar como esse processo é f
 \end{figure}
 
 
-A coleta de fato dos dados relevantes será feita por uma aplicação desenvolvida \textit{a priori} que já é capaz de comunicar-se corretamente com a interface OBD.
+A coleta de fato dos dados relevantes é feita por uma aplicação desenvolvida \textit{a priori} que, ao começo do projeto, já era capaz de comunicar-se corretamente com a interface OBD.
 
-Essa aplicação acelerará a criação da infraestrutura proposta por este trabalho, uma vez que pula o primeiro passo da estratégia \textit{bottom-up} que deverá permear o projeto.
+Essa aplicação acelerou a criação da infraestrutura proposta por este trabalho, uma vez que adiantou o primeiro passo da estratégia \textit{bottom-up} que permeou o projeto.
 
 \input{tabelas/tab2}
 
 \section{Transmissão de dados}
 
-A implementação do \textit{Bluetooth} neste projeto proporciona uma solução eficaz para a comunicação entre a porta OBD do veículo e o \textit{smartphone} do motorista. Essa escolha oferece uma conectividade sem fio e em tempo real com o aplicativo, simplificando a transmissão de dados de rastreamento.
+A implementação do \textit{Bluetooth} neste projeto proporciona uma solução eficaz para a comunicação entre a porta OBD do veículo e o \textit{smartphone} do motorista. 
+
+% Essa escolha oferece uma conectividade sem fio e em tempo real com o aplicativo, simplificando a transmissão de dados.
 
 A abordagem \textit{wireless} elimina a necessidade de cabos físicos, contribuindo para uma integração mais simplificada do sistema. A eficiência energética do \textit{Bluetooth} assegura uma transmissão de dados sem fio sem prejudicar significativamente o consumo de bateria do aparelho celular.
 
-Além disso, a transmissão \textit{Bluetooth} facilita a interação direta entre o sistema de geração de dados e os usuários, possibilitando a visualização em tempo real de informações de condução. Essa integração sem fio não apenas aprimora a experiência do usuário, mas também amplia as possibilidades de interatividade e controle, tornando o sistema mais acessível e fácil de usar.
+% Além disso, a transmissão \textit{Bluetooth} facilita a interação direta entre o sistema de geração de dados e os usuários, possibilitando a visualização em tempo real de informações de condução. Essa integração sem fio não apenas aprimora a experiência do usuário, mas também amplia as possibilidades de interatividade e controle, tornando o sistema mais acessível e fácil de usar.
 
 
  \begin{figure}[hp]
@@ -74,20 +76,18 @@ Além disso, a transmissão \textit{Bluetooth} facilita a interação direta ent
 \end{figure}
 
 \section{Armazenamento em nuvem}
-Optamos pelos serviços da Amazon Web Services\textsuperscript{[10]} (AWS) para o armazenamento dos dados do projeto, destacando-se por suas vantagens em segurança, escalabilidade e praticidade. A AWS oferece uma infraestrutura robusta com elevados padrões de segurança, garantindo a proteção avançada dos dados. Sua escalabilidade permite uma adaptação eficiente às crescentes demandas do projeto, mantendo a eficiência operacional. Essa escolha proporciona um ambiente de nuvem que atende às exigências atuais do projeto e estabelece uma base sólida para o desenvolvimento futuro.
+O Amazon Web Services\textsuperscript{[10]} (AWS) foi o serviço de nuvem escolhido para o armazenamento dos dados do projeto, destacando-se por suas vantagens em segurança, escalabilidade e praticidade. 
+
+A AWS oferece uma infraestrutura robusta com elevados padrões de segurança, garantindo a proteção avançada dos dados, enquanto sua escalabilidade permite uma adaptação eficiente às crescentes demandas do projeto, mantendo a eficiência operacional. Essa escolha proporciona um ambiente de nuvem que atende às exigências do projeto e estabelece uma base sólida para o desenvolvimento futuro.
+
+A base de dados escolhida usa MySQL e foi hospedada em uma instância RDS. Todas as informações coletadas através do aplicativo desenvolvido foram armazenadas nesse serviço.
+
+% Informações, como localização, velocidade e aceleração, podem então ser usadas para geração de gráficos e métricas essenciais na avaliação do perfil do motorista.
+
+A combinação do Amazon RDS com a base de dados MySQL oferece uma solução eficiente e escalável para o armazenamento de dados, atendendo às necessidades do projeto e garantindo alta disponibilidade e segurança dos dados.
 
 
-Utilizamos uma AWS RDS para hospedar uma base de dados MySQL, que será responsável pelo armazenamento de todos os dados coletados pelo aplicativo, sejam eles obtidos através da porta OBD, seja pelo smartphone. As informações, de localização, velocidade, aceleração e outros, podem então ser usadas para geração de gráficos e métricas importantes para a avaliação do perfil do motorista.
 
-A utilização do Amazon RDS em conjunto da base de dados MySQL oferece uma solução eficiente e escalável para o armazenamento de dados, atendendo as necessidades do projeto e proporcionando alta disponibilidade e segurança dos dados.
-
-%A integração do aplicativo Android com o Amazon RDS (Relational Database Service) da AWS oferece uma solução eficiente e escalável para o armazenamento de dados. 
-
-%Utilizando o RDS, os dados coletados, como informações de localização, velocidade e aceleração, podem ser armazenados em bancos de dados relacionais, proporcionando alta disponibilidade, segurança e desempenho otimizado. 
-
-%A flexibilidade do Amazon RDS permite a escolha de diferentes motores de banco de dados, como MySQL, PostgreSQL, ou SQL Server, adequando-se às necessidades específicas do sistema.
-
-Os usuários poderão transmitir informações para a nuvem a qualquer momento, desde que seus carros estejam ligados e conectados à internet. O volume de dados recebidos no sistema é, portanto, variável e por isso fez sentido que o serviço de nuvem contratado siga o modelo \textit{on-demand}. A figura \textbf{A tabela(figura) de estimativa estava logo abaixo(Deve-se arrumar isso aqui.)}\ref{figure:custo_aws_inicial} mostra o custo calculado no serviço da AWS RDS.
 
 % \begin{table}[]
 % \begin{tabular}{lllll}
@@ -103,13 +103,19 @@ Os usuários poderão transmitir informações para a nuvem a qualquer momento, 
 
 \input{tabelas/tab_custo_instancia}
 
-A região do Leste da Virgina é conhecida por ter uma alta densidade de \textit{data centers}. Isso resulta em eficiência operacional e redução de custos.
+% A região do Leste da Virgina é conhecida por ter uma alta densidade de \textit{data centers}. Isso resulta em eficiência operacional e redução de custos.
 
-A instância escolhida foi a \textbf{db.t3.micro}. Ela é uma instância de banco de dados pequena, sendo adequada para cargas de trabalho leves. Essa instância é comumente usada para ambientes de desenvolvimento, testes ou pequenas aplicações que não exigem muitos recursos.
+A instância escolhida para o RDS foi a \textbf{db.t3.micro}, pois ela é uma unidade de processamento adequada para cargas de trabalho leves e é comumente usada para ambientes de desenvolvimento, testes ou pequenas aplicações que não exigem muitos recursos.
 
-Um RDS Proxy é um serviço que facilita a escalabilidade e a alta disponibilidade para as conexões de banco de dados. Ele ajuda a melhorar o desempenho e a segurança ao gerenciar as conexões entre seus aplicativos e instâncias de banco de dados RDS. Isso é especialmente útil em ambientes onde há flutuações na carga de trabalho. Como se trata de um protótipo, não há preocupações com carga de trabalho. Logo, essa opção não foi escolhida.
+Foi cogitado fazer uso de um RDS Proxy, que é um serviço que facilita a escalabilidade e a alta disponibilidade para as conexões de banco de dados, mas como este projeto trata-se de um protótipo, não houve preocupações quanto a grandes cargas de trabalho e essa decisão foi descartada. 
 
-Também não há necessidade de ter um ambiente de zona de disponibilidade múltipla para garantir escalabilidade, pois haveria custo adicional. Por isso, a instância RDS foi configurada para o modo Single-AZ. E a capacidade de armazenamento foi 20 GB.
+% Logo, essa opção não foi escolhida. 
+
+% Ele ajuda a melhorar o desempenho e a segurança ao gerenciar as conexões entre seus aplicativos e instâncias de banco de dados RDS. 
+
+% Isso é especialmente útil em ambientes onde há flutuações na carga de trabalho. 
+
+Também não há necessidade de haver um ambiente de zona de disponibilidade múltipla para garantir escalabilidade, pois haveria custo adicional para o MVP. Por isso, a instância RDS foi configurada para o modo Single-AZ. E a capacidade de armazenamento foi limitada a 20 GiB.
 
 
 % \begin{table}[]

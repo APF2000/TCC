@@ -112,10 +112,300 @@ CREATE TABLE `location` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
 
-  \end{python}
+\end{python}
 
-% \section{Compra da placa ATMEGA}
-% \section{Compra da placa ATMEGA}
-% \section{Compra da placa ATMEGA}
-% \section{Compra da placa ATMEGA}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{Código para o Lambda da AWS de comunicação com o banco de dados}
+
+\begin{python}
+
+import awsgi
+import pymysql
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route("/app_data", methods=["POST"])
+def api_data():
+    host = "open-db.clznpmxaqrkl.us-east-1.rds.amazonaws.com"
+    user = "testadm"
+    password = "testadm#1"
+    database = "tcc_schema"
+    
+    #Connection
+    connection = pymysql.connect(host=host, user=user, 
+    password=password, database=database)
+    cursor = connection.cursor()
+
+    data = request.get_json()
+    
+    method_name = data["method"]
+
+    if method_name.split("_")[0] == "get" :
+        filters = {
+            "time_min" : data["time_min"],
+            "time_max" : data["time_max"],
+            "user_token" : data["user_token"]
+        }
+        
+    data = data.get("data", [])
+
+    if(method_name == "add_obd_info"):
+        print("inserto data to info")
+
+        query_insert_cmd = "INSERT INTO info (timestamp, user_token, name, 
+        result) VALUES (\%(timestamp)s, \%(user_token)s, \%(name)s, \%(result)s)"
+        cursor.executemany(query_insert_cmd, data)
+
+        connection.commit()
+        return "deu bom"
+    
+    elif(method_name == "add_acceleration"):
+        print("insert data to acceleration")
+
+        query_insert_cmd = "INSERT INTO acceleration (timestamp, user_token, 
+        acceleration_x, acceleration_y, acceleration_z, gravity_x, gravity_y, 
+        gravity_z) VALUES (\%(timestamp)s, \%(user_token)s, \%(acceleration_x)s,
+        \%(acceleration_y)s, \%(acceleration_z)s, \%(gravity_x)s, \%(gravity_y)s,
+        \%(gravity_z)s)"
+        cursor.executemany(query_insert_cmd, data)
+
+        connection.commit()
+        return "deu bom"
+    
+    elif(method_name == "add_location"):
+        print("insert data to location")
+
+        query_insert_cmd = "INSERT INTO location (timestamp, user_token,
+            latitude, longitude) VALUES (\%(timestamp)s, \%(user_token)s, 
+            \%(latitude)s, \%(longitude)s)"
+        cursor.executemany(query_insert_cmd, data)
+
+        connection.commit()
+        return "deu bom"
+    
+    elif(method_name == "get_obd_info"):
+        print("get data from info")
+        
+        query_select_cmd = "SELECT * FROM info where timestamp >= 
+            '\%(time_min)s' and timestamp <= '\%(time_max)s' 
+            and user_token = '\%(user_token)s'" \%filters
+
+        cursor.execute(query_select_cmd)
+
+        return {"data": cursor.fetchall()}
+    
+    elif(method_name == "get_acceleration"):
+        print("get data from acceleration")
+
+        query_select_cmd = "SELECT * FROM acceleration where timestamp >= 
+            '\%(time_min)s' and timestamp <= '\%(time_max)s' 
+            and user_token = '\%(user_token)s'" \% filters
+        cursor.execute(query_select_cmd)
+
+        return {"data": cursor.fetchall()}
+    
+    elif(method_name == "get_location"):
+        print("get data from location")
+
+        query_select_cmd = "SELECT * FROM location where timestamp >= 
+            '\%(time_min)s' and timestamp <= '\%(time_max)s' 
+            and user_token = '\%(user_token)s'" \%filters
+        cursor.execute(query_select_cmd)
+
+        return {"data": cursor.fetchall()}
+    else:
+        return {"status": "error, route not found"}
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
+
+
+def lambda_handler(event, context):
+    return awsgi.response(app, event, context)
+
+\end{python}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{Código para o Lambda da AWS de geração do relatório sobre o perfil do motorista}
+
+\begin{python}
+
+import awsgi
+from flask import Flask, request
+
+import requests
+import json
+
+import matplotlib.pyplot as plt
+from svglib.svglib import svg2rlg
+
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import utils
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
+from reportlab.lib.styles import getSampleStyleSheet
+
+from ride_parser import RealRideParser
+
+
+app = Flask(__name__)
+
+@app.route("/create_pdf", methods=["POST"])
+def app_pdf():
+    data = request.get_json()
+
+    body_json_obd_info = {
+        "method": "get_obd_info",
+        "time_min" : data["time_min"],
+        "time_max" : data["time_max"],
+        "user_token" : data["user_token"]
+    }
+
+    body_json_acceleration = {
+        "method": "get_acceleration",
+        "time_min" : data["time_min"],
+        "time_max" : data["time_max"],
+        "user_token" : data["user_token"]
+    }
+
+    body_json_location = {
+        "method": "get_location",
+        "time_min" : data["time_min"],
+        "time_max" : data["time_max"],
+        "user_token" : data["user_token"]
+    }
+
+    data_obd_info = get_data_from_lambda(body_json_obd_info)
+    data_acceleration = get_data_from_lambda(body_json_acceleration)
+    data_location = get_data_from_lambda(body_json_location)
+
+
+    params = {
+        "user_id" : data["user_token"],
+        "date_beg" : data["time_min"],
+        "date_end" : data["time_max"]
+    }
+
+    ride_parser = RealRideParser(True, **params)
+    metrics_map = ride_parser.generate_pdf_metrics()
+    img = ride_parser.risk_table_graph
+
+    fig = plt.figure(figsize=(4, 3))
+    plt.plot([1,2,3,4])
+    plt.ylabel('some numbers')
+
+    create_PDF(img)
+    return("pdf criado")
+
+
+
+def get_data_from_lambda(body_json):
+    url = "https://pntdpvkdsc.execute-api.us-east-1.amazonaws.com/default/app_data"
+
+    headers = {
+        'Content-Type': 'application/json',
+    }
+
+    response = requests.post(url, headers=headers, data=json.dumps(body_json))
+
+    if response.status_code == 200:
+        print("data successfully obtained from the server")
+        return response
+    else:
+        print("failed to get data from the server")
+        
+
+def send_email(recipient_email, pdf_buffer):
+    # Configurações do e-mail
+    sender_email = "gabiru.bx@gmail.com"
+    sender_password = "vbwiquhkjpjsmwdu"
+    subject = "test email pdf"
+
+    # Configuração do server SMTP do Gmail
+    server_smtp = "smtp.gmail.com"
+    port_smtp = 587
+
+    # Criação do objeto MIMEMultipart
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = recipient_email
+    message["Subject"] = subject
+
+    # Adiciona o corpo do e-mail (opcional)
+    corpo_email = "Corpo do teste pdf"
+    message.attach(MIMEText(corpo_email, "plain"))
+
+    # Adiciona o arquivo PDF como anexo
+    attached_document = MIMEApplication(pdf_buffer.read(), _subtype="pdf")
+    attached_document.add_header(
+        "Content-Disposition", f"attachment; filename=anexo.pdf")
+    message.attach(attached_document)
+
+    # Inicia a conexão com o server SMTP
+    print("starting server")
+    server = smtplib.SMTP(server_smtp, port_smtp)
+    server.starttls()
+
+    # Efetua login no server
+    server.login(sender_email, sender_password)
+
+    print("sending email")
+    # Envia o e-mail
+    server.sendmail(sender_email, recipient_email, message.as_string())
+
+    # Fecha a conexão com o server
+    server.quit()
+
+def create_PDF(metrics_map):
+    # Create a PDF document
+    pdf_buffer = BytesIO()
+    doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
+
+    # Define a style sheet
+    styles = getSampleStyleSheet()
+
+    # Create a list of paragraphs for the content
+    content = []
+
+    # Add title
+    content.append(Paragraph("My Data Report", styles['Title']))
+
+    # Add space
+    content.append(Paragraph("<br/>", styles['BodyText']))
+
+    # Salvar a figura em um buffer de bytes
+    metrics_map.savefig(pdf_buffer, format='png')
+    pdf_buffer.seek(0)
+
+    drawing=svg2rlg(pdf_buffer)
+
+    doc.build(content)
+
+    # Reset the buffer position to the beginning before sending
+    pdf_buffer.seek(0)
+
+    send_email("gabriel.morghett@gmail.com", pdf_buffer)
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
+
+def lambda_handler(event, context):
+    return awsgi.response(app, event, context)
+
+\end{python}
 
