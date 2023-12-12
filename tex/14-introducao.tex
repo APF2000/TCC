@@ -4,13 +4,15 @@ Este documento detalha a concepção e implementação de um sistema dedicado à
 
 A abordagem central consiste na extração de informações provenientes de sensores já presentes em veículos contemporâneos, acessando a porta OBD-II, que adota um padrão internacional para o diagnóstico de parâmetros internos de um automóvel\textsuperscript{[2]}.
 
-Adicionalmente, são coletadas informações fornecidas por um dispositivo móvel, incluindo dados de geolocalização e acelerômetros, e esses dados são centralizados em uma base de dados hospedada na AWS. Esta arquitetura permite uma análise posterior aprofundada desses dados, promovendo \textit{insights} valiosos sobre os padrões e comportamentos de direção.
+Adicionalmente, são coletadas informações fornecidas por um dispositivo móvel, incluindo dados de geolocalização e acelerômetros, e essas informações são centralizadas em uma base de dados hospedada na AWS. 
+
+Esta arquitetura permite uma análise posterior aprofundada desses dados, promovendo \textit{insights} valiosos sobre os padrões e comportamentos de direção.
 
 \section{Motivação}
 
 Buscando traçar o perfil de condução de um motorista e desenvolver uma categorização clara para os condutores, este projeto empenha-se na criação de uma infraestrutura dedicada à captação e análise de dados em veículos de uso pessoal.
 
-Com base nos dados de aceleração, é possível classificar o estilo de direção, identificar comportamentos potencialmente perigosos no trânsito e antecipar a necessidade de manutenção do veículo. Ao integrar a análise dos dados aos sistemas de perfil de direção, não apenas se contribui para a segurança do veículo, mas também se viabiliza a personalização de \textit{feedbacks} e sugestões ao condutor, promovendo uma condução mais eficaz e segura.
+Com base nos dados de aceleração, é possível classificar o estilo de direção, identificar comportamentos potencialmente perigosos no trânsito e antecipar a necessidade de manutenção do veículo. Ao integrar a análise dos dados ao sistema de perfilamento, não apenas contribui-se para a segurança do veículo, mas também viabiliza-se a personalização de \textit{feedbacks} e sugestões ao condutor, promovendo uma condução mais eficaz e segura.
 
 Uma investigação preliminar sobre o tema revelou a existência de uma patente para um produto semelhante, registrada em 2013, que avalia o desempenho do motorista a partir de dados previamente coletados de parâmetros relevantes à condução do veículo\textsuperscript{[1]}.
 
@@ -19,7 +21,7 @@ Uma investigação preliminar sobre o tema revelou a existência de uma patente 
 
 Este trabalho procura criar uma plataforma de disponibilização e captura de dados em um carro, coletando as informações \textit{in loco} e apresentando estatísticas relevantes derivadas do que foi coletado.
 
-Para isso, fez uso da infraestrutura já presente em carros atuais. Conforme pode ser visto na imagem \ref{fig:sensors_car}, alguns carros podem ter dezenas de sensores embarcados dentro de si.
+Para isso, foi feito uso da infraestrutura já presente em carros atuais. Conforme pode ser visto na imagem \ref{fig:sensors_car}, alguns carros podem ter dezenas de sensores embarcados dentro de si.
 
 
 \begin{figure}[hp]
@@ -34,29 +36,34 @@ Para isso, fez uso da infraestrutura já presente em carros atuais. Conforme pod
 
 Essas informações foram complementadas com o uso de um \textit{smartphone}, o qual disponibiliza outros tipos de dados graças a seus sensores embarcados e à sua conexão com os satélites de GPS.
 
-A análise da aceleração desempenha um papel essencial na avaliação do comportamento do motorista em sistemas de coleta de dados. Ao monitorar os padrões de aceleração, é possível extrair informações valiosas sobre a condução, tais como a suavidade nas transições de velocidade, a resposta a alterações nas condições de tráfego e o nível de agressividade ao volante. A aceleração fornece \textit{insights} cruciais sobre a habilidade do motorista em manter uma condução estável e antecipar suas ações em situações específicas. Esse entendimento contribui para a compreensão do estilo de direção de cada condutor. 
+A análise da aceleração desempenha um papel essencial na avaliação do comportamento do motorista em sistemas de coleta de dados. Ao monitorar os padrões de aceleração, é possível extrair informações valiosas sobre a condução, tais como a suavidade nas transições de velocidade, a resposta a alterações nas condições de tráfego e o nível de agressividade ao volante.
 
-A maior parte da coleta de dados foi feita em um Hyundai Ix35, e dados estáticos foram tomadas de outros modelos também (Mercedes-Benz C200, Ford EcoSport e Volkswagen Saveiro) para conferência de parâmetros disponibilizados em comum por veículos de marcas diferentes.
+A aceleração é um parâmetro que revela a habilidade do motorista em manter uma condução estável e antecipar suas ações em situações específicas.
+% Esse entendimento contribui para a compreensão do estilo de direção de cada condutor. 
 
-Uma possível aplicação desse sistema encontra-se no âmbito das empresas de seguro automotivo. Os dados e análises disponibilizados pelo aplicativo podem ser empregados na elaboração de políticas de precificação de seguros de veículos. Essa abordagem oferece a possibilidade de estabelecer um preço mais personalizado e justo para cada indivíduo, promovendo, assim, comportamentos mais responsáveis no trânsito. Essa iniciativa não apenas contribui para a equidade na precificação, mas também estimula práticas de condução mais seguras e conscientes.
+% A maior parte da coleta de dados foi feita em um Hyundai Ix35, e dados estáticos foram tomadas de outros modelos também (Mercedes-Benz C200, Ford EcoSport e Volkswagen Saveiro) para conferência de parâmetros disponibilizados em comum por veículos de marcas diferentes.
 
-%O sistema visa oferecer informações cruciais sobre o comportamento de condução, permitindo às empresas de seguro uma avaliação mais precisa dos riscos associados a cada segurado. Com base em métricas como velocidade média, padrões de aceleração e padrões  de frenagem, o sistema proposto tem o objetivo de otimizar a precificação dos seguros, promover a segurança viária e proporcionar uma abordagem mais personalizada na gestão de apólices. 
+Uma possível aplicação desse sistema encontra-se na área das empresas de seguro automotivo. Os dados e análises disponibilizados pelo aplicativo podem ser empregados na elaboração de políticas de precificação de seguros de veículos. 
 
-%Este projeto busca contribuir para a inovação no setor de seguros automotivos, alinhando-se às demandas crescentes por soluções tecnológicas avançadas que maximizem a eficiência operacional e a satisfação do cliente.
+Essa abordagem oferece a possibilidade de estabelecer um preço mais personalizado e justo para cada indivíduo, promovendo, assim, comportamentos mais responsáveis no trânsito. 
+
+% Essa iniciativa não apenas contribui para a equidade na precificação, mas também estimula práticas de condução mais seguras e conscientes.
 
  
 \section{Justificativa}
 % ROMEO e PIRES [GIT]
 % Pq o trabalho é importante?
-No ano de 2021, 11647 pessoas morreram em acidentes de trânsito no Brasil\textsuperscript{[6]}, além disso, no mundo inteiro morrem 1,35 milhão de pessoas em média, todos os anos\textsuperscript{[7]}, número comparável às mortes por Covid 19 até abril de 2022\textsuperscript{[8]}.
+No ano de 2021, 11.647 pessoas perderam a vida em acidentes de trânsito no Brasil\textsuperscript{[6]}. Além disso, a nível global, a média anual de fatalidades no trânsito atinge 1,35 milhão de pessoas\textsuperscript{[7]}, um número comparável às mortes por Covid-19 até abril de 2022\textsuperscript{[8]}.
 
-Levando-se em conta esses fatos, é simples entender a relevância deste projeto, pois ele define métricas importantes para classificação da conduta de motoristas, as quais podem ser usadas justamente para evitar acidentes e, portanto, preservar a vida humana.
+Diante desses dados alarmantes, a importância deste projeto torna-se evidente, uma vez que estabelece métricas significativas para a avaliação do comportamento dos motoristas. Essas métricas não apenas contribuem para a prevenção de acidentes, mas, sobretudo, para a preservação da vida humana. O projeto emerge como uma ferramenta valiosa na promoção da segurança nas ruas e na busca por soluções que possam mitigar essas estatísticas trágicas.
 
-É possível que no futuro os carros não sejam mais dirigidos por humanos ou que atuem por conta própria na maior parte das situações. Prevê-se, inclusive, que carros com pelo menos nível 4 de automação comecem a se popularizar em 2025 \textsuperscript{[9]}.
+Os veículos autônomos estão rapidamente conquistando popularidade, de forma que eles tornarem-se a maioria nas estradas é uma realidade iminente. Prevê-se, de fato, que carros com pelo menos nível 4 de automação tornem-se mais comuns a partir de 2025\textsuperscript{[9]}.
 
-Dessa forma, embora o fator humano venha a ser menos relevante para os acidentes do futuro, é preciso também haver métricas para classificar a condução dos veículos autônomos.
+Dessa forma, embora a influência humana possa perder relevância em acidentes do futuro, torna-se imperativo estabelecer métricas para avaliar a condução de veículos autônomos. 
 
-Este projeto tem, portanto, extrema relevância, pois é uma possível ferramenta para diminuir as mortes no trânsito, seja causada por pessoas ou por carros autônomos.
+Essa abordagem é essencial para assegurar a segurança e eficiência desses automóveis, promovendo um padrão consistente de avaliação que contribua para a confiança generalizada no crescente uso de tecnologias autônomas.
+
+Este projeto tem, portanto, extrema relevância, pois é uma possível ferramenta para reduzir as fatalidades no trânsito, independentemente de serem causadas por condutores humanos ou por veículos autônomos.
 
 \section{Organização do trabalho}
 Os próximos capítulos explicitarão como o trabalho foi planejado a partir de seus requisitos e das tecnologias envolvidas.
