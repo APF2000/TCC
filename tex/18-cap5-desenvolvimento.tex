@@ -15,21 +15,16 @@ A escolha das métricas para o desenvolvimento desse projeto foi determinante pa
 
 Uma conversa com um funcionário da empresa Porto Seguro foi determinante para ratificar a relevância das métricas definidas. Essa conversa pode ser vista no Apêndice 7.1 deste documento.
 
-\subsection{Gasto do motor a parti do RPM}
+\subsection{Gasto do motor a partir do RPM}
 
- Em um motor de combustão interna, o RPM indica a velocidade com que os pistões se movem para cima e para baixo no cilindro. O controle preciso do RPM é essencial para otimizar a eficiência do motor e a entrega de potência, sendo um indicador chave para os motoristas ajustarem suas velocidades de condução.
+Em um motor de combustão interna, o RPM indica a velocidade com que os pistões se movem para cima e para baixo no cilindro. O controle preciso do RPM é essencial para otimizar a eficiência do motor e a entrega de potência, sendo um indicador chave para os motoristas ajustarem suas velocidades de condução.
 
- A figura \ref{fig:rpmxpotencia} mostra que a potência gasta por um moto aumenta quando a rotação dele também ascende \textsuperscript{[28]}. 
+A figura \ref{fig:rpmxpotencia} mostra que a potência gasta por um motor aumenta quando a rotação dele também ascende\textsuperscript{[28]}. 
  
-Dado que a amplitude de tais ondulações(alto RPM) reduz ao longo da vida útil de um pistão, deve-se levar
-em consideração o efeito do desgaste ao especificar a rugosidade superficial da saia
-do pistão. Caso contrário, o pistão poderá vir a engripar no cilindro por não ser capaz
+Dado que a amplitude de tais ondulações (alto RPM) reduz ao longo da vida útil de um pistão, deve-se levar em consideração o efeito do desgaste ao especificar a rugosidade superficial da saia do pistão. Caso contrário, o pistão poderá vir a engripar no cilindro por não ser capaz
 de reter óleo em sua superfície \textsuperscript{[40]}.
 
-Durante o funcionamento do motor, a biela fica sujeita a forças de
-compressão muito elevadas, provenientes da fase de expansão do cilindro e a
-forças de tração, nas fases de admissão do motor. Sendo assim, as bielas são mais
-solicitadas nas condições de plena carga e de elevadas rotações do motor\textsuperscript{[40]}.
+Durante o funcionamento do motor, a biela fica sujeita a forças de compressão muito elevadas, provenientes da fase de expansão do cilindro e a forças de tração, nas fases de admissão do motor. Sendo assim, as bielas são mais solicitadas nas condições de plena carga e de elevadas rotações do motor\textsuperscript{[40]}.
 
 
  \begin{figure}[hp]
@@ -37,98 +32,88 @@ solicitadas nas condições de plena carga e de elevadas rotações do motor\tex
     
     \includegraphics[scale= 1]{figures/rpmxpotencia.jpeg}
     
-    \caption{Potência versus velocidade do motor.}
+    \caption{Potência gasta pelo motor em função de sua rotação.}
     
     \label{fig:rpmxpotencia}
 \end{figure}
 
 \subsection{Trajetos e rotas perigosas}
 
-A relação entre rotas perigosas, marcadas por assaltos e roubos de carros e o perfil do motorista tornam-se elementos críticos na gestão da segurança. A escolha da rota desempenha um papel significativo na mitigação desses perigos. 
+A relação entre rotas perigosas, marcadas por assaltos e roubos de carros e o perfil do motorista torna-se um elemento crítico na gestão da segurança. A escolha da rota desempenha um papel significativo na mitigação desses perigos. 
 
 Motoristas que optam por passar frequentemente por áreas consideradas de alto risco podem estar mais suscetíveis a incidentes indesejados. Portanto, compreender o perfil do motorista em relação a essas rotas perigosas é importante para a implementação de estratégias eficazes de prevenção. 
 
-A conscientização dos motoristas sobre áreas de risco pode contribuir para uma abordagem mais segura ao planejar e seguir rotas.
-Locais como Paulista, Augusta e Sé possuem altos índices de furtos\textsuperscript{[34]}. A figura \ref{fig:mapa_risco_acc_rpm} mostra as áreas perigosas em um trajeto no bairro do Pacaembu. E as tabelas \ref{fig:tab1} e \ref{fig:tab2} mostram o tipo de risco e a fração da aceleração, respectivamente.
+A conscientização dos motoristas sobre áreas de risco pode contribuir para um comportamento mais prudente ao planejar e seguir rotas.
+
+Na cidade de São Paulo, locais como Paulista, Augusta e Sé possuem altos índices de furtos\textsuperscript{[34]}. A figura \ref{fig:mapa_calor_violencia} mostra as áreas com maior índice de assaltos na metrópole.
 
 \begin{figure}[hp]
     \centering
     
-    \includegraphics[scale= 1]{figures/tabela_fracao1.jpg}
+    \includegraphics[scale= 1]{figures/mapa_calor_violencia.jpeg}
     
-    \caption{Potência versus velocidade do motor.}
-    
+    \caption{Mapa de calor dos incidentes criminais na cidade de São Paulo. Com atenção, é possível ver o contorno da cidade nesta imagem.}
+    \label{fig:mapa_calor_violencia}
     
 \end{figure}
 
+A figura \ref{fig:mapa_risco_acc_rpm} ilustra alguns dos metadados que podem ser gerados com a análise dos dados obtidos. De forma semelhante, as tabelas \ref{Tb:tab_fracao_acc} e \ref{Tb:tab_fracao_perigo} detalham quanto por cento do tempo o motorista passa acelerando o carro e também a fração de tempo passada em cada região da cidade, respectivamente. Ambas as métricas são subdivididas em três categorias: baixo, médio e alto risco.
+
+\input{tabelas/tab_fracao_acc}
+% \input{tabelas/tab_fracao_rpm}
+\input{tabelas/tab_fracao_perigo}
+
+% \begin{figure}[hp]
+%     \centering
+    
+%     \includegraphics[scale= 1]{figures/tabela_fracao1.jpg}
+    
+%     \caption{Potência versus velocidade do motor.}
+    
+    
+% \end{figure}
+
 \begin{figure}[hp]
     \centering
     
-    \includegraphics[scale=0.15]{figures/mapa_risco_acc_rpm.jpeg}
+    \includegraphics[scale=0.25]{figures/mapa_risco_acc_rpm.jpeg}
     
-    \caption{Mapa de risco em acelerações e valor de RPM.}
+    \caption{Mapa de risco em acelerações (símbolo de carro) e valores de RPM (símbolo de engrenagem).}
     
     \label{fig:mapa_risco_acc_rpm}
 \end{figure}
 
 
-\begin{figure}[hp]
-    \centering
+% \begin{figure}[hp]
+%     \centering
     
-    \includegraphics[scale= 0.85]{figures/tabela_2.jpg}
+%     \includegraphics[scale= 0.85]{figures/tabela_2.jpg}
     
-    \caption{Fração da aceleração.}
+%     \caption{Fração da aceleração.}
     
-    \label{fig:tab1}
-\end{figure}
+%     \label{fig:tab1}
+% \end{figure}
 
-\begin{figure}[hp]
-    \centering
+% \begin{figure}[hp]
+%     \centering
     
-    \includegraphics[scale= 0.85]{figures/tabela_fracao1.jpg}
+%     \includegraphics[scale= 0.95]{figures/tabela_fracao1.jpg}
     
-    \caption{Tipo de risco.}
+%     \caption{Tipo de risco.}
     
-    \label{fig:tab2}
-\end{figure}
+%     \label{fig:tab2}
+% \end{figure}
 
 
-A construção dessa figura foi feita graças a uma base de dados encontrada no site Kaggle\textsuperscript{[33]}, conhecido por hospedar \textit{Jupyter notebooks} analisando certos conjuntos de informações.
+A construção dessa figura foi feita graças a uma base de dados encontrada no site Kaggle\textsuperscript{[33]}, conhecido por hospedar \textit{Jupyter Notebooks} analisando certos conjuntos de informações.
 
 Embora a descrição do \textit{dataset} mencione que os dados referem-se só a São Paulo (o que já gera ambiguidade entre cidade e estado), existem lá registros de Curitiba, Rio de Janeiro e Pará também.
 
 Importante mencionar que, devido ao tamanho dessa base de dados, de 12899 linhas, foi preciso pensar-se em como comparar os dados nela contidos com cada um dos registros de GPS fornecidos pelo \textit{app} sem que o desempenho dessa análise fosse comprometido.
 
-Para tal, as coordenadas geográficas da planilha foram indexadas da seguinte forma: 
+Para tal, as coordenadas geográficas da planilha foram indexadas conforme indicado no código-fonte presente no Apêndice 7.5.
 
-\begin{python}
-def convert_coord_to_chunk(self, coord_1, coord_2, max_coord_diff):
-    coord_diff = coord_1 - coord_2
-    chunk = (self.segmentation_rate * coord_diff) // max_coord_diff
-    return chunk
-
-    self.north = car_crimes_df["latitude"].max() + (0.5 / 111.11)
-    self.south = car_crimes_df["latitude"].min() - (0.5 / 111.11)
-    self.west = car_crimes_df["longitude"].max() + (0.5 / 111.11)
-    self.east = car_crimes_df["longitude"].min() - (0.5 / 111.11)
-
-    # maior distancia de norte a sul: 4378.4 km
-    # maior distancia de leste a oeste: 4326.6 km
-    self.segmentation_rate = 4400
-
-    self.lat_diff = self.north - self.south
-    self.long_diff = self.east - self.west
-
-    
-    car_crimes_df["chunk_i"] = car_crimes_df["latitude"]
-        .apply(lambda x : 
-        self.convert_coord_to_chunk(x, self.south, self.lat_diff))
-    car_crimes_df["chunk_j"] = car_crimes_df["longitude"]
-        .apply(lambda x : 
-        self.convert_coord_to_chunk(x, self.west, self.long_diff))
-\end{python}
-
-Alguns números mágicos utilizados levaram em consideração a equivalência entre graus e quilômetros da Terra e as distâncias entre os pontos mais a sul, norte, leste e oeste do Brasil\textsuperscript{[35, 36]}.
+Alguns números mágicos (constantes sem derivação algorítmica), que foram utilizados nesse código, levaram em consideração a equivalência entre graus e quilômetros da Terra e as distâncias entre os pontos mais a sul, norte, leste e oeste do Brasil\textsuperscript{[35, 36]}.
 
 A ideia dessa indexação é dividir o mapa em \textit{chunks}, os quais limitam o trabalho computacional a um subconjunto dos dados. Cada \textit{chunk} é um quadrado de lado 500m, o que obriga o programa a olhar alguns blocos adjacentes ao onde está a coordenada cuja segurança quer-se verificar.
 
@@ -144,7 +129,7 @@ A ideia dessa indexação é dividir o mapa em \textit{chunks}, os quais limitam
 
  
 \section{Tecnologias utilizadas}
-O projeto pretende definir algumas tecnologias de base para serem usadas durante o desenvolvimento de cada fase dele.
+O projeto definiu algumas tecnologias de base para serem usadas durante o desenvolvimento de cada fase dele.
 
     \subsection{Amazon Web Services}
 
@@ -160,13 +145,17 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
 
     \subsection{Conexão OBD-II}
 
-    A integração do OBD-II (\textit{On-Board Diagnostics}) neste projeto de sistema de coleta de dados representa um avanço significativo na obtenção de dados precisos e abrangentes sobre o desempenho do veículo. O OBD-II, um padrão presente em muitos veículos modernos, fornece acesso a uma variedade de parâmetros, como velocidade, rotações por minuto (RPM), temperatura do motor, e códigos de diagnóstico de falhas. Ao conectar a plataforma de captura de dados ao conector OBD-II do veículo, é possível extrair informações em tempo real sobre a condução, condições do motor e possíveis problemas mecânicos.
+    A integração do OBD-II (\textit{On-Board Diagnostics}) neste projeto de sistema de coleta de dados representa um ponto importante na obtenção de dados precisos e abrangentes sobre o desempenho do veículo. 
+    
+    O OBD-II, um padrão presente em muitos veículos modernos, fornece acesso a uma variedade de parâmetros, como velocidade, rotações por minuto (RPM), temperatura do motor, e códigos de diagnóstico de falhas. 
+    
+    Ao conectar-se a plataforma de captura de dados ao leitor de OBD-II do veículo, é possível extrair informações em tempo real sobre a condução, condições do motor e possíveis problemas mecânicos.
 
-    Já existe uma plataforma aceleradora desenvolvida no GitHub que consegue comunicar-se com o veículo através do protocolo OBD-II\textsuperscript{[12]}. 
+    Uma plataforma disponibilizada no GitHub que consegue comunicar-se com o veículo através do protocolo OBD-II\textsuperscript{[12]} acelerou o desenvolvimento do projeto, uma vez que o grupo não teve que implementar esse protocolo. 
     
     Esse outro projeto implementa o protocolo OBD-II e também uma interface gráfica básica para mostrar os dados fornecidos pelo carro.
 
-    A figura \ref{fig:obd2_plataforma} mostra uma plataforma onde é possível ver alguns dos dados quando o motorista estava dando uma volta ao redor do bairro.
+    A figura \ref{fig:obd2_plataforma} mostra a tela principal do \textit{app}, onde é possível ver alguns dos dados gerados durante o dirigir do usuário.
 
     
 \begin{figure}[hp]
@@ -174,10 +163,12 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     
     \includegraphics[scale=0.5]{figures/obd2.jpeg}
     
-    \caption{Interface básica com porta OBD-II\textsuperscript{[12]}.}
+    \caption{Interface inicial do \textit{app} que se comunica com a porta OBD-II\textsuperscript{[12]}.}
     
     \label{fig:obd2_plataforma}
 \end{figure}
+
+    \subsection{Simulador de OBD-II}
 
     A ausência de um carro físico no início do projeto foi contornada por meio da utilização de um simulador de OBD. Esse dispositivo desempenhou um papel crucial como um substituto temporário do automóvel, permitindo que o trabalho continuasse normalmente. 
     
@@ -186,17 +177,19 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     Além disso, o uso desse dispositivo proporcionou um ambiente controlado para a validação do \textit{software} em diferentes cenários, contribuindo para a eficiência e progresso do projeto enquanto não se podia realizar testes práticos.
     
     \subsection{Android Studio e Java} 
-    A utilização da IDE Android Studio neste projeto de sistema de coleta de dados desempenha um papel central no desenvolvimento de aplicativos móveis dedicados à interação com o sistema. 
+    A utilização da IDE Android Studio neste projeto de sistema de coleta de dados desempenha um papel central no desenvolvimento do aplicativo móvel já mencionado. 
     
-    O Android Studio, sendo a principal ferramenta de desenvolvimento para aplicativos Android, oferece um ambiente integrado e robusto que simplifica a criação, teste e depuração de software. 
+    O Android Studio, sendo a principal ferramenta de desenvolvimento para aplicativos Android, oferece um ambiente integrado e robusto que simplifica a criação, os testes e a depuração do \textit{software}. 
     
-    A plataforma fornece recursos avançados de design de interface do usuário, facilitando a criação de aplicativos intuitivos e visualmente atraentes para os usuários finais. A integração perfeita com o Android SDK (Software Development Kit) permite o acesso às APIs e recursos específicos do sistema operacional Android, garantindo uma implementação eficiente de funcionalidades como a transmissão Bluetooth, a visualização de dados de rastreamento e a interação em tempo real. 
+    A plataforma fornece recursos avançados de \textit{design} de interface do usuário, facilitando a criação de aplicativos intuitivos e visualmente atraentes para os usuários finais. 
+    
+    A integração perfeita com o Android SDK (\textit{Software Development Kit}) permite o acesso às APIs e recursos específicos do sistema operacional Android, garantindo, através de interfaces do sistema operacional, o uso de \textit{hardwares} de propósito específico, como o que faz a comunicação Bluetooth. 
     
     Além disso, as ferramentas de emulação e depuração incorporadas no Android Studio simplificam o processo de teste em diferentes dispositivos, contribuindo para a criação de aplicativos estáveis e adaptáveis.
 
     Nenhuma tecnologia multiplataforma (React Native ou Flutter, por exemplo) ou específica de dispositivos iOS (Swift ou Objective C, por exemplo) foi escolhida, pois o intuito do projeto era ser compatível com os celulares dos membros do grupo e devido à familiaridade com a linguagem Java, usada para esse tipo de desenvolvimento.
 
-    O aplicativo em si (arquivo SDK) originalmente foi desenvolvido para a API de versão 22 do Android. Condição que foi alterada para comportar funcionalidades que foram adicionadas ao sistema operacional desde 2013. A versão atual de compilação é a 33.
+    O aplicativo em si originalmente foi desenvolvido para a API de versão 22 do Android. Condição que foi alterada para comportar funcionalidades que foram adicionadas ao sistema operacional desde 2013. A versão atual de compilação (versão do SDK) é a 33.
 
     O desenvolvimento do aplicativo Android envolveu várias etapas, sendo o primeiro passo a modificação apropriada do arquivo \textit{build.gradle}. Este processo, no entanto, consumiu considerável tempo devido à falta de experiência dos membros do grupo. 
     
@@ -215,16 +208,18 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
     
     \includegraphics[scale=0.4]{figures/logo_android.png}
     
-    \caption{Logo Android Studio.}
+    \caption{Logo do Android Studio.}
     
 \end{figure}
     
     \subsection{Banco de dados} 
-    A integração do MySQL e do AWS RDS (Relational Database Service) em um projeto de sistema de compilação de dados de veículos é uma estratégia robusta para o gerenciamento eficiente e escalável dos dados do sistema. O MySQL, um sistema de gerenciamento de banco de dados relacional de código aberto, proporciona uma estrutura confiável para armazenar e organizar informações como histórico de rotas e dados do OBD-II. 
+    A integração do MySQL e do AWS RDS (Relational Database Service) em um projeto de sistema de compilação de dados de veículos é uma estratégia robusta para o gerenciamento eficiente e escalável dos dados do sistema. 
+    
+    O MySQL, um sistema de gerenciamento de banco de dados relacional de código aberto, proporciona uma estrutura confiável para armazenar e organizar informações como histórico de rotas e dados do OBD-II. 
      
      Ao escolher o AWS RDS como a plataforma de hospedagem para o MySQL, ganha-se os benefícios adicionais de escalabilidade automática, alta disponibilidade e segurança avançada oferecidos pela infraestrutura em nuvem da Amazon. A integração dessas tecnologias permite o acesso eficiente aos dados, consultas rápidas e uma gestão simplificada do banco de dados. 
      
-     Além disso, o AWS RDS lida com tarefas operacionais, como backup automático e manutenção, permitindo que os desenvolvedores concentrem seus esforços em aprimorar as funcionalidades do sistema de rastreamento. 
+     Além disso, o AWS RDS lida com tarefas operacionais, como \textit{backup} automático e manutenção. 
      
      Essa combinação proporciona uma base sólida para o armazenamento e recuperação de dados, promovendo a confiabilidade e eficácia do sistema.
 
@@ -243,7 +238,7 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
         \end{itemize}  
     \end{itemize}
 
-     A especificação exata das colunas de cada tabela pode ser encontrada no apêndice. [MENCIONAR APENDICE POR NUMERO]
+     A especificação exata das colunas de cada tabela pode ser encontrada no Apêndice 7.2.
 
     \begin{figure}[hp]
         \centering
@@ -254,31 +249,31 @@ O projeto pretende definir algumas tecnologias de base para serem usadas durante
         
     \end{figure}
 
-    Importante mencionar que o tamanho do banco de dados foi limitado, visando impedir que o serviço da AWS cobrasse qualquer valor monetário.
+    Importante mencionar que o tamanho do banco de dados foi limitado a 20GiB, visando impedir que o serviço da AWS cobrasse qualquer valor monetário dos membros do grupo.
     
     O \textit{Free Tier} é um conjunto de limites de execução e armazenamento em nuvem definido para projetos-teste de contas novas na plataforma (com menos de 1 ano de existência\textsuperscript{[40]}). A forma de zerar os gastos com esse projeto é não exceder a fronteira dessas cortesias.
 
     
-     \subsection{\textit{Python}} 
+    \subsection{\textit{Python}} 
 
     A versão do Python usada para todos os arquivos \textit{.py} do projeto foi a 3.12.0.
 
-    É importante mencionar que junto a cada módulo feito em Python neste projeto, as dependências necessárias para rodá-los foram escritas em arquivos \textit{requirements.txt}
+    É importante mencionar que junto a cada módulo feito em Python neste projeto, as dependências necessárias para rodá-los foram escritas em arquivos \textit{requirements.txt}, como pode ser visto nos repositórios outrora mencionados.
 
-    As seguir um exemplo desse arquivo:
+%     As seguir um exemplo desse arquivo:
 
-\begin{python}
-ipykernel
-numpy
-pandas
-matplotlib
-folium
-geopy
-pyproj
-scipy
-plotly-express
-nbformat
-\end{python}
+% \begin{python}
+% ipykernel
+% numpy
+% pandas
+% matplotlib
+% folium
+% geopy
+% pyproj
+% scipy
+% plotly-express
+% nbformat
+% \end{python}
 
     Para poder-se executar os \textit{Jupyter Notebooks} desenvolvidos, é preciso desencadear os seguintes comandos em um terminal (em sistema operacional \textit{Linux}):
 
@@ -324,15 +319,15 @@ python3 -m pip install requirements.txt
     % ''os'' fornece funcionalidades relacionadas ao sistema operacional, permitindo que você interaja com o ambiente do sistema, como manipular diretórios, arquivos, obter informações sobre o sistema, manipular variáveis de ambiente, entre outras tarefas relacionadas ao sistema operacional.
     Dentro desse mesmo arquivo, algumas bibliotecas típicas de ciência de dados foram utilizadas para manipular os gráficos mencionados. Foram elas: pandas, matplotlib, numpy e scipy.
     
-    A figura \ref{fig:rota1integrante} mostra o video e o gráfico da aceleração.
+    A figura \ref{fig:rota_uah_driveset} mostra o video e o gráfico da aceleração de um carro. Os dados foram pegos de um repositório chamado UAH-Driveset\textsuperscript{[42]}, disponível na \textit{internet}.
     
     \begin{figure}[hp]
         \centering
         
-        \includegraphics[scale=0.6]{figures/rota_integrante.jpg}
+        \includegraphics[scale=0.6]{figures/rota_uah_driveset.jpg}
         
         \caption{Rota de uma viagem de um dos integrantes do grupo.}
-        \label{fig:rota1integrante}
+        \label{fig:rota_uah_driveset}
     \end{figure}
 
     \subsection{API Rest - Flask}
@@ -340,21 +335,25 @@ python3 -m pip install requirements.txt
 
     A lógica da API foi encapsulada em funções específicas, acionadas por meio de requisições POST. O corpo do JSON enviado nessas requisições determina a ação a ser executada, que pode ser uma entre seis operações distintas. Três destas operações referem-se a consultas (GET) e três a modificações (POST), cada uma vinculada a uma das três tabelas da base de dados.
 
-    Para facilitar a utilização da API pelo \textit{app}, o código Python foi integrado ao ambiente \textit{serverless} da AWS Lambda. Essa escolha estratégica permite que as funções sejam invocadas sob demanda, proporcionando uma resposta ágil às requisições do aplicativo Android, que, por sua vez, está sendo desenvolvido no ambiente Java do Android Studio. A combinação dessas tecnologias promove uma arquitetura eficiente para gerenciar a comunicação entre o aplicativo e a infraestrutura de banco de dados na nuvem.
+    Para facilitar a utilização da API pelo \textit{app}, o código Python foi integrado ao ambiente \textit{serverless} da AWS Lambda. 
+    
+    Essa escolha estratégica permite que as funções sejam invocadas sob demanda, proporcionando uma resposta ágil às requisições do aplicativo Android, que, por sua vez, está sendo desenvolvido no ambiente Java do Android Studio. 
+    
+    A combinação dessas tecnologias promove uma arquitetura eficiente para gerenciar a comunicação entre o aplicativo e a infraestrutura de banco de dados na nuvem.
 
     \subsection{Folium}
 
-    \begin{figure}[hp]
+\begin{figure}[hp]
     \centering
     
     \includegraphics[scale=0.1]{figures/python_folium.jpg}
     
-    \caption{Logo Python + Folium.}
+    \caption{Logos do Python e do Folium.}
 \end{figure}
 
  Para criar os mapas do aplicativo, foi utilizado o \textit{framework} Folium. Essa biblioteca é uma poderosa ferramenta para manipular e visualizar dados geoespaciais usando Python. 
     
-    Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando essa ferramenta, pode-se começar importando a biblioteca e criando um objeto \textit{Map} que representa o mapa. 
+    Com o Folium, é possível criar mapas interativos personalizados e incorporar dados neles de várias maneiras. Para manipular dados usando essa ferramenta, pode-se começar importando a biblioteca e criando um objeto \textit{Map}, que representa o mapa. 
     
     Em seguida, pode-se adicionar camadas, como marcadores, polígonos e \textit{popups}, para exibir dados de forma intuitiva no mapa. 
     
@@ -378,7 +377,9 @@ python3 -m pip install requirements.txt
             %  
             %  \end{center}
             
-    Para traçar uma trajetória no mapa usando a biblioteca Folium em Python, será necessário uma lista de pontos de latitude e longitude que representam a trajetória. A partir dos pontos de latitude e longitude colhidos dos sensores do celular, cria-se uma lista de coordenadas que representam os pontos da trajetória. Em seguida, criamos um objeto de mapa usando o Folium e é adicionado uma linha de trajetória (um polilinha) que conecta os pontos da lista e o mapa pode ser visualizado. Uma demonstração de uma trajetória pode ser vista na figura \ref{fig:car_route_1}.
+    Para traçar uma trajetória no mapa usando a biblioteca Folium em Python, é necessária uma lista de pontos de latitude e longitude que representam a trajetória. 
+    
+    A partir dos pontos colhidos pelo GPS do celular, cria-se um mapa da trajetória descrita. A demonstração de uma trajetória recriada em um mapa usando Folium pode ser vista na figura \ref{fig:car_route_1}.
     
     \begin{figure}[hp]
         \centering
@@ -390,24 +391,27 @@ python3 -m pip install requirements.txt
         \label{fig:car_route_1}
     \end{figure}
     
-    A visualização de um vídeo que apresenta o trajeto do veículo sincronizado com um gráfico de aceleração proporciona uma compreensão visual e analítica aprimorada do comportamento de condução. Este recurso permite aos usuários acompanhar de forma imersiva o percurso do veículo enquanto simultaneamente observam as variações na aceleração ao longo do tempo. 
+    O grupo procurou correlacionar eventos de anormalidade nos dados de aceleração do UAH Drivest observando o comportamento da curva dessa grandeza física no tempo e comparando com os eventos do vídeo que acompanhava cada uma das pastas disponibilizadas, mas nenhuma funcionalidade foi adicionada à análise dos dados devido a essa escolha.
     
-    Ao visualizar o vídeo, os usuários podem identificar eventos específicos, como curvas acentuadas, frenagens bruscas ou acelerações rápidas, correlacionando-os diretamente com os picos e quedas no gráfico de aceleração exibido ao lado. Essa abordagem oferece uma representação mais holística da experiência de condução, permitindo uma análise detalhada de como o estilo de direção afeta diretamente a aceleração do veículo. 
-    
-    Além disso, essa visualização combinada pode ser uma ferramenta valiosa para treinamento de motoristas, análise de incidentes e \textit{feedbacks} personalizados, proporcionando uma compreensão mais rica e envolvente do desempenho do veículo e do comportamento do condutor.
 
 
-    \subsection{Criação de relatório em PDF}
+    \subsection{Criação de relatório de direção em PDF}
     
-    A geração de \textit{insights} visuais e análise métrica a partir dos dados armazenados na base MySQL é um componente essencial do projeto. A decisão de fazer isso através da geração de um PDF para o motorista baseou-se na clareza e simplicidade desse formato de arquivo. Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pela biblioteca \textit{Matplotlib}, que permite a criação de PDFs formatados contendo os gráficos com as métricas geradas.
+    A geração de \textit{insights} visuais e análise métrica a partir dos dados armazenados na base MySQL é um componente essencial do projeto. 
     
-    Um segundo AWS Lambda desempenha um papel central nesse processo, funcionando como uma ponte entre a base de dados e as ferramentas de visualização. Ao ser acionado, esse Lambda realiza uma chamada ao outro Lambda, que extrai as informações relevantes da base de dados MySQL referentes ao usuário, para realizar a análise.
+    A decisão de fazer isso através da geração de um PDF para o motorista baseou-se na clareza e simplicidade desse formato de arquivo. 
+    
+    Essa escolha é respaldada também pela facilidade de implementação, disponibilizada pelas bibliotecas \textit{Matplotlib} e \textit{Reportlab}, que permitem a criação de PDFs formatados contendo os gráficos com as métricas geradas.
+    
+    Um segundo AWS Lambda desempenha papel central nesse processo, funcionando como uma ponte entre a base de dados e as ferramentas de visualização. 
+    
+    Ao ser acionado, o Lambda gerador de PDF realiza uma chamada ao outro Lambda, que extrai as informações relevantes da base de dados MySQL referentes ao usuário, para realizar a análise.
 
-    Utilizando a biblioteca Matplotlib em Python, a função Lambda então emprega métodos da classe RideParser, mencionada na sessão \ref{rideparser}, para criar um relatório do motorista, com gráficos e métricas relevantes referentes a sua condução. Isso proporciona aos usuários uma compreensão mais aprofundada das métricas associadas às suas atividades.
+    Utilizando a biblioteca \textit{Matplotlib} em Python, a função Lambda então emprega métodos da classe RideParser, mencionada na seção \ref{rideparser}, para criar um relatório do motorista, com gráficos e métricas relevantes referentes a sua condução. Isso proporciona aos usuários uma compreensão mais aprofundada das métricas associadas às suas atividades.
     
     Para proporcionar aos usuários uma maneira acessível de interagir com esses \textit{insights}, um botão "gerar PDF" foi incorporado no aplicativo. Este botão aciona o segundo Lambda, que compila os gráficos e métricas gerados em um arquivo PDF. 
     
-    A utilização da biblioteca \textit{smtplib} facilita o envio desse PDF diretamente para o usuário via \textit{email}. Essa solução integrada oferece uma experiência completa aos usuários, permitindo-lhes não apenas visualizar, mas também compartilhar os resultados de suas análises de maneira eficaz.    
+    A utilização da biblioteca \textit{smtplib} facilita o envio desse PDF diretamente para o usuário via \textit{email}. Essa solução integrada oferece uma experiência completa aos usuários, permitindo-lhes não apenas visualizar, mas também compartilhar os resultados de suas análises de maneira simples.    
 
     \subsection{Autenticação com \textit{Firebase}}
 
@@ -417,13 +421,25 @@ python3 -m pip install requirements.txt
 
     \subsection{Dependências do Gradlle}
 
-    Em um primeiro instante o \textit{app} android-obd-reader não queria rodar na IDE Android studio. Para que isso fosse possível foi necessário fazer alterações no arquivo \textbf{gradle/wrapper/gradle-wrapper.properties}. Atualizar as dependências do Gradle  é muitas vezes necessário para garantir que o seu aplicativo possa se beneficiar das correções de \textit{bugs}, melhorias de desempenho e novos recursos fornecidos pelas versões mais recentes das bibliotecas que você está utilizando. Este link \url{https://github.com/APF2000/android-obd-reader-pires/commit/def70ed262b1fad28cc9e2b98a48af45cfac5695} mostra as alterações que foram necessárias.
+    Em um primeiro instante o \textit{app} android-obd-reader não rodava na IDE Android studio. 
+    
+    Para que fosse possível compilar o projeto, alterações no arquivo \textbf{gradle/wrapper/gradle-wrapper.properties} foram necessárias. 
+    
+    Atualizar as dependências do Gradle  é muitas vezes pré-condição para garantir que um aplicativo possa se beneficiar das correções de \textit{bugs}, melhorias de desempenho e novos recursos fornecidos pelas versões mais recentes das bibliotecas que estão sendo utilizadas. Este ponto na história do repositório mostra as alterações que foram necessárias: \url{https://github.com/APF2000/android-obd-reader-pires/commit/def70ed262b1fad28cc9e2b98a48af45cfac5695}.
 
     \subsection{Proteção dos dados}
     
-    Na Lei Geral de Proteção de Dados (Lei n. 13.709/18-LGPD), parte-se da ideia de que todo dado pessoal tem importância e valor. Por essa razão se adotou conceito amplo de dado pessoal, assim como estabelecido no Regulamento europeu \textsuperscript{[30]} (\textit{GDPR-General Data Protection  Regulation}). Quando se trata de um aplicativo projetado para analisar o perfil do motorista de carros, a LGPD impõe uma série de responsabilidades e requisitos ao desenvolvedor e operador do aplicativo. É necessário obter o consentimento  do usuário antes de coletar e processar quaisquer dados pessoais relacionados ao seu perfil de condução.
+    Na Lei Geral de Proteção de Dados (Lei n. 13.709/18-LGPD), parte-se da ideia de que todo dado pessoal tem importância e valor. 
+    
+    Por essa razão, este projeto levou em consideração o conceito amplo de dado pessoal, assim como estabelecido no Regulamento Europeu \textsuperscript{[30]} (\textit{GDPR-General Data Protection  Regulation}). 
+    
+    Quando se trata de um aplicativo projetado para analisar o perfil do motorista de carros, a LGPD impõe uma série de responsabilidades e requisitos ao desenvolvedor e operador do aplicativo. 
+    
+    É necessário obter o consentimento  do usuário antes de coletar e processar quaisquer dados pessoais relacionados ao seu perfil de condução.
     
     Além disso, a LGPD exige que medidas de segurança apropriadas sejam implementadas para proteger esses dados contra acessos não autorizados e vazamentos. Os usuários têm o direito de acessar, corrigir e excluir suas informações pessoais, e o aplicativo deve fornecer meios para que esses direitos sejam exercidos.
+
+    Por simplicidade, este trabalho não cumpriu essas regras, mas o grupo tem ciência das vulnerabilidades e dos pontos de melhoria nesse aspecto.
 
 
 % Using \texttt{biblatex} you can display a bibliography divided into sections, depending on citation type. 
@@ -512,7 +528,6 @@ Alguns testes foram definidos para a ratificação das funcionalidades do sistem
     \end{itemize}
 
     
-
     O modelo Ix35 foi a principal fonte de dados do projeto, pois praticamente todos os testes feitos para a nova base de dados foram feitos com ele.
 
     \subsection{Aparelhos \textit{smartphone}}

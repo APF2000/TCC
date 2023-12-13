@@ -409,3 +409,32 @@ def lambda_handler(event, context):
 
 \end{python}
 
+\section{Conversão de coordenadas geográficas em índices dos blocos no mapa}
+
+\begin{python}
+def convert_coord_to_chunk(self, coord_1, coord_2, max_coord_diff):
+    coord_diff = coord_1 - coord_2
+    chunk = (self.segmentation_rate * coord_diff) // max_coord_diff
+    return chunk
+
+    self.north = car_crimes_df["latitude"].max() + (0.5 / 111.11)
+    self.south = car_crimes_df["latitude"].min() - (0.5 / 111.11)
+    self.west = car_crimes_df["longitude"].max() + (0.5 / 111.11)
+    self.east = car_crimes_df["longitude"].min() - (0.5 / 111.11)
+
+    # maior distancia de norte a sul: 4378.4 km
+    # maior distancia de leste a oeste: 4326.6 km
+    self.segmentation_rate = 4400
+
+    self.lat_diff = self.north - self.south
+    self.long_diff = self.east - self.west
+
+    
+    car_crimes_df["chunk_i"] = car_crimes_df["latitude"]
+        .apply(lambda x : 
+        self.convert_coord_to_chunk(x, self.south, self.lat_diff))
+    car_crimes_df["chunk_j"] = car_crimes_df["longitude"]
+        .apply(lambda x : 
+        self.convert_coord_to_chunk(x, self.west, self.long_diff))
+\end{python}
+
