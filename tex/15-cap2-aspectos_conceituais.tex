@@ -41,7 +41,7 @@ Na figura \ref{fig:bitwise_obd2} é possível visualizar como esse processo é f
 \begin{figure}[hp]
     \centering
     
-    \includegraphics[scale=0.7]{figures/tabela_dados_disponiveis.png}
+    \includegraphics[scale=0.42]{figures/tabela_dados_disponiveis.jpeg}
     
     \caption{Divisão bit a bit da mensagem OBD-II informando os serviços disponíveis\textsuperscript{[3]}}
     
@@ -54,6 +54,81 @@ A coleta de fato dos dados relevantes é feita por uma aplicação desenvolvida 
 Essa aplicação acelerou a criação da infraestrutura proposta por este trabalho, uma vez que adiantou o primeiro passo da estratégia \textit{bottom-up} que permeou o projeto.
 
 \input{tabelas/tab2}
+
+\subsection{Trabalhos relacionados-OBD-II}
+
+O estudo de \cite{Ahmadi-Assalemi, 2021} envolveu uma rota com diversas condições, como rotatórias, semáforos e ruas com zonas de alta e baixa velocidade.  O veículo utilizado estava equipado com Sistema de Posicionamento Global (GPS) e porta de Diagnóstico a Bordo (OBD2), padrão para carros fabricados a partir de 2012.  Diferenças nos padrões de direção foram encontradas para distinguir entre motoristas do sexo feminino e masculino com base em variações na aceleração longitudinal, especialmente na velocidade de direção, torque e espectro de RPM.
+O processo de como foram coletados os dados neste trabalho pode ser visto na figura \ref{fig:obd2_profiling}.
+
+O trabalho de \cite{Navneeth,2020} aborda a importância do perfil do motorista na garantia da segurança. Ele fornece uma visão geral da base de conhecimento para o consumidor sobre Diagnóstico a Bordo (OBD) e Perfil do Motorista. O OBD auxilia na manutenção do carro, identificando códigos de problemas do controle do motor por meio de um aplicativo Android. 
+
+Quanto ao perfil do comportamento do motorista, o artigo propõe duas abordagens: uma simples e imediata, utilizando coordenadas GPS no mesmo aplicativo Android proposto para diagnósticos a bordo, e outra mais detalhada e inovadora, baseada em parâmetros do motor do carro e utilizando técnicas de análise de dados e aprendizado de máquina não supervisionado.
+Na figura \ref{fig:tabela_score} é possível ver a classificação utilizado pelo autor.
+
+O artigo de \cite{Malik Meenakshi, 2023} aborda métodos de análise detalhada do comportamento do motorista(Driver Behaviour). A análise dos dados é fundamental para prever a atenção, distração e fadiga do motorista em relação ao ambiente e ao veículo. Muitos acidentes resultam de comportamentos de condução arriscados, destacando a necessidade de identificar e abordar esses comportamentos para combater o aumento de acidentes de trânsito. O trabalho explora informações do sistema de diagnóstico veicular "OBD-II"  e algoritmos de aprendizado de máquina (ML).
+
+A condução agressiva é caracterizada por variações abruptas na aceleração (aumento de velocidade) ou desaceleração (freagem). Sensores, acelerômetros e giroscópios são empregados para medir essas mudanças. Os valores de aceleração ou desaceleração também podem ser determinados pela variação na velocidade de um GPS instalado no veículo. Assim como no caso da velocidade, acelerações ou desacelerações responsáveis ou arriscadas definem o comportamento do motorista \cite{Malik Meenakshi, 2023}.
+
+O RPM(rotações por minuto) indica a carga de trabalho do motor.  Os fabricantes de veículos recomendam RPMs ideais para otimizar a eficiência do combustível. Seguir essas recomendações em relação à velocidade, troca de marchas e RPMs resulta na melhor economia de combustível. Portanto, a análise do comportamento do motorista revela que variações nas RPM, fora das recomendações do fabricante, estão associadas a um aumento no consumo de combustível \cite{Malik Meenakshi, 2023}.
+
+
+
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/obd2_profiling.jpg}
+    
+    \caption{Processo de coleta de dados\textsuperscript{[44]}.}
+    
+    \label{fig:obd2_profiling}
+\end{figure}
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/tabela_score.jpg}
+    
+    \caption{Tabela de Score\textsuperscript{[45]}.}
+    
+    \label{fig:tabela_score}
+\end{figure}
+
+\section{O Padrão vehicle-to-everything(V2X)}
+
+A tecnologia sem fio veicular moderna possibilita que os veículos troquem informações a qualquer momento, de qualquer lugar, para qualquer rede, formando as plataformas de comunicação vehicle-to-everything(V2X). Apesar dos benefícios, as aplicações V2X também enfrentam grandes desafios de segurança e privacidade. \cite{M. Hasan, 2020}.
+
+Na figura \ref{fig:nos_de_comunicacao}, ilustra-se uma infraestrutura de chave pública (PKI) em alto nível para comunicações V2X. O nó de comunicação (por exemplo, veículo) é uma entidade final do sistema que solicita certificados da PKI e se comunica com outras entidades finais. A Autoridade Certificadora Raiz (RCA) é a raiz de confiança para todos os certificados. Ela fornece certificados às entidades de autorização para emitir certificados aos nós de comunicação. O centro de distribuição fornece informações de confiança atualizadas necessárias para validar informações recebidas de uma autoridade PKI legítima e autorizada. O operador registra nós de comunicação e atualiza as informações necessárias nas entidades de autorização \cite{M. Hasan, 2020}.
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/nos_de_comunicacao.jpg}
+    
+    \caption{Nós de comunicação\textsuperscript{[47]}.}
+    
+    \label{fig:nos_de_comunicacao}
+\end{figure}
+
+O artigo de \cite{Xuyu Wang, 2017} categoriza as aplicações V2X em duas grandes classes: (i) aplicações de segurança V2X e (ii) aplicações não relacionadas à segurança V2X. A figura \ref{fig:v2x_seguranca} mostra as aplicações de segurança. Com o uso da tecnologia V2X é possível detectar colisões, a presença de pedestres e casos de veículos em emergências.
+
+Já as aplicações V2X não relacionadas à segurança concentram-se principalmente em eficiência e gerenciamento de tráfego, visando melhorar o fluxo de veículos, coordenação de tráfego e assistência.
+
+
+
+
+
+
+\begin{figure}[hp]
+    \centering
+    
+    \includegraphics[]{figures/v2x_seguranca.jpg}
+    
+    \caption{Aplicações de segurança\textsuperscript{[48]}.}
+    
+    \label{fig:v2x_seguranca}
+\end{figure}
+
 
 \section{Transmissão de dados}
 
